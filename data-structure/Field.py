@@ -13,7 +13,7 @@ class Field:
             return True
         else:
             return False
-   def fill_constraint(self,constraint_name,constraint_value):
+   def fill_constraints(self,constraint_name,constraint_value):
         self.constraints.append(Constraint(constraint_name,constraint_value))
    def fields_count(self):
         return Field.counter

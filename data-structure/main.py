@@ -1,9 +1,10 @@
-from Field import Field
-fields = []
-field1 = Field("A",20)
-field2 = Field("A",0)
-fields.append(field1)
-fields.append(field2)
-field2.fill_constraint("male",">20")
-field2.fill_constraint("female","10 - 20")
-print(field2.constraints[0].name)
+from Category import Category
+categorys = []
+category1 = Category("A",20)
+category2 = Category("A",0)
+categorys.append(category1)
+categorys.append(category2)
+category2.fill_field("male",">20")
+category2.fill_field("female","10 - 20")
+category2.fields[0].fill_constraints("adult",">20")
+print(category2.fields[0].constraints[0].name)
