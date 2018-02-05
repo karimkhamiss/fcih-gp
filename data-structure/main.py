@@ -1,9 +1,9 @@
-"This would create first object of Constraints class"
-from Constraints import Constraint
-
-con1 = Constraints("male", 2000)
-"This would create second object of Constraints class"
-con2 = Constraints("female", 5000)
-print(con2.name)
-print ("Total Constraints %d" % Constraints.count)
-a
+from Field import Field
+fields = []
+field1 = Field("A",20)
+field2 = Field("A",0)
+fields.append(field1)
+fields.append(field2)
+field2.fill_constraint("male",">20")
+field2.fill_constraint("female","10 - 20")
+print(field2.constraints[0].name)

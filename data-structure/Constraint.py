@@ -6,5 +6,5 @@ class Constraint:
         Constraint.counter+=1
         self.name = name
         self.value = value
-   def count(self):
+   def constraints_count(self):
         return Constraint.counter

@@ -8,12 +8,12 @@ class Field:
         Field.counter+=1
         self.name = name
         self.value = value
-   def hasConstraints(self):
+   def has_constraints(self):
         if len(self.constraints) > 0:
             return True
         else:
             return False
    def fill_constraint(self,constraint_name,constraint_value):
         self.constraints.append(Constraint(constraint_name,constraint_value))
-   def count(self):
+   def fields_count(self):
         return Field.counter
