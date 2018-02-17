@@ -49,7 +49,7 @@ def build_Classifier_Digits():
     # print 'traning samples >>',len(y)
     clf.fit(X,y)       #traning
 
-    joblib.dump(clf, 'digits_model.pkl', compress=3)  # build classifier Model
+    joblib.dump(clf, '..\models\digits.pkl', compress=3)  # build classifier Model
 
 
 
@@ -58,7 +58,7 @@ def test_classifier_Digits():
     corresponding = []  # coresponding target to that feature
 
     # load classifier model
-    clf = joblib.load('digits_model.pkl')
+    clf = joblib.load('..\models\digits.pkl')
     for target in targetList:
         counter = 0
         with open('Histograms_Digits\\'+'HOGD_'+target+'.csv') as csvfile:

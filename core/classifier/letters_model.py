@@ -68,7 +68,7 @@ def build_Classifier_Letters():
     # print 'traning samples >>',len(y)
     clf.fit(X,y)       #traning
 
-    joblib.dump(clf, 'letters_model.pkl', compress=3)  # build classifier Model
+    joblib.dump(clf, '..\models\letters.pkl', compress=3)  # build classifier Model
 
 
 
@@ -77,7 +77,7 @@ def test_classifier_Letters():
     corresponding = []  # coresponding target to that feature
 
     # load classifier model
-    clf = joblib.load('letters_model.pkl')
+    clf = joblib.load('..\models\letters.pkl')
     for target in targetListU:
         counter = 0
         with open('Histograms_Letters\\'+'HOGU_'+target+'.csv') as csvfile:

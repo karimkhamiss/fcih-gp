@@ -1,7 +1,7 @@
 import  pandas as pd
 import os
 import cv2
-# i use main function to create histograms file which is exist in Histograms folder now
+# i use main function to create histograms file which is exist in histograms folder now
 # i use dataset exist in training folder
 from core.hog.HOG_Imp import Hogfun
 
@@ -19,11 +19,11 @@ def HOG():
                 print (ticker)
                 #path for saving histograms files in
                 # if path ==upperpath:
-                #     gather = "..\..\output\Histograms\Letters\HOGU_" + ticker  #upper
+                #     gather = "..\..\output\histograms\dataset\Letters\HOGU_" + ticker  #upper
                 # if path == lowerpath:
-                #     gather = "..\..\output\Histograms\Letters\HOGL_" + ticker  #lower
+                #     gather = "..\..\output\histograms\dataset\Letters\HOGL_" + ticker  #lower
                 if path == digitpath:
-                    gather="..\..\output\Histograms\Digits\HOGD_" + ticker    #digits
+                    gather="..\..\output\histograms\dataset\Digits\HOGD_" + ticker    #digits
 
 
                 counter = 0
