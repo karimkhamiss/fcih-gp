@@ -10,9 +10,9 @@ from HOG_Imp import Hogfun
 # i use dataset exist in training folder
 
 def HOG():
-    upperpath = "Training\\upper"  # path of dataset -letters in upper case
-    lowerpath = "Training\\lower"  # path of dataset -letters in lower case
-    digitpath = "Training\digits"  # path of dataset digits
+    upperpath = "..\dataset\\upper"  # path of dataset -letters in upper case
+    lowerpath = "..\dataset\\lower"  # path of dataset -letters in lower case
+    digitpath = "..\dataset\digits"  # path of dataset digits
     pathList =[upperpath,lowerpath,digitpath]   #list to all datalists folders
     for path in pathList:
         stock_list = [x[0] for x in os.walk(path)]  #walk to that path
@@ -32,6 +32,7 @@ def HOG():
                 counter = 0
                 df = pd.DataFrame(columns=range(0, 3780))
                 if len(each_file) > 0:  # check if dir is not empty
+                    for file in each_file:  # each file in each dir ex 0.png ,1.png ,...
                         #print (counter,each_dir + '\\' + file)
                         counter += 1
                         img = cv2.imread((each_dir + '\\' + file), 0)
