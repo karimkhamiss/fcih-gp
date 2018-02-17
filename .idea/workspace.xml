@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25b0700e-b7c0-4a8b-9a56-81dd0e52deef" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/data-structure/Untitled Diagram (1).png" afterPath="$PROJECT_DIR$/data-structure/Untitled Diagram (1).png" />
-      <change beforePath="$PROJECT_DIR$/data-structure/Untitled Diagram.xml" afterPath="$PROJECT_DIR$/data-structure/Untitled Diagram.xml" />
+      <change beforePath="$PROJECT_DIR$/HOG/HOG_Dataset.py" afterPath="$PROJECT_DIR$/HOG/HOG_Dataset.py" />
+      <change beforePath="$PROJECT_DIR$/HOG/Histograms_Digits/HOGD_digits.csv" afterPath="$PROJECT_DIR$/HOG/Histograms_Digits/HOGD_digits.csv" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,11 +43,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HOG_Dataset.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HOG_Dataset.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HOG/HOG_Dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+            <state relative-caret-position="0">
+              <caret line="4" column="30" lean-forward="false" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bulid_Model.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../Bulid_Model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1092">
+              <caret line="57" column="30" lean-forward="true" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -78,6 +89,7 @@
     <findStrings>
       <find>hog</find>
       <find>training</find>
+      <find>print</find>
     </findStrings>
     <replaceStrings>
       <replace>dataset</replace>
@@ -95,6 +107,7 @@
         <option value="$PROJECT_DIR$/data-structure/Category.py" />
         <option value="$PROJECT_DIR$/data-structure/main.py" />
         <option value="$PROJECT_DIR$/HOG/HOG_Dataset.py" />
+        <option value="$PROJECT_DIR$/../Bulid_Model.py" />
       </list>
     </option>
   </component>
@@ -105,8 +118,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
+    <option name="x" value="-30" />
+    <option name="y" value="66" />
     <option name="width" value="1346" />
     <option name="height" value="688" />
   </component>
@@ -153,7 +166,7 @@
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GP2" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -355,22 +368,6 @@
     <entry file="file://$PROJECT_DIR$/Classifer/testClassifier.py" />
     <entry file="file://$PROJECT_DIR$/Classifer/HOG_Imp.py" />
     <entry file="file://$PROJECT_DIR$/Classifer/HOG_Dataset.py" />
-    <entry file="file://$PROJECT_DIR$/data-structure/Constraint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data-structure/Field.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data-structure/Category.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -387,10 +384,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Classifer/Classifier_Letters_Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="12" column="40" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data-structure/Constraint.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data-structure/Field.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/HOG/HOG_Dataset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+        <state relative-caret-position="0">
+          <caret line="4" column="30" lean-forward="false" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Bulid_Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1092">
+          <caret line="57" column="30" lean-forward="true" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
           <folding />
         </state>
       </provider>
