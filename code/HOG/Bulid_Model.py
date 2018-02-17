@@ -10,9 +10,9 @@ from HOG_Imp import Hogfun
 # i use dataset exist in training folder
 
 def HOG():
-    upperpath = "..\dataset\\upper"  # path of dataset -letters in upper case
-    lowerpath = "..\dataset\\lower"  # path of dataset -letters in lower case
-    digitpath = "..\dataset\digits"  # path of dataset digits
+    upperpath = "..\\resources\dataset\\upper"  # path of dataset -letters in upper case
+    lowerpath = "..\\resources\dataset\\lower"  # path of dataset -letters in lower case
+    digitpath = "..\\resources\dataset\digits"  # path of dataset digits
     pathList =[upperpath,lowerpath,digitpath]   #list to all datalists folders
     for path in pathList:
         stock_list = [x[0] for x in os.walk(path)]  #walk to that path
@@ -22,11 +22,11 @@ def HOG():
                 print (ticker)
                 #path for saving histograms files in
                 if path ==upperpath:
-                    gather = "Histograms\HOGU_" + ticker  #upper
+                    gather = "..\output\Histograms\Letters\HOGU_" + ticker  #upper
                 if path == lowerpath:
-                    gather = "Histograms\HOGL_" + ticker  #lower
+                    gather = "..\output\Histograms\Letters\HOGL_" + ticker  #lower
                 if path == digitpath:
-                    gather="Histograms\HOGD_" + ticker    #digits
+                    gather="..\output\Histograms\Digits\HOGD_" + ticker    #digits
 
 
                 counter = 0
