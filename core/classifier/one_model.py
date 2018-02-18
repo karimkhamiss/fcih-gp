@@ -19,8 +19,8 @@ def build_Classifier_OneModel():
 
     for target in targetListU:     #for loop for upper letters targets
         counter = 0.0
-        with open('Histograms_Letters\\'+'HOGU_'+target+'.csv') as csvfile:
-            row_count = len(open('Histograms_Letters\\'+'HOGU_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\letters\\'+'HOGU_'+target+'.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGU_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
             #print row_count
             #print "traingU ",row_count*0.67
             readCSV = csv.reader(csvfile, delimiter=',')  #read data
@@ -41,8 +41,8 @@ def build_Classifier_OneModel():
 
     for target in targetListL:          #for loop for lower letters targets
         counter = 0.0
-        with open('Histograms_Letters\\'+'HOGL_' + target + '.csv') as csvfile:
-            row_count = len(open('Histograms_Letters\\'+'HOGL_' + target + '.csv').readlines())  # number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\letters\\'+'HOGL_' + target + '.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGL_' + target + '.csv').readlines())  # number of rows per csv(number of samples)
             #print row_count
             #print "traingU ", row_count * 0.67
             readCSV = csv.reader(csvfile, delimiter=',')      #read data
@@ -63,8 +63,8 @@ def build_Classifier_OneModel():
 
     for target in targetListD:     #for loop for Digits targets
         counter = 0.0
-        with open('Histograms_Digits\\'+'HOGD_'+target+'.csv') as csvfile:
-            row_count = len(open('Histograms_Digits\\'+'HOGD_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\digits\\'+'HOGD_'+target+'.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\digits\\'+'HOGD_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
             #print row_count
             #print "traingU ",row_count*0.67
             readCSV = csv.reader(csvfile, delimiter=',')  #read data
@@ -91,7 +91,7 @@ def build_Classifier_OneModel():
     # print 'traning samples >>',len(y)
     clf.fit(X,y)       #traning
 
-    joblib.dump(clf, 'OneModel.pkl', compress=3)  # build classifier Model
+    joblib.dump(clf, '..\models\digits_letters.pkl', compress=3)  # build classifier Model
 
 
 

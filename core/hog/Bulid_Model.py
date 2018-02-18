@@ -3,6 +3,9 @@ import os
 import cv2
 # i use main function to create histograms file which is exist in histograms folder now
 # i use dataset exist in training folder
+from core.classifier.digits_model import build_Classifier_Digits
+from core.classifier.letters_model import build_Classifier_Letters
+from core.classifier.one_model import build_Classifier_OneModel
 from core.hog.HOG_Imp import Hogfun
 
 
@@ -10,7 +13,7 @@ def HOG():
     upperpath = "..\..\\resources\dataset\\upper"  # path of dataset -letters in upper case
     lowerpath = "..\..\\resources\dataset\\lower"  # path of dataset -letters in lower case
     digitpath = "..\..\\resources\dataset\digits"  # path of dataset digits
-    pathList =[digitpath]   #list to all datalists folders
+    pathList =[upperpath,lowerpath,digitpath]   #list to all datalists folders
     for path in pathList:
         stock_list = [x[0] for x in os.walk(path)]  #walk to that path
         for each_dir in stock_list[1:]:  #acces each dir in that path  ex A ,B ,C ...
@@ -18,12 +21,12 @@ def HOG():
                 ticker = each_dir.split("\\")[5]  #extract the file name of each target ex A,B,C
                 print (ticker)
                 #path for saving histograms files in
-                # if path ==upperpath:
-                #     gather = "..\..\output\histograms\dataset\Letters\HOGU_" + ticker  #upper
-                # if path == lowerpath:
-                #     gather = "..\..\output\histograms\dataset\Letters\HOGL_" + ticker  #lower
+                if path ==upperpath:
+                    gather = "..\..\output\histograms\dataset\letters\HOGU_" + ticker  #upper
+                if path == lowerpath:
+                    gather = "..\..\output\histograms\dataset\letters\HOGL_" + ticker  #lower
                 if path == digitpath:
-                    gather="..\..\output\histograms\dataset\Digits\HOGD_" + ticker    #digits
+                    gather="..\..\output\histograms\dataset\digits\HOGD_" + ticker    #digits
 
 
                 counter = 0
@@ -44,14 +47,14 @@ def HOG():
                         except Exception as e:
                             pass
 
-                        save = gather + ('.csv')
+                        save = "..\..\output\histograms\dataset\letters\HOGL_" + ticker + ('.csv')
                         print(save)
                         df.to_csv(save)  # save as csv file
 
 
 # function Calling
 if __name__== "__main__":
-    HOG()
+    # HOG()
     # build_Classifier_Digits()
     # build_Classifier_Letters()
-    # build_Classifier_OneModel()
+    build_Classifier_OneModel()

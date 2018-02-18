@@ -20,8 +20,8 @@ def build_Classifier_Digits():
 
     for target in targetList:     #for loop for Digits targets
         counter = 0.0
-        with open('Histograms_Digits\\'+'HOGD_'+target+'.csv') as csvfile:
-            row_count = len(open('Histograms_Digits\\'+'HOGD_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\digits\\'+'HOGD_'+target+'.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\digits\\'+'HOGD_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
             #print row_count
             #print "traingU ",row_count*0.67
             readCSV = csv.reader(csvfile, delimiter=',')  #read data
@@ -61,8 +61,8 @@ def test_classifier_Digits():
     clf = joblib.load('..\models\digits.pkl')
     for target in targetList:
         counter = 0
-        with open('Histograms_Digits\\'+'HOGD_'+target+'.csv') as csvfile:
-            row_count = len(open('Histograms_Digits\\'+'HOGD_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\digits\\'+'HOGD_'+target+'.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\digits\\'+'HOGD_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
             print (target)
             readCSV = csv.reader(csvfile, delimiter=',')     #Read data
             counter+=1

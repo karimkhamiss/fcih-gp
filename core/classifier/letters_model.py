@@ -21,8 +21,8 @@ def build_Classifier_Letters():
 
     for target in targetListU:     #for loop for upper letters targets
         counter = 0.0
-        with open('Histograms_Letters\\'+'HOGU_'+target+'.csv') as csvfile:
-            row_count = len(open('Histograms_Letters\\'+'HOGU_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\letters\\'+'HOGU_'+target+'.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGU_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
             #print row_count
             #print "traingU ",row_count*0.67
             readCSV = csv.reader(csvfile, delimiter=',')  #read data
@@ -43,8 +43,8 @@ def build_Classifier_Letters():
 
     for target in targetListL:          #for loop for lower letters targets
         counter = 0.0
-        with open('Histograms_Letters\\'+'HOGL_' + target + '.csv') as csvfile:
-            row_count = len(open('Histograms_Letters\\'+'HOGL_' + target + '.csv').readlines())  # number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\letters\\'+'HOGL_' + target + '.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGL_' + target + '.csv').readlines())  # number of rows per csv(number of samples)
             #print row_count
             #print "traingU ", row_count * 0.67
             readCSV = csv.reader(csvfile, delimiter=',')      #read data
@@ -80,8 +80,8 @@ def test_classifier_Letters():
     clf = joblib.load('..\models\letters.pkl')
     for target in targetListU:
         counter = 0
-        with open('Histograms_Letters\\'+'HOGU_'+target+'.csv') as csvfile:
-            row_count = len(open('Histograms_Letters\\'+'HOGU_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\letters\\'+'HOGU_'+target+'.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGU_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
             print (target)
             readCSV = csv.reader(csvfile, delimiter=',')     #Read data
             counter+=1
@@ -99,8 +99,8 @@ def test_classifier_Letters():
 
     for target in targetListL:
         counter = 0
-        with open('Histograms_Letters\\'+'HOGL_'+target+'.csv') as csvfile:
-            row_count = len(open('Histograms_Letters\\'+'HOGL_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
+        with open('..\..\output\histograms\dataset\letters\\'+'HOGL_'+target+'.csv') as csvfile:
+            row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGL_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
             print (target)
             readCSV = csv.reader(csvfile, delimiter=',')   #read data
             counter+=1
