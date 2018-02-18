@@ -159,7 +159,7 @@ def pre_processing(path):
     # removeUnderline(OBinary)
     # cv2.imwrite("(5)underlined.png", GBinary)
 
-    cv2.imwrite("Preprocessing.png", OBinary)
+    cv2.imwrite("..\..\output\segmentation\Preprocessing.png", OBinary)
 
     if os.path.exists("..\..\output\segmentation"):
         shutil.rmtree("..\..\output\segmentation")

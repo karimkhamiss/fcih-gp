@@ -1,4 +1,4 @@
-import  pandas as pd
+import pandas as pd
 import os
 import cv2
 # i use main function to create histograms file which is exist in histograms folder now
@@ -55,6 +55,6 @@ def HOG():
 # function Calling
 if __name__== "__main__":
     # HOG()
-    # build_Classifier_Digits()
+    build_Classifier_Digits()
     # build_Classifier_Letters()
-    build_Classifier_OneModel()
+    # build_Classifier_OneModel()
