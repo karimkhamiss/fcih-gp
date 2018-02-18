@@ -27,8 +27,6 @@ def HOG():
                     gather = "..\..\output\histograms\dataset\letters\HOGL_" + ticker  #lower
                 if path == digitpath:
                     gather="..\..\output\histograms\dataset\digits\HOGD_" + ticker    #digits
-
-
                 counter = 0
                 df = pd.DataFrame(columns=range(0, 3780))
                 if len(each_file) > 0:  # check if dir is not empty
@@ -47,7 +45,7 @@ def HOG():
                         except Exception as e:
                             pass
 
-                        save = "..\..\output\histograms\dataset\letters\HOGL_" + ticker + ('.csv')
+                        save = gather + ('.csv')
                         print(save)
                         df.to_csv(save)  # save as csv file
 
