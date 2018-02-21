@@ -41,15 +41,15 @@ def build_Classifier_Digits():
                     corresponding.append(target)
 
 
-
+    print(features)
     X=np.array(features)       #features
     y=np.array(corresponding)  #corresponding target
 
     print ('traning samples >>', len(X))
     # print 'traning samples >>',len(y)
-    clf.fit(X,y)       #traning
-
-    joblib.dump(clf, '..\models\digits.pkl', compress=3)  # build classifier Model
+    # clf.fit(X,y)       #traning
+    #
+    # joblib.dump(clf, '..\models\digits.pkl', compress=3)  # build classifier Model
 
 
 
@@ -85,6 +85,6 @@ def test_classifier_Digits():
     print ('accuraccy >>',accuracy)
 
 
-# build_Classifier_Digits()
+#build_Classifier_Digits()
 
-# test_classifier_Digits()
+test_classifier_Digits()

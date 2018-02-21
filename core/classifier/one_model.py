@@ -21,8 +21,8 @@ def build_Classifier_OneModel():
         counter = 0.0
         with open('..\..\output\histograms\dataset\letters\\'+'HOGU_'+target+'.csv') as csvfile:
             row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGU_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
-            #print row_count
-            #print "traingU ",row_count*0.67
+            print (row_count)
+            print ("traingU ",row_count*0.67)
             readCSV = csv.reader(csvfile, delimiter=',')  #read data
             counter+=1
             for row in readCSV:          #each row in csv file
@@ -95,4 +95,4 @@ def build_Classifier_OneModel():
 
 
 
-# build_Classifier_OneModel()
+build_Classifier_OneModel()

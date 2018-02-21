@@ -20,11 +20,12 @@ def build_Classifier_Letters():
     clf = svm.SVC(kernel='linear', C=1.0)  # classifier
 
     for target in targetListU:     #for loop for upper letters targets
+        print(target)
         counter = 0.0
         with open('..\..\output\histograms\dataset\letters\\'+'HOGU_'+target+'.csv') as csvfile:
             row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGU_' + target + '.csv').readlines()) #number of rows per csv(number of samples)
-            #print row_count
-            #print "traingU ",row_count*0.67
+            print (row_count)
+            print ("traingU ",row_count*0.67)
             readCSV = csv.reader(csvfile, delimiter=',')  #read data
             counter+=1
             for row in readCSV:          #each row in csv file
@@ -42,11 +43,12 @@ def build_Classifier_Letters():
                     corresponding.append(target)
 
     for target in targetListL:          #for loop for lower letters targets
+        print(target)
         counter = 0.0
         with open('..\..\output\histograms\dataset\letters\\'+'HOGL_' + target + '.csv') as csvfile:
             row_count = len(open('..\..\output\histograms\dataset\letters\\'+'HOGL_' + target + '.csv').readlines())  # number of rows per csv(number of samples)
-            #print row_count
-            #print "traingU ", row_count * 0.67
+            print(row_count)
+            print("traingU ", row_count * 0.67)
             readCSV = csv.reader(csvfile, delimiter=',')      #read data
             counter += 1
             for row in readCSV:         #each row in csv file
@@ -60,8 +62,10 @@ def build_Classifier_Letters():
                         break
                     features.append(row[1:])
                     corresponding.append(target)
-
+    print("Karim")
+    print(features)
     X=np.array(features)       #features
+    print("Karim2")
     y=np.array(corresponding)  #corresponding target
 
     print ('traning samples >>', len(X))
@@ -122,6 +126,6 @@ def test_classifier_Letters():
     print ('accuraccy >>',accuracy)
 
 
-#build_Classifier_Letters()
+build_Classifier_Letters()
 
 #test_classifier_Letters()

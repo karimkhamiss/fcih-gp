@@ -1,10 +1,8 @@
 import cv2
-import argparse
 import os
 import shutil
 import numpy as np
 import pytesseract
-from PIL import Image
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract'
 
 '''
@@ -46,9 +44,9 @@ def countPixel(matrix,p):
 '''
 this function searches for underlines  and replace the pixels that formed it with white pixels 
 '''
-def removeUnderline(binary):
+def lineRemoval(img):
     min_length=60
-    matrix = imgToMatrixR(binary)
+    matrix = imgToMatrixR(img)
     for i in range(0, len(matrix)):
         row=matrix[i]
         start=-1
@@ -64,7 +62,7 @@ def removeUnderline(binary):
                 if( j == len(row)-1 ):
                     end =j
                     if (conn >min_length):
-                        binary[i:i+1, start:end+1] = 255
+                        img[i:i+1, start:end+1] = 255
                     start = -1
                     end = 0
                     conn=0
@@ -72,10 +70,11 @@ def removeUnderline(binary):
             else:
                 end =j
                 if (conn >min_length):
-                    binary[i-1:i+3,start:end+1]=255
+                    img[i-1:i+3,start:end+1]=255
                 start=-1
                 end=0
                 conn=0
+    return img
 '''
 this function clears all horizontal boundaries around the input image
 '''
@@ -120,6 +119,24 @@ def clearBounds_vert(img):
             break
 
     return img
+'''
+this function makes lines of text perfectly horizontal.
+'''
+def deskew(img):
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.bitwise_not(gray)
+    thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    coords = np.column_stack(np.where(thresh > 0))
+    angle = cv2.minAreaRect(coords)[-1]
+    if angle < -45:
+        angle = -(90 + angle)
+    else:
+        angle = -angle
+    (h, w) = img.shape[:2]
+    center = (w // 2, h // 2)
+    M = cv2.getRotationMatrix2D(center, angle, 1.0)
+    rotated = cv2.warpAffine(img, M, (w, h),flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+    return rotated
 
 '''
 this function applies a set of preprocessing operations to the input image, function output is a binarized image.
@@ -129,15 +146,20 @@ finally the function calls lineSegment function to segment the image into lines.
 def pre_processing(path):
     # Read Image
     img = cv2.imread(path)
-
+    if os.path.exists("..\..\output\segmentation"):
+        shutil.rmtree("..\..\output\segmentation")
     # scaling
     height, width = img.shape[:2]
+    scaled=img
     if (height < 1600 and width < 1200):
        scaled = cv2.resize(img, (2 * width, 2* height), interpolation=cv2.INTER_LINEAR)
     # cv2.imwrite('(0)Scale.jpg', scaled)
 
+    # Deskew step
+    deskewed = deskew(scaled)
+
     # Grayscale step
-    grayscaled = cv2.cvtColor(scaled, cv2.COLOR_BGR2GRAY)
+    grayscaled = cv2.cvtColor(deskewed, cv2.COLOR_BGR2GRAY)
     # cv2.imwrite("(2)grayscale.jpg", grayscaled)
 
     # Noise Clearing step
@@ -155,14 +177,10 @@ def pre_processing(path):
     ret3, OBinary = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     # cv2.imwrite("(4)binarization.jpg", OBinary)
 
-    # Remove underlines
-    # removeUnderline(OBinary)
-    # cv2.imwrite("(5)underlined.png", GBinary)
+    # Line Removal
+    lineRemoved = lineRemoval(OBinary)
+    cv2.imwrite("..\..\output\Preprocessed.png", lineRemoved)
 
-    cv2.imwrite("..\..\output\segmentation\Preprocessing.png", OBinary)
-
-    if os.path.exists("..\..\output\segmentation"):
-        shutil.rmtree("..\..\output\segmentation")
     line_segment(OBinary)
 
 '''
@@ -181,10 +199,10 @@ def line_segment(binary):
     black_counter =countPixel(matrix,0)
 
     # determine potential segmentation rows (psr)
-    # psr is any row contains 0-20 black pixels, last row in image is also a psr .
+    # psr is any row contains 0-2 black pixels, last row in image is also a psr .
     psr=[0]
     for i in range(0, len(black_counter)):
-        if (black_counter[i] <= 20 or i >= len(black_counter) - 2):
+        if (black_counter[i] <= 2 or i >= len(black_counter) - 2):
             psr.append(i)
 
     # determine segmentation rows sr
@@ -204,10 +222,12 @@ def line_segment(binary):
         crop_img = binary[sr[c]:sr[c + 1],0:width ]
         crop_img = clearBounds_horiz(crop_img)
         crop_img = clearBounds_vert(crop_img)
-        os.makedirs("..\..\output\segmentation\line "+str(c))
-        # cv2.imwrite("..\..\output\segmentation\line "+str(c)+"\\line " + str(c) + ".png", crop_img)
-        # Call function to Segment the line into words then chars
-        word_segment(crop_img,"column",c,None)
+        # skip noise lines
+        if (np.size(crop_img,0)>30 and np.size(crop_img,1)>60):
+            os.makedirs("..\..\output\segmentation\line "+str(c))
+            # cv2.imwrite("..\..\output\segmentation\line "+str(c)+"\\line " + str(c) + ".png", crop_img)
+            # Call function to Segment the line into words then chars
+            word_segment(crop_img,"column",c,None)
 
 '''
 this function segment lines into columns then words
@@ -333,4 +353,4 @@ def char_segment(binary,lineNum,colNum,wordNum):
         cv2.imwrite(directory+"\\"+str(c)+".png", crop_img)
 
 # Preprocessing function Calling
-#pre_processing("testCases\\1.png")
+# pre_processing("..\..\\resources\\testcases\\test.jpg")

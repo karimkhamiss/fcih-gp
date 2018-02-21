@@ -1,12 +1,10 @@
 import os
-import  pandas as pd
-
+import pandas as pd
 import cv2
 import numpy as np
 import csv
 import shutil
 from sklearn.externals import joblib
-import pickle
 
 
 #create histogram for each letter that has been segmented from the paper put in outputHis folder
@@ -32,10 +30,11 @@ def output_his():
                 print('path ', path)
                 #df = pd.DataFrame(columns=range(0, 8100))
                 df = pd.DataFrame(columns=range(0, 3780))
-                curr_line= path.split("\\")[1]
-                curr_col= path.split("\\")[2]
-                curr_word= path.split("\\")[3]
-                curr_file= path.split("\\")[4]
+
+                curr_line = path.split("\\")[4]
+                curr_col = path.split("\\")[5]
+                curr_word = path.split("\\")[6]
+                curr_file = path.split("\\")[7]
                 #save in and as
                 fileName="..\..\output\histograms\input\\"+curr_line+"-"+curr_col+"-"+curr_word+"-"+curr_file   #name of csv file for each character
                 index+=1
@@ -65,16 +64,16 @@ def prediction():
     files = os.listdir("..\..\output\\histograms\\input")
     for file in files:   #each csv file in outputHis
 
-        clf = joblib.load('OneModel.pkl')
+        clf = joblib.load('../models/digits_letters.pkl')
         '''
         #to know which one of the two models to use
         if file.split('-')[1]=="column 0":               #left side
-            clf = joblib.load('letters_model.pkl')
+            clf = joblib.load('../models/letters.pkl')
         elif file.split('-')[1]=="column 1":     #right side
-            clf = joblib.load('Digits_model.pkl')#how do i know
+            clf = joblib.load('../models/digits.pkl')#how do i know
         '''
 
-        with open('outputHis\\'+file) as csvfile:
+        with open('..\..\output\\histograms\\input\\'+file) as csvfile:
             readCSV = csv.reader(csvfile, delimiter=',')   #read data
             mark=True             #became true when read new csv file
             for row in readCSV:
@@ -114,11 +113,11 @@ def prediction():
 
 
 #calling
-pre_processing("..\..\\resources\\testcases\\1.jpg")
+pre_processing("..\..\\resources\\testcases\\test.jpg")
 output_his()
 lineList=prediction()
 for line in lineList:
-    print (line )
+    print (line)
 
 
 
