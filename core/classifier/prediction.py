@@ -26,6 +26,7 @@ def output_his():
                 print('path ', path)
                 df = pd.DataFrame(columns=range(0, 3780))
                 curr_line = path.split("\\")[4]
+                "Karim KHamiss"
                 curr_col = path.split("\\")[5]
                 curr_word = path.split("\\")[6]
                 curr_file = path.split("\\")[7]
