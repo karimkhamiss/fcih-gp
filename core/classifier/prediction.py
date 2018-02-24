@@ -6,11 +6,9 @@ import csv
 import shutil
 from sklearn.externals import joblib
 
-
 #create histogram for each letter that has been segmented from the paper put in outputHis folder
 from core.hog.HOG_Imp import Hogfun
 from core.preprocessing.PrePlusSeg import pre_processing
-
 
 def output_his():
     if os.path.exists("..\..\output\histograms\input"):
@@ -18,8 +16,6 @@ def output_his():
         os.mkdir("..\..\output\histograms\input")
     else:
         os.mkdir("..\..\output\histograms\input")
-
-
     output_list = [x[0] for x in os.walk("..\..\output\segmentation")]  # walk to that path
     for each_dir in output_list[1:]:  # line 0 ,line 1 , line 3
         if ("word" in each_dir):
@@ -28,9 +24,7 @@ def output_his():
             for file  in files: #0.png
                 path =each_dir+'\\'+file   #each char path
                 print('path ', path)
-                #df = pd.DataFrame(columns=range(0, 8100))
                 df = pd.DataFrame(columns=range(0, 3780))
-
                 curr_line = path.split("\\")[4]
                 curr_col = path.split("\\")[5]
                 curr_word = path.split("\\")[6]
@@ -58,8 +52,8 @@ def output_his():
 def prediction():
     flag=True      #for the first file that have no prev
     prevfile=''
-    word=''         #to concatentate word in
-    wordList=[]     #list of words in the same line
+    word=''         #to concatentate char of each word
+    wordList=''      #to concatentate words in the same line
     lineList=[]     #list of lines that each line contain list of words
     files = os.listdir("..\..\output\\histograms\\input")
     for file in files:   #each csv file in outputHis
@@ -94,17 +88,17 @@ def prediction():
                                 word+=predict[0]       #in the same line and the same word
                             else:  #in the same line but not in the same word
                                 print("word is ",word)
-                                wordList.append(word)
+                                wordList +=word
                                 word=predict[0]
 
                         else:         #not in the same line   #not in the same word
                             print("word is ", word)
-                            wordList.append(word)
+                            wordList +=' '+word
                             lineList.append(wordList)
-                            wordList = []
+                            wordList=''
                             word=predict[0]
         prevfile=file
-    wordList.append(word)
+    wordList +=' '+word
     lineList.append(wordList)
     return lineList
 
