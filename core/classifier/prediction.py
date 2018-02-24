@@ -48,7 +48,7 @@ def output_his():
                 #print(save)
                 df.to_csv(save)  # save as csv file
 
-#use the
+
 def prediction():
     flag=True      #for the first file that have no prev
     prevfile=''
