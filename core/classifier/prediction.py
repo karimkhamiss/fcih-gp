@@ -13,10 +13,11 @@ from core.preprocessing.PrePlusSeg import pre_processing
 
 def output_his():
     list_col1 = [['a', 'y', 'a', ',', 'a', 'l', 'i'],
-                 ['H', 'e', 'n', 'd', ',', 'a', 'h', 'm', 'e', 'd']]  # return from preproccessing col1
+                 ['H', 'e', 'n', 'd', ',', 'a', 'h', 'm', 'e', 'd']]  # assumtion return from preproccessing col1
     list_col2 = [['a', 'l', 'i', ',', 's', 'a', 'm'],
-                 ['H', 'e', 'b', 'a', ',', 'H', 'o', 's', 'a', 'm']]  # return from preproccessing col2
-    list_cols = [list_col1, list_col2]  # return from preproccessing
+                 ['H', 'e', 'b', 'a', ',', 'H', 'o', 's', 'a', 'm']]  # assumtion return from preproccessing col2
+    list_cols = [list_col1, list_col2]  # assumtion return from preproccessing
+
     vectorList = []
     # list_cols=pre_processing("..\..\\resources\\testcases\\test.jpg")
 
