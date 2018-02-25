@@ -10,108 +10,80 @@ from sklearn.externals import joblib
 from core.hog.HOG_Imp import Hogfun
 from core.preprocessing.PrePlusSeg import pre_processing
 
+
 def output_his():
-    if os.path.exists("..\..\output\histograms\input"):
-        shutil.rmtree("..\..\output\histograms\input")
-        os.mkdir("..\..\output\histograms\input")
-    else:
-        os.mkdir("..\..\output\histograms\input")
-    output_list = [x[0] for x in os.walk("..\..\output\segmentation")]  # walk to that path
-    for each_dir in output_list[1:]:  # line 0 ,line 1 , line 3
-        if ("word" in each_dir):
-            files = os.listdir(each_dir)  #0.png,1.png
-            index =0
-            for file  in files: #0.png
-                path =each_dir+'\\'+file   #each char path
-                print('path ', path)
-                df = pd.DataFrame(columns=range(0, 3780))
-                curr_line = path.split("\\")[4]
-                curr_col = path.split("\\")[5]
-                curr_word = path.split("\\")[6]
-                curr_file = path.split("\\")[7]
-                #save in and as
-                fileName="..\..\output\histograms\input\\"+curr_line+"-"+curr_col+"-"+curr_word+"-"+curr_file   #name of csv file for each character
-                index+=1
-                image= cv2.imread(path,0)
-                height, width = image.shape[:2]
-                print('height',height)
-                print('width', width)
-                #calculate angle & magnitude
-                imagevector = Hogfun(image, (8, 8), (2, 2))
-                print("image vector len", len(imagevector))
-                # write in csv file
-                try:
-                    df.loc[len(df)] = imagevector
-                except Exception as e:
-                    pass
-                save = fileName + ('.csv')
-                #print(save)
-                df.to_csv(save)  # save as csv file
+    list_col1 = [['a', 'y', 'a', ',', 'a', 'l', 'i'],
+                 ['H', 'e', 'n', 'd', ',', 'a', 'h', 'm', 'e', 'd']]  # return from preproccessing col1
+    list_col2 = [['a', 'l', 'i', ',', 's', 'a', 'm'],
+                 ['H', 'e', 'b', 'a', ',', 'H', 'o', 's', 'a', 'm']]  # return from preproccessing col2
+    list_cols = [list_col1, list_col2]  # return from preproccessing
+    vectorList = []
+    # list_cols=pre_processing("..\..\\resources\\testcases\\test.jpg")
 
-
-def prediction():
-    flag=True      #for the first file that have no prev
-    prevfile=''
-    word=''         #to concatentate char of each word
-    wordList=''      #to concatentate words in the same line
-    lineList=[]     #list of lines that each line contain list of words
-    files = os.listdir("..\..\output\\histograms\\input")
-    for file in files:   #each csv file in outputHis
-
-        clf = joblib.load('../models/digits_letters.pkl')
-        '''
-        #to know which one of the two models to use
-        if file.split('-')[1]=="column 0":               #left side
-            clf = joblib.load('../models/letters.pkl')
-        elif file.split('-')[1]=="column 1":     #right side
-            clf = joblib.load('../models/digits.pkl')#how do i know
-        '''
-
-        with open('..\..\output\\histograms\\input\\'+file) as csvfile:
-            readCSV = csv.reader(csvfile, delimiter=',')   #read data
-            mark=True             #became true when read new csv file
-            for row in readCSV:
-                if mark==True:   #to skip first row in csv file
-                    mark=False
+    # loop for cols
+    for list_col in list_cols:
+        vector_list = []
+        for line in list_col:
+            List = []
+            for image in line:
+                if image == ',':
+                    List.append(',')
                     continue
                 else:
-                    predict = clf.predict(np.array([row[1:]]))
-                    #print("pediction ", predict[0])
-                    if flag:       # for the first file that have no prev
-                        word +=predict[0]
-                        flag = False
-                    else:
-                        print('prev file ', prevfile)
-                        print('curr file', file)
-                        if prevfile.split('-')[0]==file.split('-')[0]:      #check if in the same line
-                            if prevfile.split('-')[2]==file.split('-')[2]: #check if in the same word
-                                word+=predict[0]       #in the same line and the same word
-                            else:  #in the same line but not in the same word
-                                print("word is ",word)
-                                wordList +=word
-                                word=predict[0]
+                    print(image)
+                    # imagevector=Hogfun(image, (8, 8), (2, 2))
+                    # print("image vector len", len(imagevector))
+                    imagevector = ['0', '1', '0']  # assumtion
+                    List.append(imagevector)
+            vector_list.append(List)
+        vectorList.append(vector_list)
+    return vectorList
 
-                        else:         #not in the same line   #not in the same word
-                            print("word is ", word)
-                            wordList +=' '+word
-                            lineList.append(wordList)
-                            wordList=''
-                            word=predict[0]
-        prevfile=file
-    wordList +=' '+word
-    lineList.append(wordList)
+
+def prediction(List):
+    word = ''  # to concatentate char of each word
+    wordList = ''  # to concatentate words in the same line
+    lineList = []  # list of lines that each line contain list of words
+
+    linetype = []  # hend return in
+
+    for vector_list in List:  # vector_list1 =>col1 , vector_list2 =>col2
+        index = 0
+        for line in vector_list:  # new line and new word
+            index += 1
+            if linetype:
+                if linetype[index] == "letters":
+                    clf = joblib.load('../models/letters.pkl')
+                elif linetype[index] == "digits":
+                    clf = joblib.load('../models/digits.pkl')
+            else:
+                clf = joblib.load('../models/letters.pkl')
+            for vector in line:
+                if vector == ',':  # in the same line but not in the same word
+                    print("word is ", word)
+                    wordList += word
+                    word = ' '
+                else:  # in the same line and the same word
+                    predict = clf.predict(vector)
+                    # print("pediction ", predict[0])
+                    word += predict[0]
+
+            # new line and new word
+            print("word is ", word)
+            wordList += word
+            lineList.append(wordList)
+            wordList = ''
+        # linetype=hend(lineList)       #send all prediction to col1 return type of each line in col2
+
     return lineList
 
 
-
-
-
 #calling
-pre_processing("..\..\\resources\\testcases\\test.jpg")
-output_his()
-lineList=prediction()
-for line in lineList:
-    print (line)
-
-
+List = []
+List = output_his()
+# prediction(List)
+for vector_list in List:
+    for line in vector_list:
+        for vector in line:
+            print(vector)
 
