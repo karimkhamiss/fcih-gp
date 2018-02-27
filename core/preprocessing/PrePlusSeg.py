@@ -1,9 +1,8 @@
 import cv2
+import argparse
 import os
 import shutil
 import numpy as np
-import pytesseract
-pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract'
 
 '''
 this function convert image into matrix of image rows
@@ -19,6 +18,7 @@ def imgToMatrixR(img):
             row.append(img[i,j])
         matrix.append(row)
     return matrix
+
 '''
 this function convert image into matrix of image columns
 '''
@@ -33,6 +33,7 @@ def imgToMatrixC(img):
             col.append(img[j, i])
         matrix.append(col)
     return matrix
+
 '''
 this function count a specific value (parameter p) in matrix
 '''
@@ -41,11 +42,12 @@ def countPixel(matrix,p):
     for k in range(0, len(matrix)):
         counter.append(matrix[k].count(p))
     return counter
+
 '''
 this function searches for underlines  and replace the pixels that formed it with white pixels 
 '''
 def lineRemoval(img):
-    min_length=60
+    min_length=140
     matrix = imgToMatrixR(img)
     for i in range(0, len(matrix)):
         row=matrix[i]
@@ -57,24 +59,25 @@ def lineRemoval(img):
                 conn=conn+1
                 # first point in the line .
                 if( start == -1 ):
-                    start=j
+                    start = j
                 # last point in the row .
                 if( j == len(row)-1 ):
                     end =j
-                    if (conn >min_length):
-                        img[i:i+1, start:end+1] = 255
+                    if (conn > min_length):
+                        img[i-2:i+4, start:end+1] = 255
                     start = -1
                     end = 0
-                    conn=0
+                    conn = 0
             # end of the line
             else:
                 end =j
                 if (conn >min_length):
-                    img[i-1:i+3,start:end+1]=255
-                start=-1
-                end=0
-                conn=0
+                    img[i-2:i+4, start:end+1] = 255
+                start = -1
+                end = 0
+                conn = 0
     return img
+
 '''
 this function clears all horizontal boundaries around the input image
 '''
@@ -97,6 +100,7 @@ def clearBounds_horiz(img):
             break
 
     return img
+
 '''
 this function clears all vertical boundaries around the input image
 '''
@@ -119,6 +123,7 @@ def clearBounds_vert(img):
             break
 
     return img
+
 '''
 this function makes lines of text perfectly horizontal.
 '''
@@ -138,6 +143,7 @@ def deskew(img):
     rotated = cv2.warpAffine(img, M, (w, h),flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
     return rotated
 
+
 '''
 this function applies a set of preprocessing operations to the input image, function output is a binarized image.
 operations are scaling , grayscaling , noise clearing , gaussian's thresholding and remove underlines.
@@ -146,17 +152,17 @@ finally the function calls lineSegment function to segment the image into lines.
 def pre_processing(path):
     # Read Image
     img = cv2.imread(path)
-    if os.path.exists("..\..\output\segmentation"):
-        shutil.rmtree("..\..\output\segmentation")
+
     # scaling
     height, width = img.shape[:2]
-    scaled=img
-    if (height < 1600 and width < 1200):
-       scaled = cv2.resize(img, (2 * width, 2* height), interpolation=cv2.INTER_LINEAR)
-    # cv2.imwrite('(0)Scale.jpg', scaled)
+    scaled = img
+    if height < 1600 and width < 1200:
+        scaled = cv2.resize(img, (2 * width, 2* height), interpolation=cv2.INTER_LINEAR)
+        # cv2.imwrite('(0)scaled.jpg', scaled)
 
     # Deskew step
     deskewed = deskew(scaled)
+    # cv2.imwrite("(1)deskewed.jpg", deskewed)
 
     # Grayscale step
     grayscaled = cv2.cvtColor(deskewed, cv2.COLOR_BGR2GRAY)
@@ -177,12 +183,13 @@ def pre_processing(path):
     ret3, OBinary = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     # cv2.imwrite("(4)binarization.jpg", OBinary)
 
-    # Line Removal
-    lineRemoved = lineRemoval(OBinary)
-    cv2.imwrite("..\..\output\Preprocessed.png", lineRemoved)
+    cv2.imwrite("Preprocessed.png", OBinary)
+
+    # if os.path.exists("output"):
+       # shutil.rmtree("output")
 
     line_segment(OBinary)
-
+    return column1, column2
 '''
 this function segment the binarized image into lines
 segmentation technique consists of 3 steps :
@@ -191,43 +198,51 @@ segmentation technique consists of 3 steps :
     3- segment the image into lines.
 '''
 def line_segment(binary):
-    #get dimentions
+
+    # get dimensions
     height, width = binary.shape
-    #convert image into matrix of rows
+    # convert image into matrix of rows
     matrix = imgToMatrixR(binary)
-    #count black pixels in each row
+    # count black pixels in each row
     black_counter =countPixel(matrix,0)
 
     # determine potential segmentation rows (psr)
     # psr is any row contains 0-2 black pixels, last row in image is also a psr .
     psr=[0]
     for i in range(0, len(black_counter)):
-        if (black_counter[i] <= 2 or i >= len(black_counter) - 2):
+        if black_counter[i] <= 2 or i >= len(black_counter) - 2:
             psr.append(i)
 
     # determine segmentation rows sr
     # sr is the index where we segment the image
     sr = []
-    count=0
+    count = 0
     for n in range(0, len(psr) - 1):
         # combine each set of sequence white rows into only one sr
-        if (psr[n] + 3 < psr[n + 1] or n >= len(psr) - 2):
+        if psr[n] + 3 < psr[n + 1] or n >= len(psr) - 2:
             sr.append(psr[n - int(count/2)])
             count=0
         else:
             count += 1
 
     # segment image into lines
+    global column1, column2
+    noise = 0
     for c in range(0, len(sr) - 1):
-        crop_img = binary[sr[c]:sr[c + 1],0:width ]
-        crop_img = clearBounds_horiz(crop_img)
-        crop_img = clearBounds_vert(crop_img)
+        crop_img = binary[sr[c]:sr[c + 1], 0:width]
+        img = lineRemoval(crop_img)
+        img = clearBounds_horiz(img)
+        img = clearBounds_vert(img)
         # skip noise lines
-        if (np.size(crop_img,0)>30 and np.size(crop_img,1)>60):
-            os.makedirs("..\..\output\segmentation\line "+str(c))
-            # cv2.imwrite("..\..\output\segmentation\line "+str(c)+"\\line " + str(c) + ".png", crop_img)
+        if np.size(img, 0) > 30 and np.size(img, 1) > 60:
+            # os.makedirs("output\line "+str(c))
+            # cv2.imwrite("output\line "+str(c)+"\\line " + str(c) + ".png", img)
             # Call function to Segment the line into words then chars
-            word_segment(crop_img,"column",c,None)
+            column1.append([])
+            column2.append([])
+            word_segment(img, "column", c-noise, None)
+        else:
+            noise += 1
 
 '''
 this function segment lines into columns then words
@@ -238,23 +253,23 @@ segmentation technique consists of 4 steps :
     3- segment the image into segments (column)
     4- recursive call to segment columns into words
 '''
-def word_segment(binary,flag,lineNum,columnNum):
+def word_segment(binary, flag, lineNum, columnNum):
 
-    column_threshold=120
-    word_threshold=13
+    column_threshold=60
+    word_threshold=15
 
-    #get image dimension
+    # get image dimension
     height, width = binary.shape
-    #convert image to matrix of columns
+    # convert image to matrix of columns
     matrix = imgToMatrixC(binary)
-    #count black pixels in each column
+    # count black pixels in each column
     black_counter = countPixel(matrix,0)
 
     # determine potential segmentation columns (psc).
-    # psc is any column contains no or two black bixel at most , last column in image is also a psc .
+    # psc is any column contains no or two black pixel at most , last column in image is also a psc .
     psc = [0]
     for p in range(0, len(black_counter)):
-        if (black_counter[p] <= 2 or p >= len(black_counter) - 2):
+        if black_counter[p] <= 2 or p >= len(black_counter) - 2:
             psc.append(p)
 
     # determine segmentation columns (sc)
@@ -263,45 +278,52 @@ def word_segment(binary,flag,lineNum,columnNum):
     count = 0
     for n in range(0, len(psc) - 1):
         # first column is sc
-        if (n ==0):
+        if n == 0:
             sc.append(psc[n])
             count = 0
         # last column is also sc
-        elif (n >= len(psc) - 2):
+        elif n >= len(psc) - 2:
             sc.append(psc[n])
             count = 0
 
         # combine each set of sequence white columns into only one sc
-        elif (psc[n] + 3 < psc[n + 1] ):
+        elif psc[n] + 3 < psc[n + 1] :
             # space between columns >= threshold value, low values is a space between words/chars not words.
-            if (flag=="column"):
-                if (count > column_threshold):
+            if flag == "column":
+                if count > column_threshold:
                     sc.append(psc[n -int(count/2)])
                 count = 0
-            if (flag=="word"):
-                if (count >= word_threshold ):
+            if flag == "word":
+                if count >= word_threshold :
                     sc.append(psc[n -int(count/2)])
                 count = 0
 
-        else :
+        else:
             count += 1
-    if(flag=="column"):
-        for c in range(0, len(sc) - 1):
-                crop_img = binary[0:height, sc[c]:sc[c + 1]+2]
-                crop_img = clearBounds_vert(crop_img)
-                directory = "..\..\output\segmentation\line " + str(lineNum) + "\\column "+str(c)
-                os.makedirs(directory)
-                # cv2.imwrite(directory + "\\column " + str(c) + ".png", crop_img)
-                word_segment(crop_img,"word",lineNum,c)
 
-    if (flag == "word"):
+    if flag == "column":
+        i=2
+        for c in range(0, len(sc) - 1):
+                if c < i:
+                    crop_img = binary[0:height, sc[c]:sc[c + 1]+2]
+                    crop_img = clearBounds_vert(crop_img)
+                    if np.size(crop_img, 1) > 10:
+                        # directory = "output\line " + str(lineNum) + "\\column "+str(c)
+                        # os.makedirs(directory)
+                        # cv2.imwrite(directory + "\\column " + str(c) + ".png", crop_img)
+                        word_segment(crop_img,"word",lineNum,c)
+                    else:
+                        i+=1
+                else:
+                    break
+
+    if flag == "word":
         for c in range(0, len(sc) - 1):
             crop_img = binary[0:height, sc[c]:sc[c + 1] + 2]
-            directory = "..\..\output\segmentation\line " + str(lineNum) + "\\column " + str(columnNum)+"\\word " + str(c)
-            os.makedirs(directory)
+            # directory = "output\line " + str(lineNum) + "\\column " + str(columnNum)+"\\word " + str(c)
+            # os.makedirs(directory)
             # cv2.imwrite(directory + "\\word " + str(c) + ".png", crop_img)
             char_segment(crop_img, lineNum, columnNum, c)
-
 
 '''
 this function segment words into chars
@@ -324,7 +346,7 @@ def char_segment(binary,lineNum,colNum,wordNum):
     # psc is any column contains no or one black bixel at most , last column in image is also a psc .
     psc = [0]
     for p in range(0, len(black_counter)):
-        if (black_counter[p] <= 1 or p >= len(black_counter) - 2):
+        if black_counter[p] <= 1 or p >= len(black_counter) - 2:
             psc.append(p)
 
     # determine segmentation columns (sc)
@@ -336,21 +358,39 @@ def char_segment(binary,lineNum,colNum,wordNum):
         summ = summ + psc[n]
         count = count + 1
         # combine each set of sequence white columns into only one sc ,last column is also a sc
-        if (psc[n] + 3 < psc[n + 1] or n >= len(psc) - 2):
+        if psc[n] + 3 < psc[n + 1] or n >= len(psc) - 2:
             sc.append(int(summ / count))
             summ = 0
             count = 0
 
+    global column1, column2
     # segment image into chars
     for c in range(0, len(sc) - 1):
         crop_img = binary[0:height, sc[c]:sc[c + 1]+2]
         crop_img = clearBounds_horiz(crop_img)
         crop_img = clearBounds_vert(crop_img)
         crop_img = cv2.resize(crop_img, (64, 128), interpolation=cv2.INTER_LINEAR)
-        directory= "..\..\output\segmentation\line " + str(lineNum)+"\\column "+str(colNum)+"\\word "+str(wordNum)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        cv2.imwrite(directory+"\\"+str(c)+".png", crop_img)
+        # directory= "output\line " + str(lineNum)+"\\column "+str(colNum)+"\\word "+str(wordNum)
+        # if not os.path.exists(directory):
+        # os.makedirs(directory)
+        # cv2.imwrite(directory+"\\"+str(c)+".png", crop_img)
+
+        if colNum == 0:
+            column1[lineNum].append(crop_img)
+            if c == (len(sc) - 2):
+                column1[lineNum].append(",")
+
+        else:
+            column2[lineNum].append(crop_img)
+            if c == (len(sc) - 2):
+                column2[lineNum].append(",")
 
 # Preprocessing function Calling
-# pre_processing("..\..\\resources\\testcases\\test.jpg")
+column1 =[]
+column2 =[]
+column1, column2 = pre_processing("testCases\\test.jpg")
+
+
+
+
+
