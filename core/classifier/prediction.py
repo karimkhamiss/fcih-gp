@@ -6,35 +6,35 @@ import csv
 import shutil
 from sklearn.externals import joblib
 
-#create histogram for each letter that has been segmented from the paper put in outputHis folder
+#create histogram for each letter that has been segmented from the paper
 from core.hog.HOG_Imp import Hogfun
 from core.preprocessing.PrePlusSeg import pre_processing
 
 
 def output_his():
-    list_col1 = [['a', 'y', 'a', ',', 'a', 'l', 'i'],
-                 ['H', 'e', 'n', 'd', ',', 'a', 'h', 'm', 'e', 'd']]  # assumtion return from preproccessing col1
-    list_col2 = [['a', 'l', 'i', ',', 's', 'a', 'm'],
-                 ['H', 'e', 'b', 'a', ',', 'H', 'o', 's', 'a', 'm']]  # assumtion return from preproccessing col2
+    '''
+    list_col1 = [['a', 'y', 'a', ',', 'a', 'l', 'i',','],
+                 ['H', 'e', 'n', 'd', ',', 'a', 'h', 'm', 'e', 'd',',']]  # assumtion return from preproccessing col1
+    list_col2 = [['a', 'l', 'i', ',', 's', 'a', 'm', 'a', 'h',','],
+                 ['H', 'e', 'b', 'a', ',', 'H', 'o', 's', 'a', 'm',',']]  # assumtion return from preproccessing col2
     list_cols = [list_col1, list_col2]  # assumtion return from preproccessing
-
-    vectorList = []
-    # list_cols=pre_processing("..\..\\resources\\testcases\\test.jpg")
-
+    '''
+    vectorList = []  #list for both cols after recognation so it carry vectors
+    list_cols = pre_processing("..\..\\resources\\testcases\\test.jpg")
     # loop for cols
     for list_col in list_cols:
         vector_list = []
         for line in list_col:
             List = []
             for image in line:
-                if image == ',':
-                    List.append(',')
+                if image == ",":
+                    List.append(",")
                     continue
                 else:
                     print(image)
-                    # imagevector=Hogfun(image, (8, 8), (2, 2))
-                    # print("image vector len", len(imagevector))
-                    imagevector = ['0', '1', '0']  # assumtion
+                    imagevector=Hogfun(image, (8, 8), (2, 2))
+                    print("image vector len", len(imagevector))
+                    #imagevector = ['0', '1', '0']  # assumtion
                     List.append(imagevector)
             vector_list.append(List)
         vectorList.append(vector_list)
@@ -85,6 +85,5 @@ List = output_his()
 # prediction(List)
 for vector_list in List:
     for line in vector_list:
-        for vector in line:
-            print(vector)
+            print(line)
 

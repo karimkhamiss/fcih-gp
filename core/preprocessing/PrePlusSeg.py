@@ -388,7 +388,7 @@ def char_segment(binary,lineNum,colNum,wordNum):
 # Preprocessing function Calling
 column1 =[]
 column2 =[]
-column1, column2 = pre_processing("testCases\\test.jpg")
+#column1, column2 = pre_processing("testCases\\test.jpg")
 
 
 
