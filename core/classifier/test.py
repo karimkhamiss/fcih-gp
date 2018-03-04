@@ -1,4 +1,3 @@
-import os
-files = os.listdir("..\..\output\\histograms\\input")
-for file in files:
-    print (file)
+list=1
+if type(list) is int :
+    print (list )
