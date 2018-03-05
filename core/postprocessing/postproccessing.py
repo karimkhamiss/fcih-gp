@@ -1,7 +1,10 @@
 import pickle
 import difflib
 
+
+
 class Test:
+
     def __init__(self,category,name,type,maleList,femaleList,decrease,increase):
         self.name = name
         self.category = category
@@ -93,7 +96,7 @@ def match(lineList):
 
                 if i==len(fileFromList):
                     lineList[0]=file
-                    print("file name : ",file)
+                    #print("file name : ",file)
 
             else:
              break
@@ -108,15 +111,25 @@ def match(lineList):
 
     for i in range(1, len(lineList)):
         flag=False
+        maxRatio=0.0
+        tempTestName=Test([],"not matched","none",[],[],"","")
+
         for test in tests:
+
             ratio = difflib.SequenceMatcher(None, test.name, lineList[i]).ratio()
-            if ratio >= 0.5:
+            if ratio >= 0.5 and len(test.name)>1:
                 flag=True
-                print("matched with : " + test.name)
-                lineList[i] = test.name
-                lineListTypes.append(test.type)
-        if flag==False:
-            lineListTypes.append("none")
+               # print("matched with : " + test.name)
+                if maxRatio<ratio:
+                    tempTestName=test
+                    #print("leng : ",tempTestName.name,ratio)
+                    maxRatio=ratio
+        #            print(ratio)
+
+        lineList[i] = tempTestName.name
+       # print("matched with : " + tempTestName.name)
+        lineListTypes.append(tempTestName.type)
+
 
 
 
@@ -125,7 +138,7 @@ def match(lineList):
 
     return lineListTypes
 
-#types=match(["CDMPLETE BLDDD PfCTCRE ","Fibrinogen","dfffffffrr"])
+#types=match(["CDMPLETE BLDDD PfCTCRE ",""])
 #print(types)
 
 
