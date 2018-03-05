@@ -1,9 +1,3 @@
-import os
-import pandas as pd
-import cv2
-import numpy as np
-import csv
-import shutil
 from sklearn.externals import joblib
 
 #create histogram for each letter that has been segmented from the paper
@@ -30,22 +24,29 @@ def output_his():
         vectorList.append(vector_list)
     return vectorList
 
-
 def prediction(List):
     word = ''      # to concatentate char of each word
     wordList = ''  # to concatentate words in the same line
     lineList = []  # list of lines that each line contain list of words
     linetype = []  # datatype of each line in col2
-
+    colList=[]
+    flag=True
     for vector_list in List:  # vector_list1 =>col1 , vector_list2 =>col2
         index = 0
         for line in vector_list:  # new line and new word
-            index += 1
+            print("index",index)
+
             if linetype:
-                if linetype[index] == "letters":
+                if linetype[index] == 'letter':
                     clf = joblib.load('../models/letters.pkl')
-                elif linetype[index] == "digits":
+                    index += 1
+                elif linetype[index] == 'digit':
                     clf = joblib.load('../models/digits.pkl')
+                    index += 1
+                elif linetype[index]=='none':
+                    lineList.append('none')
+                    index += 1
+                    continue
             else:
                 clf = joblib.load('../models/letters.pkl')
             for vector in line:
@@ -62,14 +63,23 @@ def prediction(List):
             wordList += word
             lineList.append(wordList)
             wordList = ''
-        linetype=match(lineList)       #send all prediction to col1 return type of each line in col2
 
-    return lineList
+        print(len(lineList))
+        print(lineList)
+        if flag:
+            linetype=match(lineList)       #send all prediction to col1 return type of each line in col2
+            print(len(linetype))
+            print(linetype)
+            flag=False                   #to git in only once
+        colList.append(lineList)         #will be deleted
+        lineList=[]
+
+    return colList                      #will be deleted
 
 
 #calling
 List = []
 List = output_his()
 linelist= prediction(List)
-
+print(linelist)
 
