@@ -1,7 +1,4 @@
 import cv2
-import argparse
-import os
-import shutil
 import numpy as np
 
 '''
@@ -386,9 +383,8 @@ def char_segment(binary,lineNum,colNum,wordNum):
                 column2[lineNum].append(",")
 
 # Preprocessing function Calling
-column1 =[]
-column2 =[]
-#column1, column2 = pre_processing("testCases\\test.jpg")
+
+# column1, column2 = pre_processing("testCases\\test.jpg")
 
 
 
