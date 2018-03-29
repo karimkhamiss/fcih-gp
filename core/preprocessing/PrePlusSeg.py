@@ -1,7 +1,4 @@
 import cv2
-import argparse
-import os
-import shutil
 import numpy as np
 
 '''
