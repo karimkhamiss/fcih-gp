@@ -7,8 +7,8 @@ from kivy.uix.listview import ListItemButton
 
 Builder.load_string("""
 
-# Reference Res.py
-#: import main Res
+# Reference Result.py
+#: import main Result
 #: import ListAdapter kivy.adapters.listadapter.ListAdapter
 #: import ListItemButton kivy.uix.listview.ListItemButton
 
@@ -22,88 +22,99 @@ Builder.load_string("""
                 rgb: .98, .98, .98,1
             Rectangle:
                 size: self.size
-        
+
         #logo 
-        Button:
-            text: "logo "
-            background_normal:''
-            background_color:0.2, 0.58, 0.992,1
-            foreground_color:0.56,0.75,0.94
-            font_size:30
+        BoxLayout:
             size_hint: 1, .1
-        
+            canvas:
+                Color:
+                    rgba: 0.2, 0.58, 0.992,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                foreground_color:0.56,0.75,0.94
+                text: "logo "
+                font_size:30
+                size_hint: 1, 1
+
         #title
         BoxLayout:
             orientation: 'vertical'
             padding:[20,0,20,0] 
+            spacing:25
             BoxLayout: 
-                size_hint: 1, .08
+                size_hint: 1, .2
                 orientation: 'vertical'
                 Label:
                     text: "Analysis Result "
-                    background_color:0, 0, 0,1
                     color :0, 0, 0,1
                     font_size:20
                     size_hint: 1, .5
-    
+
                 Label:
                     text: "Complete blood picture"
                     color :0.2, 0.58, 0.992,1
                     font_size:20
                     size_hint: 1, .5
-
             BoxLayout:
-                size_hint: 1, .16
-                orientation: 'horizontal'
-                
+                orientation:'vertical'
+                BoxLayout:
+                    size_hint: 1, .05
+                    orientation: 'horizontal'
+                    canvas:
+                        Color:
+                            rgba: 0.2, 0.58, 0.992,1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        text: "Name"
+                        background_normal:''
+                        background_color:0.2, 0.58, 0.992,1
+                        foreground_color:0.56,0.75,0.94
+                        font_size:20
+                        size_hint: .25, .5
 
-                Button:
-                    text: "Name"
+                    Label:
+                        text: "Result"
+                        background_normal:''
+                        background_color:0.2, 0.58, 0.992,1
+                        foreground_color:0.56,0.75,0.94
+                        font_size:20
+                        size_hint: .25, .5
+
+                    Label:
+                        text: "Feedback"
+                        background_normal:''
+                        background_color:0.2, 0.58, 0.992,1
+                        foreground_color:0.56,0.75,0.94
+                        font_size:20
+                        size_hint: .5, .5
+                BoxLayout:
+                    size_hint: 1, .5
+                    orientation:'horizontal'
                     background_normal:''
                     background_color:0.2, 0.58, 0.992,1
                     foreground_color:0.56,0.75,0.94
-                    font_size:20
-                    size_hint: .25, .5
 
-                Button:
-                    text: "Result"
-                    background_normal:''
-                    background_color:0.2, 0.58, 0.992,1
-                    foreground_color:0.56,0.75,0.94
-                    font_size:20
-                    size_hint: .25, .5
 
-                Button:
-                    text: "Feedback"
-                    background_normal:''
-                    background_color:0.2, 0.58, 0.992,1
-                    foreground_color:0.56,0.75,0.94
-                    font_size:20
-                    size_hint: .5, .5
-            BoxLayout:
-                size_hint: 1, .5
-                orientation:'horizontal'
-                background_normal:''
-                background_color:0.2, 0.58, 0.992,1
-                foreground_color:0.56,0.75,0.94
-                
-                
-                ListView:
-                    size_hint: .25, 1
-                    id: students_list_view
-                    adapter:
-                        ListAdapter(data=["Hemoglobin","MCV","MCH","MCHW","ROW","ROW","ROW","ROW"], cls=main.StudentListButton)
-                ListView:
-                    id: students_list_view
-                    size_hint: .25, 1
-                    adapter:
-                        ListAdapter(data=["12.9","12.9","12.9","12.9","12.9","12.9","12.9","12.9"], cls=main.StudentListButton)
-                ListView:
-                    id: students_list_view
-                    size_hint: .5, 1
-                    adapter:
-                        ListAdapter(data=["very good your health is well","very good your health is well","very good your health is well","very good your health is well","very good your health is well","very good your health is well","very good your health is well","very good your health is well"], cls=main.StudentListButton)
-                   
+                    ListView:
+                        size_hint: .25, 1
+                        id: students_list_view
+                        adapter:
+                            ListAdapter(data=["Hemoglobin","MCV","MCH","MCHW","ROW","ROW","ROW","ROW"], cls=main.StudentListButton)
+                    ListView:
+                        id: students_list_view
+                        size_hint: .25, 1
+                        adapter:
+                            ListAdapter(data=["12.9","12.9","12.9","12.9","12.9","12.9","12.9","12.9"], cls=main.StudentListButton)
+                    ListView:
+                        id: students_list_view
+                        size_hint: .5, 1
+                        adapter:
+                            ListAdapter(data=["very good your health is well","very good your health is well","very good your health is well","very good your health is well","very good your health is well","very good your health is well","very good your health is well","very good your health is well"], cls=main.StudentListButton)
+
             Label:
                 text:'Unlike many other toolkits, Each child is automatically assigned a position determined by the layout configuration and the child’s index in the children list.'
                 text_size: root.width-100, None
@@ -127,7 +138,7 @@ Builder.load_string("""
 
 
 class StudentListButton(ListItemButton):
-    selected_color:[0, 0, 0, 1]
+    selected_color: [0, 0, 0, 1]
     deselected_color: [0, 0, 1, 1]
     pass
 
