@@ -1,0 +1,314 @@
+#:kivy 1.8.0
+<CircularButton>:
+    size: (min(self.width,self.height),min(self.width,self.height)) # force circle
+    canvas:
+        Color:
+            rgba: ((1,1,1,1) if self.state == "normal" else (.5,.5,.5,1))
+        Ellipse:
+            pos: self.pos
+            size: self.size
+            source: 'img.jpg'
+            angle_start: e1.value
+            angle_end: e2.value
+
+
+<SidePanel>:
+    orientation: 'vertical'
+    spacing: 5
+
+    canvas:
+        Color:
+            rgba: (1,1,1,1)
+
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 25
+        canvas:
+            Color:
+                rgba: (0/255, 191/255, 255/255,1)
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+        BoxLayout:
+            orientation: 'horizontal'
+            canvas:
+                Color:
+                    rgba: (0/255, 191/255, 255/255,1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    background_color: (0.0, 0.0, 0.0, 0.0)
+                    pos_hint: {'center_x': .8}
+                    content_size:  root.width, None
+                    canvas:
+                        Color:
+                            rgb: 1, 1, 1
+                        Ellipse:
+                            pos: self.pos
+                            size: 60,60
+                            source: '..\..\\resources\\ui\\menu\\img.png'
+
+            BoxLayout:
+            BoxLayout:
+
+
+        BoxLayout:
+            orientation: 'vertical'
+
+            canvas:
+                Color:
+                    rgba: (0/255, 191/255, 255/255,1)
+
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 17
+                canvas:
+                    Color:
+                        rgba: (0/255, 191/255, 255/255,1)
+
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    text: "Karim Khamiss"
+                    font_size: 20
+                    halign: 'left'
+                    text_size: root.width, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': .6}
+
+
+
+                Label:
+                    text: "Karim.Khamiss@yahoo.com"
+                    font_size: 12
+                    text_size: root.width, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': .6}
+
+            BoxLayout:
+
+
+######################################################################
+
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            background_color: (0.0, 0.0, 0.0, 0.0)
+            StackLayout:
+                pos: self.parent.pos
+                size: self.parent.size
+                orientation: 'lr-tb'
+                Image:
+                    source: '..\..\\resources\\ui\\menu\\home.png'
+                    size_hint_x: .2
+                    width: 100
+                    size: 20,20
+                MenuItem:
+                    size_hint_x: .8
+                    width: 180
+                    text: 'Home'
+                    font_size: 20
+                    color: 0, 0, 0, 1
+                    background_color: (0.0, 0.0, 0.0, 0.0)
+
+        Button:
+            background_color: (0.0, 0.0, 0.0, 0.0)
+            StackLayout:
+                pos: self.parent.pos
+                size: self.parent.size
+                orientation: 'lr-tb'
+                Image:
+                    source: '..\..\\resources\\ui\\menu\\write.png'
+                    size_hint_x: .2
+                    width: 100
+                    size: 20,20
+                MenuItem:
+                    size_hint_x: .8
+                    width: 180
+                    text: 'My Analysis'
+                    font_size: 20
+                    color: 0, 0, 0, 1
+                    background_color: (0.0, 0.0, 0.0, 0.0)
+
+        Button:
+            background_color: (0.0, 0.0, 0.0, 0.0)
+            StackLayout:
+                pos: self.parent.pos
+                size: self.parent.size
+                orientation: 'lr-tb'
+                Image:
+                    source: '..\..\\resources\\ui\\menu\\profile.png'
+                    size_hint_x: .2
+                    width: 100
+                    size: 20,20
+                MenuItem:
+                    size_hint_x: .8
+                    width: 180
+                    text: 'Profile'
+                    font_size: 20
+                    color: 0, 0, 0, 1
+                    background_color: (0.0, 0.0, 0.0, 0.0)
+
+
+    Widget:
+        id: separator
+        size_hint_y: None
+        height: 1
+        canvas:
+            Color:
+                rgb: 0,0,0,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            background_color: (0.0, 0.0, 0.0, 0.0)
+            StackLayout:
+                pos: self.parent.pos
+                size: self.parent.size
+                orientation: 'lr-tb'
+                Image:
+                    source: '..\..\\resources\\ui\\menu\\legal.png'
+                    size_hint_x: .2
+                    width: 100
+                    size: 20,20
+                MenuItem:
+                    size_hint_x: .8
+                    width: 180
+                    text: 'Legal&Privacy'
+                    font_size: 20
+                    color: 0, 0, 0, 1
+                    background_color: (0.0, 0.0, 0.0, 0.0)
+
+        Button:
+            background_color: (0.0, 0.0, 0.0, 0.0)
+            StackLayout:
+                pos: self.parent.pos
+                size: self.parent.size
+                orientation: 'lr-tb'
+                Image:
+                    source: '..\..\\resources\\ui\\menu\\setting.png'
+
+                    size_hint_x: .2
+                    width: 100
+                    size: 20,20
+                MenuItem:
+                    size_hint_x: .8
+                    width: 180
+                    text: 'Setting'
+                    font_size: 20
+                    color: 0, 0, 0, 1
+                    background_color: (0.0, 0.0, 0.0, 0.0)
+        Label:
+
+
+
+
+
+
+
+<AppActionBar>:
+    pos_hint: {'top':1}
+    canvas:
+        Color:
+            rgba: (0/255, 191/255, 255/255,1)
+
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ActionView:
+        use_separator: True
+        ActionMenu:
+            title: 'Menu'
+            with_previous: False
+            app_icon: 'atlas://data/images/defaulttheme/splitter_grip'
+            on_press: self.menu()
+        ActionOverflow:
+
+<MainPanel>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    Label:
+        canvas:
+            Color:
+                rgba: (1,1,1,1)
+
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+<B_Home>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    Label:
+        text: 'Home'
+
+<B_Analysis>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    Label:
+        text: 'My Analysis'
+
+<B_Profile>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    Label:
+        text: 'Profile'
+
+
+<B_Legal>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    Label:
+        text: 'Legal & Privacy'
+
+
+<B_Setting>:
+    orientation: 'vertical'
+    spacing: 1
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    Label:
+        text: 'Settings'
+
+
