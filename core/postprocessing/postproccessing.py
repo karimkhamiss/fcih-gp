@@ -22,12 +22,6 @@ startTest = []
 startTest.append(Test(["Liver Diseases","Blood Diseases","Complete Blood Count","CBC","Clinical chemistry","complete blood picture"],"","digit",[(0,100),(3.4,5)],[(0,100),(3.4,5)],"يقل فى حالات سوء التغذية - يقل فى حالة أمراض الكبد","لا يزيد"))
 
 testsList = []
-testsList.append(Test(["Liver Diseases"],"ALbumin","digit",[(0,100),(3.4,5)],[(0,100),(3.4,5)],"يقل فى حالات سوء التغذية - يقل فى حالة أمراض الكبد","لا يزيد"))
-testsList.append(Test(["Liver Diseases"],"Aspartate Aminotransferase","digit",[(0,100),(37,100)],[(0,100),(37,100)],"لا يقل","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Liver Diseases"],"Bil D","digit",[(0,100),(.3,100)],[(0,100),(.3,100)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
-testsList.append(Test(["Liver Diseases"],"Bilirubin, Direct","digit",[(0,100),(.3,100)],[(0,100),(.3,100)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
-testsList.append(Test(["Liver Diseases"],"Bil T","digit",[(0,100),(1.9,1.9)],[(0,100),(1.9,1.9)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
-testsList.append(Test(["Liver Diseases"],"Bilirubin, Total","digit",[(0,100),(1.9,1.9)],[(0,100),(1.9,1.9)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
 
 
 
@@ -54,6 +48,31 @@ testsList.append(Test(["Clinical chemistry"],"CA","digit",[(0,100),(8.5,10.1)],[
 
 
 
+testsList.append(Test(["Diabetes"],"Insulin","digit",[(0,100),(2,25)],[(0,100),(2,25)],"نقص نسبة الأنسولين فى الدم و ان كانت نسبة الجلوكوز فى الدم مرتفعه ،، فهذا يسبب مرض السكر ","زيادة نسبة الأنسولين تعنى أرتفاع نسبى الجلوكوز - السكر - فى الدم"))
+testsList.append(Test(["Diabetes"],"Glucose Blood","digit",[(0,100),(65,95)],[(0,100),(65,95)],"فى حالة نقص نسبة الجلوكوز - السكر فى الدم ","أرتفاع نسبة الجلوكوز - السكر - فى الدم "))
+testsList.append(Test(["Diabetes"],"CA","digit",[(0,100),(8.5,10.1)],[(0,100),(8.5,10.1)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+
+
+
+testsList.append(Test(["Liver Diseases"],"ALbumin","digit",[(0,100),(3.4,5)],[(0,100),(3.4,5)],"يقل فى حالات سوء التغذية - يقل فى حالة أمراض الكبد","لا يزيد"))
+testsList.append(Test(["Liver Diseases"],"Aspartate Aminotransferase","digit",[(0,100),(37,100)],[(0,100),(37,100)],"لا يقل","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Liver Diseases"],"Bil D","digit",[(0,100),(.3,100)],[(0,100),(.3,100)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
+testsList.append(Test(["Liver Diseases"],"Bilirubin, Direct","digit",[(0,100),(.3,100)],[(0,100),(.3,100)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
+testsList.append(Test(["Liver Diseases"],"Bil T","digit",[(0,100),(1.9,1.9)],[(0,100),(1.9,1.9)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
+testsList.append(Test(["Liver Diseases"],"Bilirubin, Total","digit",[(0,100),(1.9,1.9)],[(0,100),(1.9,1.9)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
+
+
+testsList.append(Test(["Lipid Profile"],"Triglycerides","digit",[(0,100),(150,199)],[(0,100),(150,199)],"يقل فى حالة عدم القدرة على امتصاص الدهون ","زيادة نسبة الدهون الثلاثية فى الجسم ويسبب ارتفاعها لأمراض مثل : السكر - أمراض القلب - امراض الكلى"))
+testsList.append(Test(["Lipid Profile"],"Cholesterol","digit",[(0,100),(200,239)],[(0,100),(200,239)],"يقل فى حالة عدم القدرة على امتصاص الدهون ","زيادة نسبة الدهون الثلاثية فى الجسم ويسبب ارتفاعها لأمراض مثل : السكر - أمراض القلب - امراض الكلى"))
+
+
+testsList.append(Test(["Vitamin"],"Vitamin ِِA","digit",[(0,100),(30,80)],[(0,100),(30,80)],"يقل فى حالة أمراض الانيميا وفقر الدم ","زيادة نسبة فيتامين أ فى الدم "))
+testsList.append(Test(["Vitamin"],"Vitamin E","digit",[(0,100),(30,50)],[(0,100),(30,50)],"يقل فى حالة أمراض الانيميا وفقر الدم - سوء التغذية المزمنة - اضرابات سوء الامتصاص ","زيادة نسبة فيتامين e فى الدم "))
+
+testsList.append(Test(["Drug"],"Alcohol","digit",[(0,100),(10,80)],[(0,100),(10,80)],"نسبة طبيعية فى الدم  ","زيادة نسبة الكحول فى الدم وان تجاوزت 300 فهى درجة مميتة "))
+
+
+
 
 
 for test in startTest:
@@ -69,34 +88,23 @@ for test in testsList:
 def match(lineList):
     tests = []
     lineListTypes=[]
-
-
-
-    filesList=["Liver Diseases","Blood Diseases","Complete Blood Count","CBC","Clinical chemistry","complete blood picture"]
-
-    s= lineList[0]
+    filesList=("Liver Diseases","Blood Diseases","Complete Blood Count","CBC","Clinical chemistry","complete blood picture","Vitamin","Drug","Lipid Profile")
+    s= lineList[0] # file name in the first line
     s=s[:-1]
     fileFromList = s.lower().split(" ")
-
-
-
     for file in filesList:
         fileNamesplits = file.lower().split(" ")
-        #print(fileFromList)
-        if len(fileFromList)==len(fileNamesplits):
 
+        if len(fileFromList)==len(fileNamesplits):
          i=0
          for fn in fileNamesplits:
-
             ratio = difflib.SequenceMatcher(None, fn, fileFromList[i]).ratio()
-
             if ratio >= 0.5:
-
                 i += 1
 
                 if i==len(fileFromList):
                     lineList[0]=file
-                    #print("file name : ",file)
+
 
             else:
              break
@@ -122,20 +130,13 @@ def match(lineList):
                # print("matched with : " + test.name)
                 if maxRatio<ratio:
                     tempTestName=test
-                    #print("leng : ",tempTestName.name,ratio)
+
                     maxRatio=ratio
         #            print(ratio)
 
         lineList[i] = tempTestName.name
        # print("matched with : " + tempTestName.name)
         lineListTypes.append(tempTestName.type)
-
-
-
-
-
-
-
     return lineListTypes
 
 #types=match(["CDMPLETE BLDDD PfCTCRE ",""])
