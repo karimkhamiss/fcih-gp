@@ -145,8 +145,8 @@ def match(lineList):
         lineListTypes.append(tempTestName.type)
     return lineListTypes
 
-#types=match(["CDMPLETE BLDDD PfCTCRE ",""])
-#print(types)
+types=match(["CDMPLETE BLDDD PfCTCRE ",""])
+print(types)
 
 
 

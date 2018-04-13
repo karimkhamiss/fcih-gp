@@ -1,13 +1,26 @@
+import kivy
 from kivy import Config
-from kivy.core.text import Label
-from kivy.lang import Builder
+from kivy.app import App
+from kivy.properties import ObjectProperty
 from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.listview import ListItemButton
+from kivy.uix.screenmanager import Screen, ScreenManager
+
+from kivy.app import App
 from kivy.uix.widget import Widget
-from kivy.vector import Vector
+
+from core.ui.navigationdrawer import NavigationDrawer
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.button import Button
+from kivy.uix.actionbar import ActionBar, ActionButton, ActionPrevious
+from kivy.properties import  ObjectProperty
+from core.classifier.prediction import output_his, prediction
 
 Config.set('graphics', 'width', '440')
 Config.set('graphics', 'height', '620')
-
+### Menu ###
 SidePanel_AppMenu = {'Home':['Press_Home',None],
                      'My Analysis':['Press_Analysis',None],
                      'Profile':['Press_Profile',None],
@@ -16,19 +29,6 @@ SidePanel_AppMenu = {'Home':['Press_Home',None],
                      }
 id_AppMenu_METHOD = 0
 id_AppMenu_PANEL = 1
-
-
-import kivy
-kivy.require('1.8.0')
-
-from kivy.app import App
-from core.ui.navigationdrawer import NavigationDrawer
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.button import Button
-from kivy.uix.actionbar import ActionBar, ActionButton, ActionPrevious
-from kivy.properties import  ObjectProperty
-
 RootApp = None
 
 class SidePanel(BoxLayout):
@@ -128,7 +128,6 @@ class Menu(App):
 
     def Press_Home(self):
         print ('Home')
-        self._switch_main_page('Home', B_Home)
 
     def Press_Analysis(self):
         print ('Analysis')
@@ -160,7 +159,59 @@ class Menu(App):
         self.navigationdrawer.add_widget(main_panel)
         self.main_panel = main_panel
 
+### Menu ###
+class Box(BoxLayout):
+    def predict(self):
+        List = []
+        List = output_his()  # return list of vectors in  each image but in list
+        linelist = prediction(List)
+    pass
 
+class Landing(App):
+    def build(self):
+        return Box()
+
+class SUBoxLayout(BoxLayout):
+    male = ObjectProperty(True)
+    female = ObjectProperty(False)
+    pass
+
+class LoginApp(App):
+  pass
+
+class SignUpApp(App):
+    def build(self):
+        return SUBoxLayout()
+
+class Home(App):
+    def build(self):
+        return Box()
+class StudentListButton(ListItemButton):
+    selected_color = [0, 0, 0, 1]
+    deselected_color = [0, 0, 1, 1]
+    pass
+
+
+# Declare both screens
+class ResultScreen(Screen):
+    pass
+
+class ResultScreenApp(App):
+    def build(self):
+        # Create the screen manager
+        sm = ScreenManager()
+        sm.add_widget(ResultScreen(name='Result'))  # use name to move from screen to another
+        return sm
 
 if __name__ == '__main__':
+    List = []
+    item=["MCH","20","Clinical chemistry","يزيد عند مرض النقرص"]
+    List.append(item)
+    for item in List:
+        print(item[0])
+    Landing().run()
+    Home().run()
+    LoginApp().run()
+    SignUpApp().run()
     Menu().run()
+    ResultScreenApp().run()

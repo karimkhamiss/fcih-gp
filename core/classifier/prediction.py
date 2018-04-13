@@ -1,5 +1,5 @@
 from sklearn.externals import joblib
-from skimage.feature import hog
+# from skimage.feature import hog
 
 
 #create histogram for each letter that has been segmented from the paper
@@ -85,7 +85,4 @@ def prediction(List):
 
 
 #calling
-List = []
-List = output_his()   #return list of vectors in  each image but in list
-linelist= prediction(List)
 
