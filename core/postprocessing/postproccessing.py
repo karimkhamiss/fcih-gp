@@ -138,8 +138,8 @@ def match(lineList):
 
     return lineListTypes
 
-#types=match(["CDMPLETE BLDDD PfCTCRE ",""])
-#print(types)
+types=match(["CDMPLETE BLDDD PfCTCRE ",""])
+print(types)
 
 
 
