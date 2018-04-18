@@ -10,6 +10,8 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.app import App
 from kivy.uix.widget import Widget
 
+from core.postprocessing.finalResult import getTestResult
+from core.postprocessing.postproccessing import Test
 from core.ui.navigationdrawer import NavigationDrawer
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
@@ -194,7 +196,32 @@ class StudentListButton(ListItemButton):
 
 # Declare both screens
 class ResultScreen(Screen):
-    pass
+    title = ObjectProperty()
+    first_list = ObjectProperty()
+    seoncd_list = ObjectProperty()
+    third_list = ObjectProperty()
+    def analysis(self):
+        test = Test(["Liver Diseases"], "ALbumin", "digit", [(0, 10), (3.4, 5), (11, 100), (7, 10)],
+                    [(0, 100), (3.4, 5)], "يقل فى حالات سوء التغذية - يقل فى حالة أمراض الكبد",
+                    " يزيد عند وجود أمراض فى الكلى مثل الفشل الكلوى")
+        print(getTestResult(test, 11, 11, "male"))
+        List = []
+        List = output_his()  # return list of vectors in  each image but in list
+        linelist = prediction(List)
+        print(linelist[0])
+        counter = 0
+        self.title.text = linelist[0][0]
+        for test_name in linelist[0]:
+            counter = counter+1
+            if(counter == 1 or test_name == "not matched"):
+                continue
+            self.first_list.adapter.data.extend([test_name])
+            self.first_list._trigger_reset_populate()
+        for test_value in linelist[1]:
+            if (test_value == "none"):
+                continue
+            self.second_list.adapter.data.extend([test_value])
+            self.second_list._trigger_reset_populate()
 
 class ResultScreenApp(App):
     def build(self):
@@ -204,14 +231,14 @@ class ResultScreenApp(App):
         return sm
 
 if __name__ == '__main__':
-    List = []
-    item=["MCH","20","Clinical chemistry","يزيد عند مرض النقرص"]
-    List.append(item)
-    for item in List:
-        print(item[0])
-    Landing().run()
-    Home().run()
-    LoginApp().run()
-    SignUpApp().run()
-    Menu().run()
+    # List = []
+    # item=["MCH","20","Clinical chemistry","يزيد عند مرض النقرص"]
+    # List.append(item)
+    # for item in List:
+    #     print(item[0])
+    # Landing().run()
+    # Home().run()
+    # LoginApp().run()
+    # SignUpApp().run()
+    # Menu().run()
     ResultScreenApp().run()

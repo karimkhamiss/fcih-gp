@@ -86,3 +86,7 @@ def prediction(List):
 
 #calling
 
+# List = []
+# List = output_his()  # return list of vectors in  each image but in list
+# linelist = prediction(List)
+# print(linelist[0])

@@ -163,4 +163,4 @@ class Menu(App):
 
 
 if __name__ == '__main__':
-    Menu().run()
+    Res().run()
