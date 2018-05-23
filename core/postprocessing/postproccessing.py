@@ -92,8 +92,10 @@ for test in testsList:
 
 
 def match(lineList):
+    finalTests=[]
     tests = []
     lineListTypes=[]
+    result=[]
     filesList=("Liver Diseases","Blood Diseases","Complete Blood Count","CBC","Clinical chemistry","complete blood picture","Vitamin","Drug","Lipid Profile")
     s= lineList[0] # file name in the first line
     s=s[:-1]
@@ -140,13 +142,17 @@ def match(lineList):
                     maxRatio=ratio
         #            print(ratio)
 
+
         lineList[i] = tempTestName.name
        # print("matched with : " + tempTestName.name)
         lineListTypes.append(tempTestName.type)
+        finalTests.append(tempTestName)
+
+    lineListTypes.append(finalTests)
     return lineListTypes
 
-types=match(["CDMPLETE BLDDD PfCTCRE ",""])
-print(types)
+#types=match(["CDMPLETE BLDDD PfCTCRE ",""])
+#print(types)
 
 
 

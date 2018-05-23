@@ -1,11 +1,12 @@
 from sklearn.externals import joblib
-# from skimage.feature import hog
+#from skimage.feature import hog
 
 
 #create histogram for each letter that has been segmented from the paper
 from core.hog.HOG_Imp import Hogfun
 from core.preprocessing.PrePlusSeg import pre_processing
 from core.postprocessing.postproccessing import match
+from core.postprocessing.finalResult import getTestResult
 
 def output_his():
     vectorList = []  #list for both cols after recognation so it carry vectors
@@ -77,16 +78,18 @@ def prediction(List):
             flag=False                   #to git in only once
             flag2=False
         print("col after postproccessing >>", lineList)
-        colList.append(lineList)         #will be deleted
+        colList.append(lineList)
+        colList.append(linetype[-1])#will be deleted
         lineList=[]
 
-    return colList                      #will be deleted
+    return colList[:-1]                      #will be deleted
 
 
-
+1
 #calling
-
 # List = []
-# List = output_his()  # return list of vectors in  each image but in list
-# linelist = prediction(List)
-# print(linelist[0])
+# List = output_his()   #return list of vectors in  each image but in list
+# linelist= prediction(List)
+#
+#
+# print("linnnnnnnnnne ", getTestResult(linelist,12,"male"))

@@ -46,6 +46,17 @@
                 background_color: 0.2,0.58 , 1,1
                 color: 1,1,1,1
                 on_press:root.analysis()
+            Button:
+				size_hint:[None,None]
+                height: 30
+				width:80
+				text: "Analysis"
+				font_size: 16
+                size_hint: 1, 1
+                background_normal: ''
+                background_color: 0.2,0.58 , 1,1
+                color: 1,1,1,1
+                on_press:root.analysis()
 
         #title
         BoxLayout:
@@ -114,7 +125,7 @@
                         id: first_list_view
                         color :0.2, 0.58, 0.992,1
                         adapter:
-                            ListAdapter(data=["Karim"], cls=main.StudentListButton)
+                            ListAdapter(data=[], cls=main.StudentListButton)
                     ListView:
                         id: second_list_view
                         size_hint: .25, 1
