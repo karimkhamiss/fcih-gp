@@ -1,62 +1,78 @@
-import kivy
-from kivy import Config
+from kivy.lang import Builder
 from kivy.app import App
-from kivy.properties import ObjectProperty
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
 from kivy.uix.listview import ListItemButton
 from kivy.uix.screenmanager import Screen, ScreenManager
-
-from kivy.app import App
-from kivy.uix.widget import Widget
-
-from core.postprocessing.finalResult import getTestResult
-# from core.postprocessing.postproccessing import Test
-from core.ui.navigationdrawer import NavigationDrawer
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.button import Button
-from kivy.uix.actionbar import ActionBar, ActionButton, ActionPrevious
 from kivy.properties import  ObjectProperty
-# from core.classifier.prediction import output_his, prediction
+import arabic_reshaper
+from bidi.algorithm import get_display
 
-Config.set('graphics', 'width', '440')
-Config.set('graphics', 'height', '620')
-class Box(BoxLayout):
-    # def predict(self):
-    #     List = []
-    #     List = output_his()  # return list of vectors in  each image but in list
-    #     linelist = prediction(List)
+
+from core.classifier.prediction import output_his, prediction
+from core.postprocessing.finalResult import getTestResult
+
+
+class StudentListButton(ListItemButton):
+    selected_color = [0, 0, 0, 1]
+    deselected_color = [0, 0, 1, 1]
+    font_name = "Arial"
     pass
 
-class Landing(App):
-    def build(self):
-        return Box()
+class FeedbackLabel(Label):
+    font_name = "Arial"
+    pass
 
-class SUBoxLayout(BoxLayout):
+class LandingScreen(Screen):
+    pass
+
+class LoginScreen(Screen):
+    pass
+
+class SignUpScreen(Screen):
     male = ObjectProperty(True)
     female = ObjectProperty(False)
     pass
 
-class LoginApp(App):
-  pass
+class HomeScreen(Screen):
+    pass
 
-class SignUpApp(App):
-    def build(self):
-        return SUBoxLayout()
+class ResultScreen(Screen):
+    title = ObjectProperty()
+    first_list = ObjectProperty()
+    seoncd_list = ObjectProperty()
+    third_list = ObjectProperty()
+    def analysis(self):
+        List = []
+        List = output_his()  # return list of vectors in  each image but in list
+        linelist = prediction(List)
+        print(linelist)
+        counter = 0
+        self.title.text = linelist[0][0]
+        for test_name in linelist[0]:
+            counter = counter+1
+            if(counter == 1 or test_name == "not matched"):
+                continue
+            self.first_list.adapter.data.extend([test_name])
+            self.first_list._trigger_reset_populate()
+        for test_value in linelist[2]:
+            if (test_value == "none"):
+                continue
+            self.second_list.adapter.data.extend([test_value])
+            self.second_list._trigger_reset_populate()
+        feedback = getTestResult(linelist, 12, "male")
+        for test_feedback in feedback:
+            reshaped_text = arabic_reshaper.reshape(text=test_feedback)
+            unicode_text = get_display(reshaped_text)
+            self.third_list.adapter.data.extend([unicode_text])
+            self.third_list._trigger_reset_populate()
+    def on_enter(self, *args):
+        self.analysis()
 
-class Home(App):
+class ScreenManagement(ScreenManager):
+    pass
+
+presentation = Builder.load_file("main.kv")
+class MainApp(App):
     def build(self):
-        return Box()
-if __name__ == '__main__':
-    # List = []
-    # item=["MCH","20","Clinical chemistry","يزيد عند مرض النقرص"]
-    # List.append(item)
-    # for item in List:
-    #     print(item[0])
-    # Landing().run()
-    # Home().run()
-    # LoginApp().run()
-    SignUpApp().run()
-    # Menu().run()
-    # ResultScreenApp().run()
+        pass
+MainApp().run()

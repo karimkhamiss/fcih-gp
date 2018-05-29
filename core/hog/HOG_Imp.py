@@ -1,9 +1,6 @@
 import cv2
 import numpy as np
 import numpy.ma as ma
-from PIL import Image
-
-
 
 
 #Class Pixel Used As node
