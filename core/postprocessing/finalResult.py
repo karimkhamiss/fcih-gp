@@ -40,5 +40,5 @@ def getTestResult(tests,age,gender):
                     i = i + 2
 
     return resultsDes
-#test=Test(["Liver Diseases"],"ALbumin","digit",[(0,10),(3.4,5),(11,100),(7,10)],[(0,100),(3.4,5)],"يقل فى حالات سوء التغذية - يقل فى حالة أمراض الكبد"," يزيد عند وجود أمراض فى الكلى مثل الفشل الكلوى")
-#print(getTestResult(test,11,11,"male"))
+# test=Test(["Liver Diseases"],"ALbumin","digit",[(0,10),(3.4,5),(11,100),(7,10)],[(0,100),(3.4,5)],"يقل فى حالات سوء التغذية - يقل فى حالة أمراض الكبد"," يزيد عند وجود أمراض فى الكلى مثل الفشل الكلوى")
+# print(getTestResult(test,11,11,"male"))
