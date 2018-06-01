@@ -85,11 +85,9 @@ def prediction(List):
     return colList[:-1]                      #will be deleted
 
 
-1
+
 #calling
-# List = []
-# List = output_his()   #return list of vectors in  each image but in list
-# linelist= prediction(List)
-#
-#
-# print("linnnnnnnnnne ", getTestResult(linelist,12,"male"))
+#List = []
+#List = output_his()   #return list of vectors in  each image but in list
+#linelist= prediction(List)
+#print("linnnnnnnnnne ", getTestResult(linelist,12,"male"))

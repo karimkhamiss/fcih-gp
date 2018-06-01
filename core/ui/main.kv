@@ -459,12 +459,12 @@ ScreenManagement:
                             ListAdapter(data=[], cls=main.StudentListButton)
                     ListView:
                         id: second_list_view
-                        size_hint: .25, 1
+                        size_hint: .2, 1
                         adapter:
                             ListAdapter(data=[], cls=main.StudentListButton)
                     ListView:
                         id: third_list_view
-                        size_hint: .5, 1
+                        size_hint: .55, 1
                         adapter:
                             ListAdapter(data=[], cls=main.StudentListButton)
 
@@ -477,11 +477,30 @@ ScreenManagement:
 
 
 
-#        Button:
-#            size_hint: 1, .1
-#            background_normal:''
-#            background_color:0.2, 0.58, 0.992,1
-#            foreground_color:0.56,0.75,0.94
-#            text: "Capture another one ?"
-#            font_size:30
-#            pos_hint: {"left": 0, "bottom": 0}
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: .15
+            spacing:20
+            padding:[8,0,8,0]
+
+            Button:
+                size_hint:[1,None]
+                height: 32
+                pos_hint:{'y':.6}
+                background_normal: ''
+                background_color: 0.2,0.58 , 1,1
+                font_size: 16
+                text: "Capture Test"
+                color: 1,1,1,1
+                on_release:app.root.current = "home"
+
+            Button:
+                size_hint:[1,None]
+                height: 32
+                pos_hint:{'y':.6}
+                background_normal: ''
+                background_color: 0.2,0.58 , 1,1
+                font_size: 16
+                text: "Save Test"
+                color: 1,1,1,1
+                #on_release:app.root.current = "login"
