@@ -10,7 +10,8 @@ from bidi.algorithm import get_display
 
 from core.classifier.prediction import output_his, prediction
 from core.postprocessing.finalResult import getTestResult
-
+from kivy.core.window import Window
+Window.size = (280, 500)
 
 class StudentListButton(ListItemButton):
     selected_color = [0, 0, 0, 1]

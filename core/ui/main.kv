@@ -13,58 +13,46 @@ ScreenManagement:
     name:"landing"
     BoxLayout:
         orientation: 'vertical'
-
         canvas:
             Color:
                 rgb: .98, .98, .98,1
             Rectangle:
                 size: self.size
+
         BoxLayout:
             orientation: 'horizontal'
-            size_hint_y: .18
-            spacing:5
+            size_hint_y: .2
+            pos_hint:{'y':.5}
             BoxLayout:
                 orientation: 'vertical'
-                size_hint_x: .1
-                pos_hint:{'y':.46}
+                pos_hint:{'x':.5}
                 Image:
-                    source:'..\..\\resources\\ui\\doctor.png'
-                    pos_hint:{'right':1}
-                    size_hint:[None,None]
-                    width:50
-                    height:50
-            BoxLayout:
-                orientation: 'vertical'
-                size_hint_x: .15
-                pos_hint:{'y':.2}
-                Label:
-                    size_hint:[None,None]
-                    font_size: 26
-                    text: 'MedicaL\nAnalysis'
-                    bold:True
-                    color: .2,.58 , 1,1
+                    source:'..\..\\resources\\ui\\logo.png'
+                    size_hint:[1,1]
+
         BoxLayout:
             orientation: 'horizontal'
-            size_hint_y: .4
-            padding:[15,0,0,20]
+            size_hint_y: .35
+            padding:[20,15,15,15]
+
             Label:
-                text_size: root.width-30, None
-                pos_hint:{'y':.1}
+                text_size: root.width-40, None
+                pos_hint:{'y':0}
                 size: self.texture_size
-                font_size: 15
+                font_size: 16
                 text: "Description will appear here, Hand writing recognition is the ability of  computer to take as input hand writing from source, such as printed physical documents, pics and other devices. It also can use hand writing as a direct input to a touch screen and then interpret it as text. Description will end now after these words."
                 color: .45,.45,.45,1
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint_y: .15
+            size_hint_y: .2
             spacing:20
-            padding:[8,0,8,0]
+            padding:[8,30,8,30]
 
             Button:
                 size_hint:[1,None]
                 height: 32
-                pos_hint:{'y':.6}
+                pos_hint:{'y':.8}
                 background_normal: ''
                 background_color: 0.2,0.58 , 1,1
                 font_size: 16
@@ -75,7 +63,7 @@ ScreenManagement:
             Button:
                 size_hint:[1,None]
                 height: 32
-                pos_hint:{'y':.6}
+                pos_hint:{'y':.8}
                 background_normal: ''
                 background_color: 0.2,0.58 , 1,1
                 font_size: 16
