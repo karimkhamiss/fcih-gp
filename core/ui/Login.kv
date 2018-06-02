@@ -1,52 +1,60 @@
-#:kivy 1.10.0
-
-BoxLayout:
-    orientation: 'vertical'
-
-    canvas:
+<Box>:
+	canvas.before:
         Color:
-            rgb: .98, .98, .98,1
+            rgba: .98,.98,.98, 1
         Rectangle:
+            pos: self.pos
             size: self.size
+	orientation: 'vertical'
 
-    BoxLayout: #layout for logo
-        size_hint: 1,.3
-        Label:
-            text:'Logo is here'
-            color :0.2, 0.58, 0.992,1
-            font_size:30
-           # pos_hint: {'x': .1, 'y': .2}
+	BoxLayout:
+		orientation: 'horizontal'
+		size_hint: 1,.3
+		BoxLayout:
+			orientation: 'horizontal'
+			size_hint_y: 1
+			pos_hint:{'y':-.2}
+			Image:
+				source:'..\..\\resources\\ui\\logo.png'
+				size_hint:[1,1]
     FloatLayout:
         size_hint: 1,.7
         background_normal:''
         background_color:0,0,0,1
-        TextInput:
-            text: "User Name"
-            pos_hint: {"x": 0.25, "top": 1}
-            size_hint: .5, .1
+        
+		TextInput:
+            hint_text: "User Name"
+			font_size: 13
+            pos_hint: {"center_x": 0.5, "top": .9}
+            size_hint:[.6,None]
+			height: 32
             background_normal:''
             background_color:1, 1, 1,1
 
         TextInput:
-            text: "Password"
-            pos_hint: {"x": 0.25, "top": .8}
-            size_hint: .5, .1
+            hint_text: "Password"
+			font_size: 13
+			password:True
+            pos_hint: {"center_x": 0.5, "top": .7}
+            size_hint:[.6,None]
+			height: 32
             background_normal:''
             background_color:1, 1, 1,1
 
 
         Button:
             text: "Sign in"
-            pos_hint: {"center_x": .5, "center_y": .5}
-            size_hint: .3, .1
+            pos_hint: {"center_x": .5, "top": .5}
+            size_hint:[.6,None]
+			height: 32
             background_normal:''
             background_color:0.2, 0.58, 0.992,1
 
         Button:
-
-            size_hint: 1, .1
+		    text: "Don't have account"
+            pos_hint: {"center_x": .5, "center_y": 0.046}
+            size_hint:[1,None]
+			height: 32
             background_normal:''
             background_color:0.2, 0.58, 0.992,1
             foreground_color:0.56,0.75,0.94
-            text: "Don't have account"
-            pos_hint: {"left": 1, "bottom": 0}
