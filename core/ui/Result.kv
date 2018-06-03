@@ -1,52 +1,169 @@
-#:kivy 1.10.0
+<ResultScreen>:
+    name:"result"
+    title: title_view
+    first_list: first_list_view
+    second_list: second_list_view
+    third_list: third_list_view
+    BoxLayout:
+        orientation: 'vertical'
+        spacing:5
+        canvas:
+            Color:
+                rgb: .98, .98, .98,1
+            Rectangle:
+                size: self.size
 
-BoxLayout:
-    orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: [15,0,5,0]
+            size_hint:[None,None]
+            width: root.width
+            height:35
+            canvas.before:
+                Color:
+                    rgba: .2,.58,1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Button:
+                size_hint:[None,None]
+                pos_hint:{'center_y':.5}
+                height: 20
+                width:20
+                Image:
+                    source:'..\..\\resources\\ui\\menu.png'
+                    size_hint:[None,None]
+                    size: self.parent.size
+                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                    x: self.parent.x
+                    allow_stretch: True
 
-    canvas:
-        Color:
-            rgb: .98, .98, .98,1
-        Rectangle:
-            size: self.size
+            BoxLayout:
+                orientation: 'vertical'
+                pos_hint:{'y':.2}
+                Label:
+                    text_size: None, None
+                    size_hint:[None,None]
+                    pos_hint:{'center_x':.5}
+                    size: self.texture_size
+                    font_size: 17
+                    text: "Medical Analysis"
+                    color: 1,1,1, 1
+                    bold:True
 
-    BoxLayout: #layout for logo
-        size_hint: 1,.3
-        Label:
-            text:'Logo is here'
-            color :0.2, 0.58, 0.992,1
-            font_size:30
-           # pos_hint: {'x': .1, 'y': .2}
-    FloatLayout:
-        size_hint: 1,.7
-        background_normal:''
-        background_color:0,0,0,1
-        TextInput:
-            text: "User Name"
-            pos_hint: {"x": 0.25, "top": 1}
-            size_hint: .5, .1
-            background_normal:''
-            background_color:1, 1, 1,1
+        #title
+        BoxLayout:
+            orientation: 'vertical'
+            padding:[20,0,20,0]
+            spacing:10
 
-        TextInput:
-            text: "Password"
-            pos_hint: {"x": 0.25, "top": .8}
-            size_hint: .5, .1
-            background_normal:''
-            background_color:1, 1, 1,1
+            BoxLayout:
+                size_hint: 1, .18
+                orientation: 'vertical'
+                Label:
+                    text: "Analysis Result "
+                    color :0, .6, 0,1
+                    font_size:20
+                    size_hint: 1, .5
+
+                Label:
+                    id:title_view
+                    color :1, 0.2, 0.2,1
+                    font_size:20
+                    size_hint: 1, .5
+            BoxLayout:
+                orientation:'vertical'
+                BoxLayout:
+                    size_hint:[1,None]
+                    height:28
+                    orientation: 'horizontal'
+                    canvas:
+                        Color:
+                            rgba: 0.2, 0.58, 0.992,1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: .25, None
+                        height:28
+                        Label:
+                            text: "Name"
+                            background_normal:''
+                            background_color:0.2, 0.58, 0.992,1
+                            foreground_color:0.56,0.75,0.94
+                            font_size:16
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: .25, None
+                        height:28
+                        Label:
+                            text: "Result"
+                            background_normal:''
+                            background_color:0.2, 0.58, 0.992,1
+                            foreground_color:0.56,0.75,0.94
+                            font_size:16
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: .6, None
+                        height:28
+                        Label:
+                            text: "Feedback"
+                            background_normal:''
+                            background_color:0.2, 0.58, 0.992,1
+                            foreground_color:0.56,0.75,0.94
+                            font_size:16
 
 
-        Button:
-            text: "Sign in"
-            pos_hint: {"center_x": .5, "center_y": .5}
-            size_hint: .3, .1
-            background_normal:''
-            background_color:0.2, 0.58, 0.992,1
+                BoxLayout:
+                    size_hint: 1, .7
+                    orientation:'horizontal'
+                    background_normal:''
+                    background_color:1,1,1,1
+                    color :0.2, 0.58, 0.992,1
 
-        Button:
+                    ListView:
+                        size_hint: .25, 1
+                        id: first_list_view
+                        color :0.2, 0.58, 0.992,1
+                        adapter:
+                            ListAdapter(data=[], cls=main.StudentListButton)
+                    ListView:
+                        id: second_list_view
+                        size_hint: .2, 1
+                        adapter:
+                            ListAdapter(data=[], cls=main.StudentListButton)
+                    ListView:
+                        id: third_list_view
+                        size_hint: .55, 1
+                        adapter:
+                            ListAdapter(data=[], cls=main.StudentListButton)
 
-            size_hint: 1, .1
-            background_normal:''
-            background_color:0.2, 0.58, 0.992,1
-            foreground_color:0.56,0.75,0.94
-            text: "Don't have account"
-            pos_hint: {"left": 1, "bottom": 0}
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: .15
+            spacing:20
+            padding:[20,0,20,0]
+
+            Button:
+                size_hint:[1,None]
+                height: 28
+                pos_hint:{'top':.85}
+                background_normal: ''
+                background_color: 0.2,0.58 , 1,1
+                font_size: 16
+                text: "Capture Test"
+                color: 1,1,1,1
+                on_release:app.root.current = "home"
+
+            Button:
+                size_hint:[1,None]
+                height: 28
+                pos_hint:{'top':.85}
+                background_normal: ''
+                background_color: 0.2,0.58 , 1,1
+                font_size: 16
+                text: "Save Test"
+                color: 1,1,1,1
+                #on_release:app.root.current = "login"

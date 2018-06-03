@@ -1,0 +1,46 @@
+#:import Window kivy.core.window.Window
+<EditImageLayout>:
+    name:"crop"
+	rectangle_selector: rectangle_selector
+	text_size_rectangle: text_size_rectangle
+	image_layout: image_layout
+	bubble_buttons: bubble_buttons
+    canvas.before:
+        Color:
+            rgba: (1,1,1, 1)
+        Rectangle:
+            pos: self.pos
+			size: Window.width, Window.height
+
+	Label:
+		id: text_size_rectangle
+		pos_hint_x: None
+		pos_hint_y: None
+		pos: Window.width*.45, Window.height*.45
+		opacity:0
+
+	ImageLayout:
+		id: image_layout
+		size: Window.width, Window.height
+		pos: 0,0
+		size_hint: None, None
+		pos_hint_x: None
+		pos_hint_y: None
+	TouchSelector:
+		id: rectangle_selector
+	BubbleButtons:
+		id: bubble_buttons
+		size_hint: (None, None)
+		size: (50, 30)
+		pos_hint_x: None
+		pos_hint_y: None
+		pos: Window.width*.4, Window.height*.05
+		opacity:0
+		arrow_pos: 'top_mid'
+
+<BubbleButtons>:
+	resize_button: resize_button
+    BubbleButton:
+		id: resize_button
+        text: 'Crop'
+        on_release:app.root.current = "result"
