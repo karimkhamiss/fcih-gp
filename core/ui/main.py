@@ -37,6 +37,12 @@ class SignUpScreen(Screen):
 class HomeScreen(Screen):
     pass
 
+class CameraScreen(Screen):
+    def capture(self):
+        camera = self.ids['camera']
+        camera.export_to_png("captured.png")
+        print("Captured")
+
 class ResultScreen(Screen):
     title = ObjectProperty()
     first_list = ObjectProperty()
