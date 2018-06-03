@@ -3,14 +3,16 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.listview import ListItemButton
 from kivy.uix.screenmanager import Screen, ScreenManager
-from kivy.properties import  ObjectProperty
-import arabic_reshaper
+from kivy.properties import ObjectProperty, ListProperty, NumericProperty,StringProperty
 from bidi.algorithm import get_display
-
-
 from core.classifier.prediction import output_his, prediction
 from core.postprocessing.finalResult import getTestResult
 from kivy.core.window import Window
+from core.ui.image_layout import ImageLayout
+from core.ui.edit_image_layout import EditImageLayout
+from core.ui.bubble_buttons import BubbleButtons
+import arabic_reshaper
+
 Window.size = (280, 500)
 
 class StudentListButton(ListItemButton):
@@ -41,7 +43,6 @@ class CameraScreen(Screen):
     def capture(self):
         camera = self.ids['camera']
         camera.export_to_png("captured.png")
-        print("Captured")
 
 class ResultScreen(Screen):
     title = ObjectProperty()
@@ -74,12 +75,25 @@ class ResultScreen(Screen):
             self.third_list._trigger_reset_populate()
     def on_enter(self, *args):
         self.analysis()
+sm = ScreenManager()
+class EditImageScreen(Screen):
+    NAME_SCREEN = 'crop'
 
-class ScreenManagement(ScreenManager):
-    pass
+    def __init__(self, **kwargs):
+        kwargs.update({'name': self.NAME_SCREEN})
+        super(EditImageScreen, self).__init__(**kwargs)
+        self.layout = None
+
+    def on_pre_enter(self):
+        self.layout = EditImageLayout(sm=sm)
+        self.add_widget(self.layout)
 
 presentation = Builder.load_file("main.kv")
+
 class MainApp(App):
+    screens = [LandingScreen,SignUpScreen,LoginScreen,HomeScreen,CameraScreen,EditImageScreen,ResultScreen]
     def build(self):
-        pass
+        for class_screen in self.screens:
+            sm.add_widget(class_screen())
+        return sm
 MainApp().run()
