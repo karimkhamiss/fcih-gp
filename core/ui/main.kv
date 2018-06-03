@@ -13,6 +13,7 @@ ScreenManagement:
     name:"landing"
     BoxLayout:
         orientation: 'vertical'
+        padding: [15,15,15,15]
         canvas:
             Color:
                 rgb: .98, .98, .98,1
@@ -21,25 +22,25 @@ ScreenManagement:
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint_y: .2
-            pos_hint:{'y':.5}
+            size_hint_y: .23
             BoxLayout:
-                orientation: 'vertical'
-                pos_hint:{'x':.5}
+                orientation: 'horizontal'
+                size_hint_y: 1
+                pos_hint:{'y':-.2}
                 Image:
-                    source:'..\..\\resources\\ui\\logo.png' 
+                    source:'..\..\\resources\\ui\\logo.png'
                     size_hint:[1,1]
 
         BoxLayout:
             orientation: 'horizontal'
-            size_hint_y: .35
+            size_hint_y: .32
             padding:[20,15,15,15]
 
             Label:
                 text_size: root.width-40, None
                 pos_hint:{'y':0}
                 size: self.texture_size
-                font_size: 16
+                font_size: 15
                 text: "Description will appear here, Hand writing recognition is the ability of  computer to take as input hand writing from source, such as printed physical documents, pics and other devices. It also can use hand writing as a direct input to a touch screen and then interpret it as text. Description will end now after these words."
                 color: .45,.45,.45,1
 
@@ -52,7 +53,7 @@ ScreenManagement:
             Button:
                 size_hint:[1,None]
                 height: 32
-                pos_hint:{'y':.8}
+                pos_hint:{'y':.6}
                 background_normal: ''
                 background_color: 0.2,0.58 , 1,1
                 font_size: 16
@@ -63,7 +64,7 @@ ScreenManagement:
             Button:
                 size_hint:[1,None]
                 height: 32
-                pos_hint:{'y':.8}
+                pos_hint:{'y':.6}
                 background_normal: ''
                 background_color: 0.2,0.58 , 1,1
                 font_size: 16
@@ -81,48 +82,58 @@ ScreenManagement:
             Rectangle:
                 size: self.size
 
-        BoxLayout: #layout for logo
+        BoxLayout:
+            orientation: 'horizontal'
             size_hint: 1,.3
-            Label:
-                text:'Logo is here'
-                color :0.2, 0.58, 0.992,1
-                font_size:30
-               # pos_hint: {'x': .1, 'y': .2}
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 1
+                pos_hint:{'y':-.2}
+                Image:
+                    source:'..\..\\resources\\ui\\logo.png'
+                    size_hint:[1,1]
         FloatLayout:
             size_hint: 1,.7
             background_normal:''
             background_color:0,0,0,1
+
             TextInput:
-                text: "User Name"
-                pos_hint: {"x": 0.25, "top": 1}
-                size_hint: .5, .1
+                hint_text: "User Name"
+                font_size: 13
+                pos_hint: {"center_x": 0.5, "top": .9}
+                size_hint:[.6,None]
+                height: 32
                 background_normal:''
                 background_color:1, 1, 1,1
 
             TextInput:
-                text: "Password"
-                pos_hint: {"x": 0.25, "top": .8}
-                size_hint: .5, .1
+                hint_text: "Password"
+                font_size: 13
+                password:True
+                pos_hint: {"center_x": 0.5, "top": .7}
+                size_hint:[.6,None]
+                height: 32
                 background_normal:''
                 background_color:1, 1, 1,1
 
 
             Button:
                 text: "Sign in"
-                pos_hint: {"center_x": .5, "center_y": .5}
-                size_hint: .3, .1
+                pos_hint: {"center_x": .5, "top": .5}
+                size_hint:[.6,None]
+                height: 32
                 background_normal:''
                 background_color:0.2, 0.58, 0.992,1
                 on_release:app.root.current = "home"
 
             Button:
-
-                size_hint: 1, .1
+                text: "Don't have account"
+                pos_hint: {"center_x": .5, "center_y": 0.046}
+                size_hint:[1,None]
+                height: 32
                 background_normal:''
                 background_color:0.2, 0.58, 0.992,1
                 foreground_color:0.56,0.75,0.94
-                text: "Don't have account"
-                pos_hint: {"left": 1, "bottom": 0}
                 on_release:app.root.current = "signup"
 <CustLabel@Label>:
     color: 1, 0, 0, 1
