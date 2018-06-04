@@ -128,6 +128,30 @@ def add_user():
     pass
 def get_users():
     pass
+def get_user_id():
+    connection = open_db()
+    c = connection.cursor()
+    query = "SELECT user_id FROM main_users ORDER BY id DESC LIMIT 1"
+    c.execute(query)
+    data = c.fetchall()
+    close(connection)
+    return data[0][0]
+def get_age():
+    connection = open_db()
+    c = connection.cursor()
+    query = "SELECT age FROM users WHERE id = "+ str(get_user_id())+""
+    c.execute(query)
+    data = c.fetchall()
+    close(connection)
+    return data[0][0]
+def get_gender_type():
+    connection = open_db()
+    c = connection.cursor()
+    query = "SELECT type FROM genders JOIN users ON users.gender_id = genders.id WHERE users.id = "+ str(get_user_id())+""
+    c.execute(query)
+    data = c.fetchall()
+    close(connection)
+    return data[0][0]
 
 # create_tabels() # Function To Creat Tabels
 # data_entry() #Function To Fill Tabels (Enter Data To Tabels)

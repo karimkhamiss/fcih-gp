@@ -18,6 +18,8 @@ from core.ui.bubble_buttons import BubbleButtons
 import arabic_reshaper
 from db.database import login
 from db.database import signup
+from db.database import get_gender_type
+from db.database import get_age
 import time
 import sqlite3
 
@@ -88,6 +90,7 @@ class CameraScreen(Screen):
     def capture(self):
         camera = self.ids['camera']
         camera.export_to_png("captured.png")
+        sm.current = "crop"
     def on_enter(self, *args):
         self.open_camera()
 
@@ -121,16 +124,15 @@ class ResultScreen(Screen):
                 continue
             self.second_list.adapter.data.extend([test_value])
             self.second_list._trigger_reset_populate()
-        feedback = getTestResult(linelist, 12, "male")
+        feedback = getTestResult(linelist, get_age(),get_gender_type())
         for test_feedback in feedback:
             reshaped_text = arabic_reshaper.reshape(text=test_feedback)
             unicode_text = get_display(reshaped_text)
             self.third_list.adapter.data.extend([unicode_text])
             self.third_list._trigger_reset_populate()
 
-    # def on_enter(self, *args):
-    #     self.open_popup()
-    #     self.analysis()
+    def on_enter(self, *args):
+        self.analysis()
 class EditImageScreen(Screen):
     NAME_SCREEN = 'crop'
 
