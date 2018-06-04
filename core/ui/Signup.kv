@@ -7,6 +7,11 @@
 	height: 26
 <SignUpScreen>:
     name:"signup"
+    first_name_text_input: first_name
+    last_name_text_input: last_name
+    age_text_input: age
+    email_text_input: email
+    password_text_input: password
     BoxLayout:
         orientation: 'vertical'
         canvas:
@@ -32,10 +37,12 @@
 
             CusTxt:
                 hint_text: "First Name"
+                id:first_name
                 font_size: 13
                 pos_hint: {"center_x": 0.5, "top": 1}
             CusTxt:
                 hint_text: "Last Name"
+                id:last_name
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .88}
             CheckBox:
@@ -59,16 +66,19 @@
                 pos_hint: {"center_x": 0.69, "top": .76}
                 size_hint: .3, .09
             CusTxt:
-                hint_text: "Birthdate"
+                hint_text: "Age"
+                id:age
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .64}
             CusTxt:
                 hint_text: "Email"
+                id:email
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .52}
 
             CusTxt:
                 hint_text: "Password"
+                id:password
                 password: True
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .40}
@@ -78,9 +88,9 @@
                 size_hint: .3, .1
                 background_normal:''
                 background_color:0.2, 0.58, 0.992,1
-                on_release:app.root.current = "home"
+                on_release:root.signup()
             Button:
-                text: "Don't have account"
+                text: "Already Have Account?"
                 pos_hint: {"center_x": .5, "center_y": 0.046}
                 size_hint:[1,None]
                 height: 32
