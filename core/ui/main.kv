@@ -2,14 +2,6 @@
 #: import main main
 #: import ListAdapter kivy.adapters.listadapter.ListAdapter
 #: import ListItemButton kivy.uix.listview.ListItemButton
-ScreenManagement:
-    transition: FadeTransition()
-    LandingScreen:
-    LoginScreen:
-    SignUpScreen:
-    HomeScreen:
-    CameraScreen:
-    ResultScreen:
 <LandingScreen>:
     name:"landing"
     BoxLayout:
@@ -74,6 +66,8 @@ ScreenManagement:
                 on_release:app.root.current = "login"
 <LoginScreen>:
     name:"login"
+    email_text_input: email
+    password_text_input: password
     BoxLayout:
         orientation: 'vertical'
 
@@ -99,7 +93,9 @@ ScreenManagement:
             background_color:0,0,0,1
 
             TextInput:
+                id:email
                 hint_text: "User Name"
+#                text:"karim"
                 font_size: 13
                 pos_hint: {"center_x": 0.5, "top": .9}
                 size_hint:[.6,None]
@@ -108,7 +104,9 @@ ScreenManagement:
                 background_color:1, 1, 1,1
 
             TextInput:
+                id:password
                 hint_text: "Password"
+#                text:"123"
                 font_size: 13
                 password:True
                 pos_hint: {"center_x": 0.5, "top": .75}
@@ -116,8 +114,6 @@ ScreenManagement:
                 height: 32
                 background_normal:''
                 background_color:1, 1, 1,1
-
-
             Button:
                 text: "Sign in"
                 pos_hint: {"center_x": .5, "top": .6}
@@ -125,7 +121,7 @@ ScreenManagement:
                 height: 32
                 background_normal:''
                 background_color:0.2, 0.58, 0.992,1
-                on_release:app.root.current = "home"
+                on_release:root.login()
 
             Button:
                 text: "Don't have account"
@@ -145,6 +141,11 @@ ScreenManagement:
 	height: 26
 <SignUpScreen>:
     name:"signup"
+    first_name_text_input: first_name
+    last_name_text_input: last_name
+    age_text_input: age
+    email_text_input: email
+    password_text_input: password
     BoxLayout:
         orientation: 'vertical'
         canvas:
@@ -170,10 +171,12 @@ ScreenManagement:
 
             CusTxt:
                 hint_text: "First Name"
+                id:first_name
                 font_size: 13
                 pos_hint: {"center_x": 0.5, "top": 1}
             CusTxt:
                 hint_text: "Last Name"
+                id:last_name
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .88}
             CheckBox:
@@ -197,16 +200,19 @@ ScreenManagement:
                 pos_hint: {"center_x": 0.69, "top": .76}
                 size_hint: .3, .09
             CusTxt:
-                hint_text: "Birthdate"
+                hint_text: "Age"
+                id:age
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .64}
             CusTxt:
                 hint_text: "Email"
+                id:email
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .52}
 
             CusTxt:
                 hint_text: "Password"
+                id:password
                 password: True
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .40}
@@ -216,6 +222,7 @@ ScreenManagement:
                 size_hint: .3, .1
                 background_normal:''
                 background_color:0.2, 0.58, 0.992,1
+                on_release:root.signup()
             Button:
                 text: "Don't have account"
                 pos_hint: {"center_x": .5, "center_y": 0.046}
@@ -292,16 +299,6 @@ ScreenManagement:
                     size_hint:[None,.9]
                     pos_hint:{'center_x':.5}
                     width:120
-
-
-            Label:
-                text_size: None, None
-                size_hint:[None,None]
-                pos_hint:{'center_x':.5}
-                size: self.texture_size
-                font_size: 15
-                text: "Welcome, Muhammed Osama"
-                color: .2,.58,1, 1
             Label:
                 text_size: None, None
                 size_hint:[None,None]
@@ -359,20 +356,20 @@ ScreenManagement:
                     font_size: 16
                     text: "Capture"
                     color: 1,1,1,1
-                    on_release:app.root.current = "camera"
+#                    on_release:app.root.current = "camera"
 
-<CameraScreen>:
-    name:'camera'
-    orientation: 'vertical'
-    Camera:
-        id: camera
-        resolution: (640, 480)
-        play: True
-    Button:
-        text: 'Capture'
-        size_hint_y: None
-        height: '48dp'
-        on_press: root.capture()
+#<CameraScreen>:
+#    name:'camera'
+#    orientation: 'vertical'
+#    Camera:
+#        id: camera
+#        resolution: (640, 480)
+#        play: True
+#    Button:
+#        text: 'Capture'
+#        size_hint_y: None
+#        height: '48dp'
+#        on_press: root.capture()
 
 <ResultScreen>:
     name:"result"

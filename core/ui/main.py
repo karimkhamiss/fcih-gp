@@ -1,18 +1,27 @@
+import sqlite3
+
 from kivy.lang import Builder
 from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.listview import ListItemButton
+from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.properties import  ObjectProperty
 import arabic_reshaper
 from bidi.algorithm import get_display
+from db.database import login
+from db.database import signup
 
 
 from core.classifier.prediction import output_his, prediction
 from core.postprocessing.finalResult import getTestResult
 from kivy.core.window import Window
 Window.size = (280, 500)
-
+presentation = Builder.load_file("main.kv")
+sm = ScreenManager()
 class StudentListButton(ListItemButton):
     selected_color = [0, 0, 0, 1]
     deselected_color = [0, 0, 1, 1]
@@ -27,11 +36,42 @@ class LandingScreen(Screen):
     pass
 
 class LoginScreen(Screen):
+    email_text_input = ObjectProperty()
+    password_text_input = ObjectProperty()
+    def login(self):
+        email = self.email_text_input.text
+        password = self.password_text_input.text
+        if(len(login(email,password))>0):
+            sm.current = 'home'
+        else:
+            box = BoxLayout(orientation='vertical')
+            button = Button(text='Try Again?')
+            box.add_widget(Label(text='Wrong Email Or Password'))
+            box.add_widget(button)
+            popup = Popup(title='Login Status', content=box)
+            # popup = Popup(title='Login Status', content=Label(text='Wrong Email Or Password'),
+            #               auto_dismiss=False)
+            button.bind(on_press=popup.dismiss)
+            popup.open()
     pass
 
 class SignUpScreen(Screen):
     male = ObjectProperty(True)
     female = ObjectProperty(False)
+    first_name_text_input = ObjectProperty()
+    last_name_text_input = ObjectProperty()
+    age_text_input = ObjectProperty()
+    email_text_input = ObjectProperty()
+    password_text_input = ObjectProperty()
+    def signup(self):
+        first_name = self.first_name_text_input.text
+        last_name = self.last_name_text_input.text
+        age = self.age_text_input.text
+        email = self.email_text_input.text
+        password = self.password_text_input.text
+        gender = 1
+        signup(first_name, last_name,age,gender,email,password)
+        sm.current = 'home'
     pass
 
 class HomeScreen(Screen):
@@ -74,12 +114,13 @@ class ResultScreen(Screen):
             self.third_list._trigger_reset_populate()
     def on_enter(self, *args):
         self.analysis()
-
-class ScreenManagement(ScreenManager):
-    pass
-
-presentation = Builder.load_file("main.kv")
+sm.add_widget(LandingScreen(name='landing'))
+sm.add_widget(LoginScreen(name='login'))
+sm.add_widget(SignUpScreen(name='signup'))
+sm.add_widget(HomeScreen(name='home'))
+sm.add_widget(ResultScreen(name='result'))
+sm.add_widget(CameraScreen(name='camera'))
 class MainApp(App):
     def build(self):
-        pass
+        return sm
 MainApp().run()
