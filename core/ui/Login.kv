@@ -1,5 +1,7 @@
 <LoginScreen>:
     name:"login"
+    email_text_input: email
+    password_text_input: password
     BoxLayout:
         orientation: 'vertical'
 
@@ -25,7 +27,9 @@
             background_color:0,0,0,1
 
             TextInput:
+                id:email
                 hint_text: "User Name"
+#                text:"karim"
                 font_size: 13
                 pos_hint: {"center_x": 0.5, "top": .9}
                 size_hint:[.6,None]
@@ -34,7 +38,9 @@
                 background_color:1, 1, 1,1
 
             TextInput:
+                id:password
                 hint_text: "Password"
+#                text:"123"
                 font_size: 13
                 password:True
                 pos_hint: {"center_x": 0.5, "top": .75}
@@ -42,8 +48,6 @@
                 height: 32
                 background_normal:''
                 background_color:1, 1, 1,1
-
-
             Button:
                 text: "Sign in"
                 pos_hint: {"center_x": .5, "top": .6}
@@ -51,7 +55,7 @@
                 height: 32
                 background_normal:''
                 background_color:0.2, 0.58, 0.992,1
-                on_release:app.root.current = "home"
+                on_release:root.login()
 
             Button:
                 text: "Don't have account"
