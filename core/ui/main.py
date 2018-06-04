@@ -2,6 +2,7 @@ from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.listview import ListItemButton
 from kivy.uix.popup import Popup
@@ -17,6 +18,7 @@ from core.ui.bubble_buttons import BubbleButtons
 import arabic_reshaper
 from db.database import login
 from db.database import signup
+import time
 import sqlite3
 
 Window.size = (280, 500)
@@ -77,15 +79,30 @@ class HomeScreen(Screen):
     pass
 
 class CameraScreen(Screen):
+    def open_camera(self):
+        camera = self.ids['camera']
+        camera.play = True
+    def close_camera(self):
+        camera = self.ids['camera']
+        camera.play = False
     def capture(self):
         camera = self.ids['camera']
         camera.export_to_png("captured.png")
+    def on_enter(self, *args):
+        self.open_camera()
 
 class ResultScreen(Screen):
     title = ObjectProperty()
     first_list = ObjectProperty()
     seoncd_list = ObjectProperty()
     third_list = ObjectProperty()
+    def open_popup(self):
+        box = BoxLayout(orientation='vertical')
+        image = Image(source='..\..\\resources\\ui\\loading.gif')
+        box.add_widget(Label(text='Please Wait'))
+        box.add_widget(image)
+        popup = Popup(title='', separator_height=0, content=box,auto_dismiss=False)
+        popup.open()
     def analysis(self):
         List = []
         List = output_his()  # return list of vectors in  each image but in list
@@ -110,8 +127,10 @@ class ResultScreen(Screen):
             unicode_text = get_display(reshaped_text)
             self.third_list.adapter.data.extend([unicode_text])
             self.third_list._trigger_reset_populate()
-    def on_enter(self, *args):
-        self.analysis()
+
+    # def on_enter(self, *args):
+    #     self.open_popup()
+    #     self.analysis()
 class EditImageScreen(Screen):
     NAME_SCREEN = 'crop'
 
