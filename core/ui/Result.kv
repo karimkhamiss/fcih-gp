@@ -30,13 +30,13 @@
                 pos_hint:{'center_y':.5}
                 height: 20
                 width:20
-                Image:
-                    source:'..\..\\resources\\ui\\menu.png'
-                    size_hint:[None,None]
-                    size: self.parent.size
-                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
-                    x: self.parent.x
-                    allow_stretch: True
+#                Image:
+#                    source:'..\..\\resources\\ui\\menu.png'
+#                    size_hint:[None,None]
+#                    size: self.parent.size
+#                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+#                    x: self.parent.x
+#                    allow_stretch: True
 
             BoxLayout:
                 orientation: 'vertical'
@@ -114,7 +114,6 @@
                             background_color:0.2, 0.58, 0.992,1
                             foreground_color:0.56,0.75,0.94
                             font_size:16
-
 
                 BoxLayout:
                     size_hint: 1, .7
