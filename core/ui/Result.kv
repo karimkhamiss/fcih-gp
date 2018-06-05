@@ -30,13 +30,13 @@
                 pos_hint:{'center_y':.5}
                 height: 20
                 width:20
-#                Image:
-#                    source:'..\..\\resources\\ui\\menu.png'
-#                    size_hint:[None,None]
-#                    size: self.parent.size
-#                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
-#                    x: self.parent.x
-#                    allow_stretch: True
+                Image:
+                    source:'..\..\\resources\\ui\\menu.png'
+                    size_hint:[None,None]
+                    size: self.parent.size
+                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                    x: self.parent.x
+                    allow_stretch: True
 
             BoxLayout:
                 orientation: 'vertical'
@@ -47,7 +47,7 @@
                     pos_hint:{'center_x':.5}
                     size: self.texture_size
                     font_size: 17
-                    text: "Medical Analysis"
+                    text: "Analysis Result"
                     color: 1,1,1, 1
                     bold:True
 
@@ -58,19 +58,15 @@
             spacing:10
 
             BoxLayout:
-                size_hint: 1, .18
+                size_hint: 1, None
+                height:35
                 orientation: 'vertical'
                 Label:
-                    text: "Analysis Result "
-                    color :0, .6, 0,1
-                    font_size:20
-                    size_hint: 1, .5
-
-                Label:
                     id:title_view
-                    color :1, 0.2, 0.2,1
-                    font_size:20
-                    size_hint: 1, .5
+                    color :0, .6, 0,1
+                    font_size:18
+                    bold:True
+                    size_hint: 1, 1
             BoxLayout:
                 orientation:'vertical'
                 BoxLayout:
@@ -120,12 +116,10 @@
                     orientation:'horizontal'
                     background_normal:''
                     background_color:1,1,1,1
-                    color :0.2, 0.58, 0.992,1
 
                     ListView:
                         size_hint: .25, 1
                         id: first_list_view
-                        color :0.2, 0.58, 0.992,1
                         adapter:
                             ListAdapter(data=[], cls=main.StudentListButton)
                     ListView:
