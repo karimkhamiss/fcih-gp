@@ -1,0 +1,59 @@
+<MedicalHistoryScreen>:
+    name:"medical"
+	BoxLayout:
+        canvas.before:
+            Color:
+                rgba: .98,.98,.98, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        orientation: 'vertical'
+        padding: [0,0,0,10]
+        spacing:10
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: [15,0,5,0]
+            size_hint:[None,None]
+            width: root.width
+            height:35
+            canvas.before:
+                Color:
+                    rgba: .2,.58,1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Button:
+                size_hint:[None,None]
+                pos_hint:{'center_y':.5}
+                height: 20
+                width:20
+                Image:
+                    source: '..\..\\resources\\ui\\menu.png'
+                    size_hint:[None,None]
+                    size: self.parent.size
+                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                    x: self.parent.x
+                    allow_stretch: True
+
+            BoxLayout:
+                orientation: 'vertical'
+                pos_hint:{'y':.2}
+                Label:
+                    text_size: None, None
+                    size_hint:[None,None]
+                    pos_hint:{'center_x':.5}
+                    size: self.texture_size
+                    font_size: 17
+                    text: "Medical History"
+                    color: 1,1,1, 1
+                    bold:True
+
+        BoxLayout:
+            id:grid
+            orientation: 'horizontal'
+            size_hint:[None,1]
+            width: root.width-20
+            pos_hint :{'center_x':.5}
+
