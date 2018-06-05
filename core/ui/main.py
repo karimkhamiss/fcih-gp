@@ -100,6 +100,8 @@ class SignUpScreen(Screen):
 class HomeScreen(Screen):
     pass
 
+class HowToCropScreen(Screen):
+    pass
 class CameraScreen(Screen):
     def open_camera(self):
         camera = self.ids['camera']
@@ -168,7 +170,7 @@ class EditImageScreen(Screen):
 presentation = Builder.load_file("main.kv")
 
 class MainApp(App):
-    screens = [LandingScreen,SignUpScreen,LoginScreen,HomeScreen,CameraScreen,EditImageScreen,ResultScreen]
+    screens = [LandingScreen,SignUpScreen,LoginScreen,HomeScreen,HowToCropScreen,CameraScreen,EditImageScreen,ResultScreen]
     def build(self):
         for class_screen in self.screens:
             sm.add_widget(class_screen())

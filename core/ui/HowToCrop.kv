@@ -1,0 +1,21 @@
+<HowToCropScreen>:
+    name:"HowToCrop"
+    Image:
+        source:"how_to_crop.gif"
+		size: Window.width, Window.height
+		pos: 0,0
+		size_hint: None, None
+		anim_delay:1
+		pos_hint_x: None
+		pos_hint_y: None
+	Button:
+        size_hint:[None,None]
+        pos_hint:{'center_x':.5}
+        height: 30
+        width:80
+        background_normal: ''
+        background_color: 0.2,0.58 , 1,1
+        font_size: 16
+        text: "Ready?"
+        color: 1,1,1,1
+        on_release:app.root.current = "camera"
