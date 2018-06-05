@@ -47,12 +47,18 @@ class LoginScreen(Screen):
     def login(self):
         username = self.username_text_input.text
         password = self.password_text_input.text
-        validation.check_empty(username)
-        # sm.current = 'home'
-        if(len(login(username,password))>0):
-            sm.current = 'home'
-        else:
-            MainPopup(title="Login Status",txt="Wrong Username Or Password",button="Try Again",width=None, height=None)
+        login_inputs_flag = 1
+        if(validation.check_empty(username) or validation.check_empty(password) ):
+            login_inputs_flag = 0
+            MainPopup(title="Empty Fields",txt="Please fill all fields",button="Try Again?",width=None, height=None)
+        elif(not validation.check_name(username)):
+            login_inputs_flag = 0
+            MainPopup(title="Invalid Username",txt="Username must be started with a letter",button="Try Again?",width=None, height=None)
+        if(login_inputs_flag):
+            if(len(login(username,password))>0):
+                sm.current = 'home'
+            else:
+                MainPopup(title="Login Status",txt="Wrong Username Or Password",button="Try Again",width=None, height=None)
     pass
 
 class SignUpScreen(Screen):
@@ -74,9 +80,21 @@ class SignUpScreen(Screen):
         birthdate = self.birthdate_text_input.text
         username = self.username_text_input.text
         password = self.password_text_input.text
-
-        signup(first_name, last_name,birthdate,gender,username,password)
-        sm.current = 'home'
+        signup_inputs_flag = 1
+        if(validation.check_empty(first_name) or validation.check_empty(last_name) or
+                validation.check_empty(birthdate) or validation.check_empty(username) or validation.check_empty(password)):
+            signup_inputs_flag = 0
+            MainPopup(title="Empty Fields",txt="Please fill all fields",button="Try Again?",width=None, height=None)
+        elif(not validation.check_name(first_name) or not validation.check_name(last_name) or
+                not validation.check_name(username)):
+            signup_inputs_flag = 0
+            MainPopup(title="Invalid Name",txt="Name must be started with a letter",button="Try Again?",width=None, height=None)
+        elif(not validation.check_date(birthdate)):
+            signup_inputs_flag = 0
+            MainPopup(title="Invalid Birthdate",txt="Birthdate must be in this format day/month/year",button="Try Again?",width=None, height=None)
+        if(signup_inputs_flag):
+            signup(first_name, last_name,birthdate,gender,username,password)
+            sm.current = 'home'
     pass
 
 class HomeScreen(Screen):

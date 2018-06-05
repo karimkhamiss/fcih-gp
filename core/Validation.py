@@ -12,19 +12,19 @@ class validation():
 
 
     def check_date(input_date):
-        match=re.match(r'(\d{2}/\d{2}/\d{4})',input_date)
+        match=re.match(r'(\d+/\d+/\d{4})',input_date)
         if match== None:
-            return False
             print("Error")
+            return False
         else:
-            return True
             print("Done")
+            return True
 
-    def check_names(input_str):
-        match=re.match(r'(^[a-zA-Z]+)?(^[a-zA-Z]+[0-9])',input_str)
+    def check_name(input_str):
+        match=re.match(r'(^[a-zA-Z]+)|(^[a-zA-Z]+[0-9])',input_str)
         if match== None:
-            return False
             print("Error")
+            return False
         else:
-            return True
             print("Done")
+            return True

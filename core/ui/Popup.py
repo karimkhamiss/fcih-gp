@@ -11,7 +11,7 @@ from kivy.uix.modalview import ModalView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 class MainPopup(ModalView):
-    def __init__(self, title, txt,button, callback=None, alpha=0.95,
+    def __init__(self, title, txt,button, callback=None, alpha=0.8,
                  width=None, height=None, **kwargs):
         super(MainPopup, self).__init__(**kwargs)
 
