@@ -9,8 +9,10 @@
     name:"signup"
     first_name_text_input: first_name
     last_name_text_input: last_name
-    age_text_input: age
-    email_text_input: email
+    birthdate_text_input: birthdate
+    male_check_box: male
+    female_check_box: female
+    username_text_input: username
     password_text_input: password
     BoxLayout:
         orientation: 'vertical'
@@ -47,7 +49,7 @@
                 pos_hint: {"center_x": .5, "top": .88}
             CheckBox:
                 group: "gender"
-                value: root.male
+                id:male
                 pos_hint: {"center_x": 0.25, "top": .76}
                 size_hint: .1, .09
             CustLabel:
@@ -57,7 +59,7 @@
                 size_hint: .3, .09
             CheckBox:
                 group: "gender"
-                value: root.female
+                id:female
                 pos_hint: {"center_x": 0.55, "top": .76}
                 size_hint: .1, .09
             CustLabel:
@@ -66,13 +68,13 @@
                 pos_hint: {"center_x": 0.69, "top": .76}
                 size_hint: .3, .09
             CusTxt:
-                hint_text: "Age"
-                id:age
+                hint_text: "Birthdate d/m/y"
+                id:birthdate
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .64}
             CusTxt:
-                hint_text: "Email"
-                id:email
+                hint_text: "Username"
+                id:username
                 font_size: 13
                 pos_hint: {"center_x": .5, "top": .52}
 

@@ -16,10 +16,10 @@ from core.ui.image_layout import ImageLayout
 from core.ui.edit_image_layout import EditImageLayout
 from core.ui.bubble_buttons import BubbleButtons
 import arabic_reshaper
-from db.database import login
-from db.database import signup
-from db.database import get_gender_type
-from db.database import get_age
+from core.db.database import login
+from core.db.database import signup
+from core.db.database import get_gender_type
+from core.db.database import get_age
 import time
 import sqlite3
 
@@ -39,17 +39,17 @@ class LandingScreen(Screen):
     pass
 
 class LoginScreen(Screen):
-    email_text_input = ObjectProperty()
+    username_text_input = ObjectProperty()
     password_text_input = ObjectProperty()
     def login(self):
-        email = self.email_text_input.text
+        username = self.username_text_input.text
         password = self.password_text_input.text
-        if(len(login(email,password))>0):
+        if(len(login(username,password))>0):
             sm.current = 'home'
         else:
             box = BoxLayout(orientation='vertical')
             button = Button(text='Try Again?')
-            box.add_widget(Label(text='Wrong Email Or Password'))
+            box.add_widget(Label(text='Wrong Username Or Password'))
             box.add_widget(button)
             popup = Popup(title='Login Status', content=box)
             # popup = Popup(title='Login Status', content=Label(text='Wrong Email Or Password'),
@@ -59,21 +59,23 @@ class LoginScreen(Screen):
     pass
 
 class SignUpScreen(Screen):
-    male = ObjectProperty(True)
-    female = ObjectProperty(False)
+    male_check_box = ObjectProperty(None)
+    female_check_box = ObjectProperty(None)
     first_name_text_input = ObjectProperty()
     last_name_text_input = ObjectProperty()
-    age_text_input = ObjectProperty()
-    email_text_input = ObjectProperty()
+    birthdate_text_input = ObjectProperty()
+    username_text_input = ObjectProperty()
     password_text_input = ObjectProperty()
     def signup(self):
+        gender = 1
+        if self.female_check_box.active:
+           gender = 2
         first_name = self.first_name_text_input.text
         last_name = self.last_name_text_input.text
-        age = self.age_text_input.text
-        email = self.email_text_input.text
+        birthdate = self.birthdate_text_input.text
+        username = self.username_text_input.text
         password = self.password_text_input.text
-        gender = 1
-        signup(first_name, last_name,age,gender,email,password)
+        signup(first_name, last_name,birthdate,gender,username,password)
         sm.current = 'home'
     pass
 
