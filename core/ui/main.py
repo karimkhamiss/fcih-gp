@@ -22,6 +22,7 @@ from core.db.database import login
 from core.db.database import signup
 from core.db.database import get_gender_type
 from core.db.database import get_age
+from core.ui.Popup import MainPopup
 import time
 import sqlite3
 
@@ -47,18 +48,11 @@ class LoginScreen(Screen):
         username = self.username_text_input.text
         password = self.password_text_input.text
         validation.check_empty(username)
+        # sm.current = 'home'
         if(len(login(username,password))>0):
             sm.current = 'home'
         else:
-            box = BoxLayout(orientation='vertical')
-            button = Button(text='Try Again?')
-            box.add_widget(Label(text='Wrong Username Or Password'))
-            box.add_widget(button)
-            popup = Popup(title='Login Status', content=box)
-            # popup = Popup(title='Login Status', content=Label(text='Wrong Email Or Password'),
-            #               auto_dismiss=False)
-            button.bind(on_press=popup.dismiss)
-            popup.open()
+            MainPopup(title="Login Status",txt="Wrong Username Or Password",button="Try Again",width=None, height=None)
     pass
 
 class SignUpScreen(Screen):
