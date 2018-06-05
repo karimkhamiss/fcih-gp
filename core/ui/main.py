@@ -9,6 +9,8 @@ from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.properties import ObjectProperty, ListProperty, NumericProperty,StringProperty
 from bidi.algorithm import get_display
+
+from core.Validation import validation
 from core.classifier.prediction import output_his, prediction
 from core.postprocessing.finalResult import getTestResult
 from kivy.core.window import Window
@@ -44,6 +46,7 @@ class LoginScreen(Screen):
     def login(self):
         username = self.username_text_input.text
         password = self.password_text_input.text
+        validation.check_empty(username)
         if(len(login(username,password))>0):
             sm.current = 'home'
         else:
@@ -70,11 +73,14 @@ class SignUpScreen(Screen):
         gender = 1
         if self.female_check_box.active:
            gender = 2
+
+
         first_name = self.first_name_text_input.text
         last_name = self.last_name_text_input.text
         birthdate = self.birthdate_text_input.text
         username = self.username_text_input.text
         password = self.password_text_input.text
+
         signup(first_name, last_name,birthdate,gender,username,password)
         sm.current = 'home'
     pass
