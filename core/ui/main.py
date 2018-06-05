@@ -8,10 +8,9 @@ from kivy.uix.label import Label
 from kivy.uix.listview import ListItemButton
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen, ScreenManager
-from kivy.properties import ObjectProperty, ListProperty, NumericProperty, StringProperty, Logger
+from kivy.properties import ObjectProperty, ListProperty, NumericProperty,StringProperty
 from bidi.algorithm import get_display
 from kivy.uix.scrollview import ScrollView
-
 from core.classifier.prediction import output_his, prediction
 from core.postprocessing.finalResult import getTestResult
 from kivy.core.window import Window
@@ -29,8 +28,8 @@ import sqlite3
 Window.size = (280, 500)
 sm = ScreenManager()
 class StudentListButton(ListItemButton):
-    selected_color = [0, 0, 0, 1]
-    deselected_color = [0, 0, 1, 1]
+    #selected_color = [1, 1, 1, 1]
+    deselected_color = [1,1,1, 1]
     font_name = "Arial"
     pass
 
@@ -138,6 +137,7 @@ class ResultScreen(Screen):
 
     def on_enter(self, *args):
         self.analysis()
+
 class EditImageScreen(Screen):
     NAME_SCREEN = 'crop'
 
@@ -149,10 +149,12 @@ class EditImageScreen(Screen):
     def on_pre_enter(self):
         self.layout = EditImageLayout(sm=sm)
         self.add_widget(self.layout)
+
 class MedicalHistoryScreen(Screen):
+    def navigate(self,instance):
+        sm.current = 'result'
 
     def on_enter(self):
-
         # create a grid layout
         layout = GridLayout(cols=1, padding=10, spacing=10,
                             size_hint=(1, None))
@@ -161,6 +163,7 @@ class MedicalHistoryScreen(Screen):
         for i in range(20):
             btn = Button(text="Complete Blood Picture "+str(i), size_hint=(1, None), height=28, background_normal=''
                          , background_color=(.9,.9,.9, 1),color= (0.45,0.45,0.45,1))
+            btn.bind(on_press=self.navigate)
             layout.add_widget(btn)
 
         # create a scroll view
@@ -170,6 +173,7 @@ class MedicalHistoryScreen(Screen):
         root = self.ids.grid
         root.add_widget(scroll)
         return root
+
 
 presentation = Builder.load_file("main.kv")
 

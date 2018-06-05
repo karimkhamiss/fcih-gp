@@ -10,7 +10,7 @@
 
         orientation: 'vertical'
         padding: [0,0,0,10]
-        spacing:10
+        spacing:5
 
         BoxLayout:
             orientation: 'horizontal'
@@ -29,6 +29,7 @@
                 pos_hint:{'center_y':.5}
                 height: 20
                 width:20
+                #on_release:app.root.current = ""
                 Image:
                     source: '..\..\\resources\\ui\\menu.png'
                     size_hint:[None,None]
