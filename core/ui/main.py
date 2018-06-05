@@ -2,6 +2,7 @@ from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.listview import ListItemButton
@@ -9,6 +10,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.properties import ObjectProperty, ListProperty, NumericProperty,StringProperty
 from bidi.algorithm import get_display
+from kivy.uix.scrollview import ScrollView
 
 from core.Validation import validation
 from core.classifier.prediction import output_his, prediction
@@ -29,8 +31,8 @@ import sqlite3
 Window.size = (280, 500)
 sm = ScreenManager()
 class StudentListButton(ListItemButton):
-    selected_color = [0, 0, 0, 1]
-    deselected_color = [0, 0, 1, 1]
+    #selected_color = [1, 1, 1, 1]
+    deselected_color = [1,1,1, 1]
     font_name = "Arial"
     pass
 
@@ -155,6 +157,29 @@ class ResultScreen(Screen):
 
     def on_enter(self, *args):
         self.analysis()
+class MedicalHistoryScreen(Screen):
+    def navigate(self,instance):
+        sm.current = 'result'
+
+    def on_enter(self):
+        # create a grid layout
+        layout = GridLayout(cols=1, padding=10, spacing=10,
+                            size_hint=(1, None))
+        layout.bind(minimum_height=layout.setter('height'))
+        # add button into that grid
+        for i in range(20):
+            btn = Button(text="Complete Blood Picture "+str(i), size_hint=(1, None), height=28, background_normal=''
+                         , background_color=(.9,.9,.9, 1),color= (0.45,0.45,0.45,1))
+            btn.bind(on_press=self.navigate)
+            layout.add_widget(btn)
+
+        # create a scroll view
+        scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
+        scroll.add_widget(layout)
+
+        root = self.ids.grid
+        root.add_widget(scroll)
+        return root
 class EditImageScreen(Screen):
     NAME_SCREEN = 'crop'
 
@@ -170,7 +195,7 @@ class EditImageScreen(Screen):
 presentation = Builder.load_file("main.kv")
 
 class MainApp(App):
-    screens = [LandingScreen,SignUpScreen,LoginScreen,HomeScreen,HowToCropScreen,CameraScreen,EditImageScreen,ResultScreen]
+    screens = [LandingScreen,SignUpScreen,LoginScreen,HomeScreen,HowToCropScreen,CameraScreen,EditImageScreen,ResultScreen,MedicalHistoryScreen]
     def build(self):
         for class_screen in self.screens:
             sm.add_widget(class_screen())
