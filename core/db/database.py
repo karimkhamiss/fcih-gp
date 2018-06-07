@@ -2,11 +2,64 @@
 
 import sqlite3
 
-# conn = sqlite3.connect('db.db')
-# c=conn.cursor()
+conn = sqlite3.connect('db.db')
+c=conn.cursor()
 from datetime import date
-
-
+categories = [
+    "Liver Diseases",
+    "Clinical chemistry",
+    "Diabetes",
+    "Lipid Profile",
+    "Vitamin",
+    "Drug",
+    "complete blood picture"
+]
+category_1_tests = [
+    "Bilirubin, Total",
+    "ALbumin",
+    "Aspartate Aminotransferase",
+    "Bil D",
+    "Bilirubin, Direct",
+    "Bil T",
+]
+category_2_tests = [
+    "Urea",
+    "Uric Acid",
+    "Creatinine",
+    "GGT",
+    "CA",
+]
+category_3_tests = [
+    "Insulin",
+    "Glucose Blood",
+    "CA",
+]
+category_4_tests = [
+    "Lipid Profile",
+    "Cholesterol",
+    "Triglycerides",
+]
+category_5_tests = [
+    "Vitamin E",
+    "Vitamin A",
+]
+category_6_tests = [
+    "Alcohol"
+]
+category_7_tests = [
+    "D Dimer",
+    "Fibrinogen",
+    "PCV",
+    "Haemoglobin",
+    "Iron",
+    "Red Blood Count",
+    "MCH",
+    "MCHC",
+    "MCV",
+    "Platelet Count",
+    "WBCs Count",
+]
+print(categories)
 def create_tabels():
 
     c.execute('''CREATE TABLE IF NOT EXISTS genders (
@@ -54,9 +107,30 @@ def data_entry():
     c.execute('''INSERT INTO genders ('type') VALUES('female');''')
 
     # c.execute('''INSERT INTO users ('first_name','last_name','gender','age') VALUES ('Karim','Khamiss',1,'21');''')
-
-    # c.execute('''INSERT INTO categories VALUES(1,'category1');''')
-    # c.execute('''INSERT INTO categories VALUES(2,'category2');''')
+    for category in categories :
+        query = "insert into categories ('name') VALUES ('" + category + "')"
+        c.execute(query)
+    for test in category_1_tests :
+        query = "insert into tests ('name','category_id') VALUES ('" + test + "',1)"
+        c.execute(query)
+    for test in category_2_tests :
+        query = "insert into tests ('name','category_id') VALUES ('" + test + "',2)"
+        c.execute(query)
+    for test in category_3_tests :
+        query = "insert into tests ('name','category_id') VALUES ('" + test + "',3)"
+        c.execute(query)
+    for test in category_4_tests :
+        query = "insert into tests ('name','category_id') VALUES ('" + test + "',4)"
+        c.execute(query)
+    for test in category_5_tests :
+        query = "insert into tests ('name','category_id') VALUES ('" + test + "',5)"
+        c.execute(query)
+    for test in category_6_tests :
+        query = "insert into tests ('name','category_id') VALUES ('" + test + "',6)"
+        c.execute(query)
+    for test in category_7_tests :
+        query = "insert into tests ('name','category_id') VALUES ('" + test + "',7)"
+        c.execute(query)
     # c.execute('''INSERT INTO categories VALUES(3,'category3');''')
     #
     # c.execute('''INSERT INTO tests VALUES(1,'test1',3);''')
@@ -129,10 +203,10 @@ def get_gender_type():
     data = c.fetchall()
     close(connection)
     return data[0][0]
-# create_tabels() # Function To Creat Tabels
-# data_entry() #Function To Fill Tabels (Enter Data To Tabels)
-# commit(conn)
-# close(conn)
+create_tabels() # Function To Creat Tabels
+data_entry() #Function To Fill Tabels (Enter Data To Tabels)
+commit(conn)
+close(conn)
 # login("karim","123") #Function To Read and Retrive data from tabels
 # first_name = "Karim"
 # last_name = "Khamiss"
