@@ -154,7 +154,6 @@ class ResultScreen(Screen):
             unicode_text = get_display(reshaped_text)
             self.third_list.adapter.data.extend([unicode_text])
             self.third_list._trigger_reset_populate()
-
     def on_enter(self, *args):
         self.analysis()
 class MedicalHistoryScreen(Screen):

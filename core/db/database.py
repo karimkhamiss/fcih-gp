@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sqlite3
+from random import randint
 
 conn = sqlite3.connect('db.db')
 c=conn.cursor()
@@ -92,13 +93,19 @@ def create_tabels():
 
     c.execute('''CREATE TABLE IF NOT EXISTS medical_histories (
      id integer NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
-     test_id integer NOT NULL,
-     percetage text NOT NULL,
-     description text NOT NULL,
+     category_name integer NOT NULL,
      user_id integer NOT NULL,
      date text NOT NULL,
-     FOREIGN KEY (test_id) REFERENCES tests(id),
      FOREIGN KEY (user_id) REFERENCES users(id)
+    );''')
+    c.execute('''CREATE TABLE IF NOT EXISTS medical_histories_tests (
+     id integer NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
+     medical_history_id integer NOT NULL,
+     test_id integer NOT NULL,
+     value text NOT NULL,
+     description text,
+    FOREIGN KEY (medical_history_id) REFERENCES medical_histories(id),
+    FOREIGN KEY (test_id) REFERENCES tests(id)
     );''')
     print("Tables created successfully")
 
@@ -131,15 +138,6 @@ def data_entry():
     for test in category_7_tests :
         query = "insert into tests ('name','category_id') VALUES ('" + test + "',7)"
         c.execute(query)
-    # c.execute('''INSERT INTO categories VALUES(3,'category3');''')
-    #
-    # c.execute('''INSERT INTO tests VALUES(1,'test1',3);''')
-    # c.execute('''INSERT INTO tests VALUES(2,'test2',2);''')
-    # c.execute('''INSERT INTO tests VALUES(3,'test3',1);''')
-    #
-    # c.execute('''INSERT INTO medical_histories VALUES(1,3,'70%','medical1',1,'01/01/2018');''')
-    # c.execute('''INSERT INTO medical_histories VALUES(2,2,'50%','medical1',2,'02/02/2018');''')
-    # c.execute('''INSERT INTO medical_histories VALUES(3,1,'20%','medical1',3,'03/03/2018');''')
     print("Data entry Done")
 def open_db():
     connection = sqlite3.connect('..\db\db.db')
@@ -203,6 +201,26 @@ def get_gender_type():
     data = c.fetchall()
     close(connection)
     return data[0][0]
+def get_test_id(test_name):
+    connection = open_db()
+    c = connection.cursor()
+    query = "SELECT id FROM tests WHERE name = "+test_name+""
+    c.execute(query)
+    data = c.fetchall()
+    close(connection)
+    return data[0][0]
+def add_medical_history(category_name):
+    connection = open_db()
+    c = connection.cursor()
+    query = "insert into medical_histories ('category_name','user_id','date') " \
+            "VALUES ('" + category_name + "' ,'" + last_name + "','" + str(get_user_id()) + "','" + date + "')"
+    c.execute(query)
+    commit(connection)
+    close(connection)
+
+def save_test(test_id,test_value,description,user_id):
+    pass
+
 create_tabels() # Function To Creat Tabels
 data_entry() #Function To Fill Tabels (Enter Data To Tabels)
 commit(conn)
