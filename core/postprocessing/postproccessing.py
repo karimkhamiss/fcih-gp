@@ -32,16 +32,28 @@ testsList = []
 
 
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"D Dimer","digit",[(0,100),(1,500)],[(0,100),(1,500)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Fibrinogen","digit",[(0,100),(1,500)],[(0,100),(1,500)]," ","يزيد فى حالة الأمراض الخبيثة و أمراض الكبد "))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Fibrinogen","digit",[(0,100),(200,400)],[(0,100),(200,400)]," ","يزيد فى حالة الأمراض الخبيثة و أمراض الكبد "))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"PCV","digit",[(0,100),(40.7,50.3)],[(0,100),(36.1,44.3)]," يقل عند الانيميا و فقر الدم","يزيد عند زيادة نسبة الحديد فى الدم"))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","Hematocrit","complete blood picture"],"Haemoglobin","digit",[(0,100),(13.5,17.5)],[(0,100),(12,15.5)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC"],"Iron","digit",[(0,100),(65,175)],[(0,100),(50,170)],"يقل فى حالة الانيميا و حالات فقر الدم ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Red Blood Count","digit",[(0,100),(1,500)],[(0,100),(1,500)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCH","digit",[(0,100),(1,500)],[(0,100),(1,500)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCHC","digit",[(0,100),(1,500)],[(0,100),(1,500)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCV","digit",[(0,100),(1,500)],[(0,100),(1,500)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Platelet Count","digit",[(0,100),(1,500)],[(0,100),(1,500)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"WBCs Count","digit",[(0,100),(1,500)],[(0,100),(1,500)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Red Blood Count","digit",[(0,100),(4.2,5.4)],[(0,100),(4.2,5.4)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCH","digit",[(0,100),(27,31)],[(0,100),(27,31)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCHC","digit",[(0,100),(32,36)],[(0,100),(32,36)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCV","digit",[(0,100),(78,99)],[(0,100),(78,99)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Platelet Count","digit",[(0,100),(140000,440000)],[(0,100),(140000,440000)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"WBCs Count","digit",[(0,100),(4000,11000)],[(0,100),(4000,11000)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+
+
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Haematocrit","digit",[(0,100),(37,47)],[(0,100),(37,47)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"RDW","digit",[(0,100),(11.6,14)],[(0,100),(11.6,14)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Leucocytic Count","digit",[(0,100),(4000,10500)],[(0,100),(4000,10500)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Basophils","digit",[(0,100),(0,199)],[(0,100),(0,199)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Eosinophils","digit",[(0,100),(0,499)],[(0,100),(0,499)],"",""))
+#testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Staff","digit",[(0,100),(37,47)],[(0,100),(37,47)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Segmented","digit",[(0,100),(2000,6500)],[(0,100),(2000,6500)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Lymphocytes","digit",[(0,100),(1500,3500)],[(0,100),(1500,3500)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Monocytes","digit",[(0,100),(300,1000)],[(0,100),(300,1000)],"",""))
+
 
 
 
