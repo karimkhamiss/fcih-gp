@@ -24,6 +24,9 @@ from core.db.database import login
 from core.db.database import signup
 from core.db.database import get_gender_type
 from core.db.database import get_age
+from core.db.database import save_test
+from core.db.database import get_medical_histories
+from core.db.database import get_medical_history_test
 from core.ui.Popup import MainPopup
 import time
 import sqlite3
@@ -131,6 +134,10 @@ class ResultScreen(Screen):
         popup = Popup(title='', separator_height=0, content=box,auto_dismiss=False)
         popup.open()
     def analysis(self):
+        tests_names = []
+        tests_values = []
+        tests_descriptions = []
+        tests = []
         List = []
         List = output_his()  # return list of vectors in  each image but in list
         linelist = prediction(List)
@@ -141,37 +148,48 @@ class ResultScreen(Screen):
             counter = counter+1
             if(counter == 1 or test_name == "not matched"):
                 continue
+            tests.append([test_name,"",""])
+            # tests_names.append(test_name)
             self.first_list.adapter.data.extend([test_name])
             self.first_list._trigger_reset_populate()
         for test_value in linelist[2]:
             if (test_value == "none"):
                 continue
+            tests[len(tests_values)][1] = test_value
+            tests_values.append(test_value)
             self.second_list.adapter.data.extend([test_value])
             self.second_list._trigger_reset_populate()
         feedback = getTestResult(linelist, get_age(),get_gender_type())
         for test_feedback in feedback:
+            tests[len(tests_descriptions)][2] = test_feedback
+            tests_descriptions.append(test_feedback)
             reshaped_text = arabic_reshaper.reshape(text=test_feedback)
             unicode_text = get_display(reshaped_text)
             self.third_list.adapter.data.extend([unicode_text])
             self.third_list._trigger_reset_populate()
+        save_test(linelist[0][0],tests)
     def on_enter(self, *args):
         self.analysis()
 class MedicalHistoryScreen(Screen):
     def navigate(self,instance):
         sm.current = 'result'
-
+    medical_histories = get_medical_histories()
     def on_enter(self):
         # create a grid layout
         layout = GridLayout(cols=1, padding=10, spacing=10,
                             size_hint=(1, None))
         layout.bind(minimum_height=layout.setter('height'))
         # add button into that grid
-        for i in range(20):
-            btn = Button(text="Complete Blood Picture "+str(i), size_hint=(1, None), height=28, background_normal=''
-                         , background_color=(.9,.9,.9, 1),color= (0.45,0.45,0.45,1))
-            btn.bind(on_press=self.navigate)
+        counter = 0
+        for medical_history in self.medical_histories:
+            btn = Button(
+                id=str(medical_history[0])
+                ,text= medical_history[1] + " , " + medical_history[2]
+                         , size_hint=(.3, None), height=32, background_normal=''
+                         , background_color=(0.2, 0.58, 0.992,1))
+            btn.bind(on_press=get_medical_history_test(medical_history[0]))
             layout.add_widget(btn)
-
+            counter = counter+1
         # create a scroll view
         scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
         scroll.add_widget(layout)
