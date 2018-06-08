@@ -186,6 +186,14 @@ def get_birthdate():
     data = c.fetchall()
     close(connection)
     return data[0][0]
+def get_test_name(test_id):
+    connection = open_db()
+    c = connection.cursor()
+    query = "SELECT name FROM tests WHERE id = "+ str(test_id)+""
+    c.execute(query)
+    data = c.fetchall()
+    close(connection)
+    return data[0][0]
 def get_gender_type():
     connection = open_db()
     c = connection.cursor()
@@ -250,4 +258,4 @@ def get_medical_history_test(medical_history_id):
     c.execute(query)
     data = c.fetchall()
     close(connection)
-    print(data)
+    return data

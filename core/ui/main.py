@@ -24,6 +24,7 @@ from core.db.database import login
 from core.db.database import signup
 from core.db.database import get_gender_type
 from core.db.database import get_age
+from core.db.database import get_test_name
 from core.db.database import save_test
 from core.db.database import get_medical_histories
 from core.db.database import get_medical_history_test
@@ -134,11 +135,9 @@ class ResultScreen(Screen):
         popup = Popup(title='', separator_height=0, content=box,auto_dismiss=False)
         popup.open()
     def analysis(self):
-        tests_names = []
         tests_values = []
         tests_descriptions = []
         tests = []
-        List = []
         List = output_his()  # return list of vectors in  each image but in list
         linelist = prediction(List)
         print(linelist)
@@ -171,8 +170,11 @@ class ResultScreen(Screen):
     def on_enter(self, *args):
         self.analysis()
 class MedicalHistoryScreen(Screen):
-    def navigate(self,instance):
-        sm.current = 'result'
+    def view_result(self,medical_history_id):
+        tests = get_medical_history_test(medical_history_id)
+        HistoryResultScreen.set_tests(self,tests)
+        # tests_to_view = get_medical_history_test(medical_history_id)
+        sm.current = 'history_result'
     medical_histories = get_medical_histories()
     def on_enter(self):
         # create a grid layout
@@ -187,7 +189,7 @@ class MedicalHistoryScreen(Screen):
                 ,text= medical_history[1] + " , " + medical_history[2]
                          , size_hint=(.3, None), height=32, background_normal=''
                          , background_color=(0.2, 0.58, 0.992,1))
-            btn.bind(on_press=get_medical_history_test(medical_history[0]))
+            btn.bind(on_press=lambda x: self.view_result(medical_history[0]))
             layout.add_widget(btn)
             counter = counter+1
         # create a scroll view
@@ -197,6 +199,36 @@ class MedicalHistoryScreen(Screen):
         root = self.ids.grid
         root.add_widget(scroll)
         return root
+class HistoryResultScreen(Screen):
+    first_list = ObjectProperty()
+    seoncd_list = ObjectProperty()
+    third_list = ObjectProperty()
+    tests_to_view = []
+    def set_tests(self,tests):
+        HistoryResultScreen.tests_to_view = tests
+    def view_result(self):
+        test_ids = []
+        test_names = []
+        test_values = []
+        test_descriptions = []
+        for test in self.tests_to_view:
+            test_names.append(get_test_name(test[0]))
+            test_values.append(test[1])
+            test_descriptions.append(test[2])
+        for test_name in test_names:
+            print(test_name)
+            self.first_list.adapter.data.extend([test_name])
+            self.first_list._trigger_reset_populate()
+        for test_value in test_values:
+            self.second_list.adapter.data.extend([test_value])
+            self.second_list._trigger_reset_populate()
+        for test_description in test_descriptions:
+            reshaped_text = arabic_reshaper.reshape(text=test_description)
+            unicode_text = get_display(reshaped_text)
+            self.third_list.adapter.data.extend([unicode_text])
+            self.third_list._trigger_reset_populate()
+    def on_enter(self, *args):
+        self.view_result()
 class EditImageScreen(Screen):
     NAME_SCREEN = 'crop'
 
@@ -212,7 +244,7 @@ class EditImageScreen(Screen):
 presentation = Builder.load_file("main.kv")
 
 class MainApp(App):
-    screens = [LandingScreen,SignUpScreen,LoginScreen,HomeScreen,HowToCropScreen,CameraScreen,EditImageScreen,ResultScreen,MedicalHistoryScreen]
+    screens = [LandingScreen,SignUpScreen,LoginScreen,HomeScreen,HowToCropScreen,CameraScreen,EditImageScreen,ResultScreen,MedicalHistoryScreen,HistoryResultScreen]
     def build(self):
         for class_screen in self.screens:
             sm.add_widget(class_screen())
