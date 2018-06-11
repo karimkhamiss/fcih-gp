@@ -40,7 +40,27 @@ class ListItem(ListItemButton):
     color = (0.45, 0.45, 0.45, 1)
     font_name = "Arial"
     pass
-
+class Listview1(ListItemButton):
+    background_normal = ''
+    background_color = (.8, .89, 1, 1)
+    color = (0.25, 0.25, 0.25, 1)
+    text_size = (int((Window.width-50)*.25), None)
+    font_name = "Arial"
+    pass
+class Listview2(ListItemButton):
+    background_normal = ''
+    background_color = (.8, .89, 1, 1)
+    color = (0.25, 0.25, 0.25, 1)
+    text_size = (int((Window.width-50)*.2), None)
+    font_name = "Arial"
+    pass
+class Listview3(ListItemButton):
+    background_normal = ''
+    background_color = (.8, .89, 1, 1)
+    color = (0.25, 0.25, 0.25, 1)
+    text_size = (int((Window.width-50)*.55), None)
+    font_name = "Arial"
+    pass
 class LandingScreen(Screen):
     pass
 
