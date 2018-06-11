@@ -34,13 +34,10 @@ import sqlite3
 
 Window.size = (280, 500)
 sm = ScreenManager()
-class StudentListButton(ListItemButton):
-    #selected_color = [1, 1, 1, 1]
-    deselected_color = [1,1,1, 1]
-    font_name = "Arial"
-    pass
-
-class FeedbackLabel(Label):
+class ListItem(ListItemButton):
+    background_normal = ''
+    background_color = (.8, .89, 1, 1)
+    color = (0.45, 0.45, 0.45, 1)
     font_name = "Arial"
     pass
 
@@ -124,9 +121,6 @@ class CameraScreen(Screen):
 
 class ResultScreen(Screen):
     title = ObjectProperty()
-    first_list = ObjectProperty()
-    seoncd_list = ObjectProperty()
-    third_list = ObjectProperty()
     def open_popup(self):
         box = BoxLayout(orientation='vertical')
         image = Image(source='..\..\\resources\\ui\\loading.gif')
@@ -142,7 +136,10 @@ class ResultScreen(Screen):
         linelist = prediction(List)
         print(linelist)
         counter = 0
-        self.title.text = linelist[0][0]
+        self.title.text = linelist[0][0].upper()
+        self.first_list.adapter.data = []
+        self.second_list.adapter.data = []
+        self.third_list.adapter.data = []
         for test_name in linelist[0]:
             counter = counter+1
             if(counter == 1 or test_name == "not matched"):
@@ -170,6 +167,7 @@ class ResultScreen(Screen):
     def on_enter(self, *args):
         self.analysis()
 class MedicalHistoryScreen(Screen):
+    flag=True
     def view_result(self,medical_history_id):
         tests = get_medical_history_test(medical_history_id)
         HistoryResultScreen.set_tests(self,tests)
@@ -177,32 +175,31 @@ class MedicalHistoryScreen(Screen):
         sm.current = 'history_result'
     medical_histories = get_medical_histories()
     def on_enter(self):
-        # create a grid layout
-        layout = GridLayout(cols=1, padding=10, spacing=10,
-                            size_hint=(1, None))
-        layout.bind(minimum_height=layout.setter('height'))
-        # add button into that grid
-        counter = 0
-        for medical_history in self.medical_histories:
-            btn = Button(
-                id=str(medical_history[0])
-                ,text= medical_history[1] + " , " + medical_history[2]
-                         , size_hint=(.3, None), height=32, background_normal=''
-                         , background_color=(0.2, 0.58, 0.992,1))
-            btn.bind(on_press=lambda x: self.view_result(medical_history[0]))
-            layout.add_widget(btn)
-            counter = counter+1
-        # create a scroll view
-        scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
-        scroll.add_widget(layout)
+        if self.flag:
+            # create a grid layout
+            layout = GridLayout(cols=1, padding=10, spacing=10,
+                                size_hint=(1, None))
+            layout.bind(minimum_height=layout.setter('height'))
+            # add button into that grid
+            counter = 0
+            for medical_history in self.medical_histories:
+                btn = Button(
+                    id=str(medical_history[0])
+                    ,text= medical_history[1] + " , " + medical_history[2]
+                             , size_hint=(.3, None), height=32, background_normal=''
+                             , background_color=(.8,.89,1, 1),color= (0.45,0.45,0.45,1))
+                btn.bind(on_press=lambda x: self.view_result(medical_history[0]))
+                layout.add_widget(btn)
+                counter = counter+1
+            # create a scroll view
+            scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
+            scroll.add_widget(layout)
 
-        root = self.ids.grid
-        root.add_widget(scroll)
-        return root
+            root = self.ids.grid
+            root.add_widget(scroll)
+            self.flag=False
+            return root
 class HistoryResultScreen(Screen):
-    first_list = ObjectProperty()
-    seoncd_list = ObjectProperty()
-    third_list = ObjectProperty()
     tests_to_view = []
     def set_tests(self,tests):
         HistoryResultScreen.tests_to_view = tests
@@ -211,12 +208,14 @@ class HistoryResultScreen(Screen):
         test_names = []
         test_values = []
         test_descriptions = []
+        self.first_list.adapter.data=[]
+        self.second_list.adapter.data=[]
+        self.third_list.adapter.data=[]
         for test in self.tests_to_view:
             test_names.append(get_test_name(test[0]))
             test_values.append(test[1])
             test_descriptions.append(test[2])
         for test_name in test_names:
-            print(test_name)
             self.first_list.adapter.data.extend([test_name])
             self.first_list._trigger_reset_populate()
         for test_value in test_values:
