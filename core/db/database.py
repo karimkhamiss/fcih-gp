@@ -202,6 +202,14 @@ def get_gender_type():
     data = c.fetchall()
     close(connection)
     return data[0][0]
+def get_user_name():
+    connection = open_db()
+    c = connection.cursor()
+    query = "SELECT first_name,last_name FROM users WHERE id = "+ str(get_user_id())+""
+    c.execute(query)
+    data = c.fetchall()
+    close(connection)
+    return data[0][0]+" "+data[0][1]
 def get_test_id(test_name):
     connection = open_db()
     c = connection.cursor()
@@ -259,3 +267,4 @@ def get_medical_history_test(medical_history_id):
     data = c.fetchall()
     close(connection)
     return data
+print(get_user_name())

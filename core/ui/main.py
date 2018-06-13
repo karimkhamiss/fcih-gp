@@ -23,6 +23,7 @@ import arabic_reshaper
 from core.db.database import login
 from core.db.database import signup
 from core.db.database import get_gender_type
+from core.db.database import get_user_name
 from core.db.database import get_age
 from core.db.database import get_test_name
 from core.db.database import save_test
@@ -121,6 +122,9 @@ class SignUpScreen(Screen):
     pass
 
 class HomeScreen(Screen):
+    username = ObjectProperty()
+    def on_enter(self, *args):
+        self.username.text = "Welcome , "+get_user_name()
     pass
 
 class HowToCropScreen(Screen):

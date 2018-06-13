@@ -1,4 +1,5 @@
 <HomeScreen>:
+    username: username_label
     name:"home"
     BoxLayout:
         canvas.before:
@@ -64,7 +65,15 @@
                     size_hint:[None,.9]
                     pos_hint:{'center_x':.5}
                     width:120
-
+            Label:
+                id:username_label
+                text_size: None, None
+                size_hint:[None,None]
+                pos_hint:{'center_x':.5}
+                size: self.texture_size
+                font_size: 15
+                text: ""
+                color: .2,.58,1, 1
             Label:
                 text_size: None, None
                 size_hint:[None,None]
