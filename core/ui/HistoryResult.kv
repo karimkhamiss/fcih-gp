@@ -5,13 +5,16 @@
     second_list: second_list_view
     third_list: third_list_view
     BoxLayout:
-        orientation: 'vertical'
-        spacing:5
-        canvas:
+        canvas.before:
             Color:
-                rgb: .98, .98, .98,1
+                rgba: .98,.98,.98, 1
             Rectangle:
+                pos: self.pos
                 size: self.size
+
+        orientation: 'vertical'
+        padding: [0,0,0,10]
+        spacing:5
 
         BoxLayout:
             orientation: 'horizontal'
@@ -31,12 +34,38 @@
                 Label:
                     text_size: None, None
                     size_hint:[None,None]
-                    pos_hint:{'center_x':.5}
+                    pos_hint:{'.5':.5}
                     size: self.texture_size
                     font_size: 17
-                    text: "Analysis Result"
+                    text: "Result"
                     color: 1,1,1, 1
                     bold:True
+            Button:
+                size_hint:[None,None]
+                pos_hint:{'center_y':.5}
+                height: 20
+                width:20
+                on_release:app.root.current = "home"
+                Image:
+                    source: '..\..\\resources\\ui\\menu\\home.png'
+                    size_hint:[None,None]
+                    size: self.parent.size
+                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                    x: self.parent.x
+                    allow_stretch: True
+            Button:
+                size_hint:[None,None]
+                pos_hint:{'center_y':.5}
+                height: 20
+                width:20
+                on_release:app.root.current = "medical"
+                Image:
+                    source: '..\..\\resources\\ui\\menu\\write.png'
+                    size_hint:[None,None]
+                    size: self.parent.size
+                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                    x: self.parent.x
+                    allow_stretch: True
 
         #title
         BoxLayout:
