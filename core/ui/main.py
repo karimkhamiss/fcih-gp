@@ -27,6 +27,7 @@ from core.db.database import get_user_name
 from core.db.database import get_age
 from core.db.database import get_test_name
 from core.db.database import save_test
+from core.db.database import get_medical_history_category
 from core.db.database import get_medical_histories
 from core.db.database import get_medical_history_test
 from core.ui.Popup import MainPopup
@@ -194,7 +195,7 @@ class MedicalHistoryScreen(Screen):
     flag=True
     def view_result(self,medical_history_id):
         tests = get_medical_history_test(medical_history_id)
-        HistoryResultScreen.set_tests(self,tests)
+        HistoryResultScreen.set_tests(self,tests,medical_history_id)
         # tests_to_view = get_medical_history_test(medical_history_id)
         sm.current = 'history_result'
     medical_histories = get_medical_histories()
@@ -224,10 +225,14 @@ class MedicalHistoryScreen(Screen):
             self.flag=False
             return root
 class HistoryResultScreen(Screen):
+    title = ObjectProperty()
     tests_to_view = []
-    def set_tests(self,tests):
+    medical_history_id = 0
+    def set_tests(self,tests,id):
         HistoryResultScreen.tests_to_view = tests
+        HistoryResultScreen.medical_history_id = id
     def view_result(self):
+        self.title.text = get_medical_history_category(self.medical_history_id).upper()
         test_ids = []
         test_names = []
         test_values = []

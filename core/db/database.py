@@ -251,6 +251,14 @@ def save_test(category_name,tests):
     for test in tests:
         add_medical_history_test(test)
     pass
+def get_medical_history_category(id):
+    connection = open_db()
+    c = connection.cursor()
+    query = "SELECT category_name FROM medical_histories WHERE id = " + str(id) + ""
+    c.execute(query)
+    data = c.fetchall()
+    close(connection)
+    return data[0][0]
 def get_medical_histories():
     connection = open_db()
     c = connection.cursor()
