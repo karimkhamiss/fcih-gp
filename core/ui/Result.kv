@@ -13,7 +13,7 @@
                 size: self.size
 
         orientation: 'vertical'
-        padding: [0,0,0,10]
+        padding: [0,0,0,0]
         spacing:5
 
         BoxLayout:
@@ -28,44 +28,19 @@
                 Rectangle:
                     pos: self.pos
                     size: self.size
+
             BoxLayout:
                 orientation: 'vertical'
                 pos_hint:{'y':.2}
                 Label:
                     text_size: None, None
                     size_hint:[None,None]
-                    pos_hint:{'.5':.5}
+                    pos_hint:{'center_x':.5}
                     size: self.texture_size
                     font_size: 17
-                    text: "Result"
+                    text: "Medical Tests Reader"
                     color: 1,1,1, 1
                     bold:True
-            Button:
-                size_hint:[None,None]
-                pos_hint:{'center_y':.5}
-                height: 20
-                width:20
-                on_release:app.root.current = "home"
-                Image:
-                    source: '..\..\\resources\\ui\\menu\\home.png'
-                    size_hint:[None,None]
-                    size: self.parent.size
-                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
-                    x: self.parent.x
-                    allow_stretch: True
-            Button:
-                size_hint:[None,None]
-                pos_hint:{'center_y':.5}
-                height: 20
-                width:20
-                on_release:app.root.current = "medical"
-                Image:
-                    source: '..\..\\resources\\ui\\menu\\write.png'
-                    size_hint:[None,None]
-                    size: self.parent.size
-                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
-                    x: self.parent.x
-                    allow_stretch: True
 
         #title
         BoxLayout:
@@ -165,3 +140,121 @@
                 text: "Capture Again"
                 color: 1,1,1,1
                 on_release:app.root.current = "camera"
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [0,0,0,0]
+            size_hint:[None,None]
+            width: root.width
+            height:45
+            canvas.before:
+                Color:
+                    rgba: 0.2,0.58 , 1,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            #icons
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint:[None,.6]
+                width: root.width
+                pos_hint:{'center_x':.5}
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:[1,1]
+                    pos_hint:{'center_y':.4}
+                    Button:
+                        size_hint:[None,None]
+                        pos_hint:{'center_x':.5}
+                        height: 26
+                        width:26
+                        on_release:app.root.current = "home"
+                        Image:
+                            source: '..\..\\resources\\ui\\home.png'
+                            size_hint:[None,None]
+                            size: self.parent.size
+                            y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                            x: self.parent.x
+                            allow_stretch: True
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:[1,1]
+                    pos_hint:{'center_y':.4}
+                    Button:
+                        size_hint:[None,None]
+                        pos_hint:{'center_x':.5}
+                        height: 26
+                        width:26
+                        on_release:app.root.current = "medical"
+                        Image:
+                            source: '..\..\\resources\\ui\\medicalhistory.png'
+                            size_hint:[None,None]
+                            size: self.parent.size
+                            y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                            x: self.parent.x
+                            allow_stretch: True
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:[1,1]
+                    pos_hint:{'center_y':.4}
+                    Button:
+                        size_hint:[None,None]
+                        pos_hint:{'center_x':.5}
+                        height: 26
+                        width:26
+                        on_release:app.root.current = "landing"
+                        Image:
+                            source: '..\..\\resources\\ui\\logout.png'
+                            size_hint:[None,None]
+                            size: self.parent.size
+                            y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                            x: self.parent.x
+                            allow_stretch: True
+
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint:[None,.4]
+                width: root.width
+                pos_hint:{'center_x':.5}
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:[1,1]
+                    pos_hint:{'center_y':.5}
+                    Label:
+                        text_size: None, None
+                        size_hint:[None,None]
+                        pos_hint:{'center_x':.5}
+                        size: self.texture_size
+                        font_size: 13
+                        text: "Home"
+                        color: 1,1,1, 1
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:[1,1]
+                    pos_hint:{'center_y':.5}
+                    Label:
+                        text_size: None, None
+                        size_hint:[None,None]
+                        pos_hint:{'center_x':.5}
+                        size: self.texture_size
+                        font_size: 13
+                        text: "Medical History"
+                        color: 1,1,1, 1
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint:[1,1]
+                    pos_hint:{'center_y':.5}
+                    Label:
+                        text_size: None, None
+                        size_hint:[None,None]
+                        pos_hint:{'center_x':.5}
+                        size: self.texture_size
+                        font_size: 13
+                        text: "Logout"
+                        color: 1,1,1, 1
+

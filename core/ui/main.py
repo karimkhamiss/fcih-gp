@@ -34,7 +34,7 @@ from core.ui.Popup import MainPopup
 import time
 import sqlite3
 
-Window.size = (280, 500)
+Window.size = (308, 550)
 sm = ScreenManager()
 class ListItem(ListItemButton):
     background_normal = ''
@@ -210,9 +210,8 @@ class MedicalHistoryScreen(Screen):
             for medical_history in self.medical_histories:
                 btn = Button(
                     id=str(medical_history[0])
-                    ,text= medical_history[1] + " , " + medical_history[2]
-                             , size_hint=(.3, None), height=32, background_normal=''
-                             , background_color=(.8,.89,1, 1),color= (0.45,0.45,0.45,1))
+                    ,text= medical_history[1] + " , " + medical_history[2] , size_hint=(.3, None), height=32
+                    , background_normal='', background_color=(.95, .95, .95, 1), color=(.45,.45,.45,1))
                 btn.bind(on_press=lambda x: self.view_result(medical_history[0]))
                 layout.add_widget(btn)
                 counter = counter+1
