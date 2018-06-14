@@ -145,7 +145,7 @@ def commit(connection):
     connection.commit()
 def close(connection):
     connection.close()
-current_user = User("2","","","","")
+current_user = User(0,"","","","")
 def login(username,password):
     connection = open_db()
     c = connection.cursor()
@@ -155,6 +155,7 @@ def login(username,password):
     close(connection)
     global current_user
     current_user = User(data[0][0],data[0][1],data[0][2],data[0][3],get_age(data[0][4]))
+    set_medical_histories()
     return data
 def get_current_user():
     global current_user
@@ -252,7 +253,6 @@ def set_medical_histories():
     data = c.fetchall()
     close(connection)
     global current_user
-    print(data)
     current_user.medical_histories = data
 def get_medical_history_test(medical_history_id):
     connection = open_db()
@@ -262,6 +262,15 @@ def get_medical_history_test(medical_history_id):
     data = c.fetchall()
     close(connection)
     return data
+def logout():
+    global current_user
+    print("Before Logout" + current_user.first_name)
+    current_user = User("", "", "", "", "")
+    current_user.medical_histories = []
+    print("After Logout" + current_user.first_name)
 # login("karim","123")
-# set_medical_histories()
+# print("After Login " , current_user.medical_histories)
+# logout()
+# print("After Logout " , current_user.medical_histories)
+# set_medical_histo/ries()
 # print(current_user.medical_histories)

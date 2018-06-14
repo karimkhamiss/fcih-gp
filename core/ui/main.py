@@ -21,12 +21,13 @@ from core.ui.edit_image_layout import EditImageLayout
 from core.ui.bubble_buttons import BubbleButtons
 import arabic_reshaper
 from core.db.database import login
+from core.db.database import logout
 from core.db.database import signup
 from core.db.database import get_current_user
 from core.db.database import get_test_name
 from core.db.database import save_test
 from core.db.database import get_medical_history_category
-from core.db.database import set_medical_histories
+# from core.db.database import set_medical_histories
 from core.db.database import get_medical_history_test
 from core.ui.Popup import MainPopup
 import time
@@ -62,12 +63,22 @@ class Listview3(ListItemButton):
     font_name = "Arial"
     pass
 class LandingScreen(Screen):
+    def on_enter(self, *args):
+        if get_current_user().id:
+            global flag
+            flag = True
+            global username_text_input
+            username_text_input.text=""
+            print(username_text_input.text)
+            logout()
     pass
-
+username_text_input =""
 class LoginScreen(Screen):
-    username_text_input = ObjectProperty()
+
     password_text_input = ObjectProperty()
     def login(self):
+        global username_text_input
+        username_text_input = ObjectProperty()
         username = self.username_text_input.text
         password = self.password_text_input.text
         login_inputs_flag = 1
@@ -189,17 +200,17 @@ class ResultScreen(Screen):
         save_test(linelist[0][0],tests)
     def on_enter(self, *args):
         self.analysis()
+flag = True
 class MedicalHistoryScreen(Screen):
-    flag=True
     def view_result(self,medical_history_id):
         tests = get_medical_history_test(medical_history_id)
         HistoryResultScreen.set_tests(self,tests,medical_history_id)
         # tests_to_view = get_medical_history_test(medical_history_id)
         sm.current = 'history_result'
     def on_enter(self):
-        set_medical_histories()
+        global flag
         medical_histories = get_current_user().medical_histories
-        if self.flag:
+        if flag:
             # create a grid layout
             layout = GridLayout(cols=1, padding=10, spacing=10,
                                 size_hint=(1, None))
@@ -218,10 +229,9 @@ class MedicalHistoryScreen(Screen):
             # create a scroll view
             scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
             scroll.add_widget(layout)
-
             root = self.ids.grid
             root.add_widget(scroll)
-            self.flag=False
+            flag = False
             return root
 class HistoryResultScreen(Screen):
     title = ObjectProperty()

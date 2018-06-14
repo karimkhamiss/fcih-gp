@@ -49,6 +49,19 @@
                     y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
                     x: self.parent.x
                     allow_stretch: True
+            Button:
+                size_hint:[None,None]
+                pos_hint:{'center_y':.5}
+                height: 20
+                width:20
+                on_release:app.root.current = "landing"
+                Image:
+                    source: '..\..\\resources\\ui\\menu\\logout.png'
+                    size_hint:[None,None]
+                    size: self.parent.size
+                    y: self.parent.y + .5* self.parent.height -.5 * self.parent.width/self.image_ratio
+                    x: self.parent.x
+                    allow_stretch: True
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: .2
