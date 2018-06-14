@@ -67,18 +67,15 @@ class LandingScreen(Screen):
         if get_current_user().id:
             global flag
             flag = True
-            global username_text_input
-            username_text_input.text=""
-            print(username_text_input.text)
             logout()
     pass
-username_text_input =""
 class LoginScreen(Screen):
-
+    username_text_input = ObjectProperty()
     password_text_input = ObjectProperty()
+    def on_leave(self, *args):
+        self.username_text_input.text =""
+        self.password_text_input.text =""
     def login(self):
-        global username_text_input
-        username_text_input = ObjectProperty()
         username = self.username_text_input.text
         password = self.password_text_input.text
         login_inputs_flag = 1
@@ -94,7 +91,6 @@ class LoginScreen(Screen):
             else:
                 MainPopup(title="Login Status",txt="Wrong Username Or Password",button="Try Again",width=None, height=None)
     pass
-
 class SignUpScreen(Screen):
     male_check_box = ObjectProperty(None)
     female_check_box = ObjectProperty(None)
@@ -103,12 +99,16 @@ class SignUpScreen(Screen):
     birthdate_text_input = ObjectProperty()
     username_text_input = ObjectProperty()
     password_text_input = ObjectProperty()
+    def on_leave(self, *args):
+        self.first_name_text_input.text = ""
+        self.last_name_text_input.text = ""
+        self.birthdate_text_input.text = ""
+        self.username_text_input.text = ""
+        self.password_text_input.text = ""
     def signup(self):
         gender = 1
         if self.female_check_box.active:
            gender = 2
-
-
         first_name = self.first_name_text_input.text
         last_name = self.last_name_text_input.text
         birthdate = self.birthdate_text_input.text
@@ -130,7 +130,6 @@ class SignUpScreen(Screen):
             signup(first_name, last_name,birthdate,gender,username,password)
             sm.current = 'home'
     pass
-
 class HomeScreen(Screen):
     username = ObjectProperty()
     def on_enter(self, *args):
@@ -202,12 +201,15 @@ class ResultScreen(Screen):
         self.analysis()
 flag = True
 class MedicalHistoryScreen(Screen):
+    scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
     def view_result(self,medical_history_id):
         tests = get_medical_history_test(medical_history_id)
         HistoryResultScreen.set_tests(self,tests,medical_history_id)
         # tests_to_view = get_medical_history_test(medical_history_id)
         sm.current = 'history_result'
     def on_enter(self):
+        root = self.ids.grid
+        root.clear_widgets()
         global flag
         medical_histories = get_current_user().medical_histories
         if flag:
