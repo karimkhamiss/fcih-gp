@@ -20,6 +20,7 @@ from core.ui.image_layout import ImageLayout
 from core.ui.edit_image_layout import EditImageLayout
 from core.ui.bubble_buttons import BubbleButtons
 import arabic_reshaper
+from core.db.database import check_unique
 from core.db.database import login
 from core.db.database import logout
 from core.db.database import signup
@@ -123,6 +124,9 @@ class SignUpScreen(Screen):
                 not validation.check_name(username)):
             signup_inputs_flag = 0
             MainPopup(title="Invalid Name",txt="Name must be started with a letter",button="Try Again?",width=None, height=None)
+        if(check_unique(username)):
+            signup_inputs_flag = 0
+            MainPopup(title="Existed Username",txt="This username is already been taken",button="Try Again?",width=None, height=None)
         elif(not validation.check_date(birthdate)):
             signup_inputs_flag = 0
             MainPopup(title="Invalid Birthdate",txt="Birthdate must be in this format day/month/year",button="Try Again?",width=None, height=None)

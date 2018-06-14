@@ -146,6 +146,17 @@ def commit(connection):
 def close(connection):
     connection.close()
 current_user = User(0,"","","","")
+def check_unique(username):
+    connection = open_db()
+    c = connection.cursor()
+    query = "SELECT * FROM users where username = '"+username+"'"
+    c.execute(query)
+    data = c.fetchall()
+    close(connection)
+    if(len(data)>0):
+        return 1
+    else:
+        return 0
 def login(username,password):
     connection = open_db()
     c = connection.cursor()
