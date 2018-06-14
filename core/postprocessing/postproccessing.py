@@ -104,6 +104,7 @@ for test in testsList:
 
 
 def match(lineList):
+    print(lineList)
     finalTests=[]
     tests = []
     lineListTypes=[]
