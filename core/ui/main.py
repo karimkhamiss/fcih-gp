@@ -21,20 +21,19 @@ from core.ui.edit_image_layout import EditImageLayout
 from core.ui.bubble_buttons import BubbleButtons
 import arabic_reshaper
 from core.db.database import login
+from core.db.database import logout
 from core.db.database import signup
-from core.db.database import get_gender_type
-from core.db.database import get_user_name
-from core.db.database import get_age
+from core.db.database import get_current_user
 from core.db.database import get_test_name
 from core.db.database import save_test
 from core.db.database import get_medical_history_category
-from core.db.database import get_medical_histories
+# from core.db.database import set_medical_histories
 from core.db.database import get_medical_history_test
 from core.ui.Popup import MainPopup
 import time
 import sqlite3
 
-Window.size = (280, 500)
+Window.size = (308, 550)
 sm = ScreenManager()
 class ListItem(ListItemButton):
     background_normal = ''
@@ -64,11 +63,18 @@ class Listview3(ListItemButton):
     font_name = "Arial"
     pass
 class LandingScreen(Screen):
+    def on_enter(self, *args):
+        if get_current_user().id:
+            global flag
+            flag = True
+            logout()
     pass
-
 class LoginScreen(Screen):
     username_text_input = ObjectProperty()
     password_text_input = ObjectProperty()
+    def on_leave(self, *args):
+        self.username_text_input.text =""
+        self.password_text_input.text =""
     def login(self):
         username = self.username_text_input.text
         password = self.password_text_input.text
@@ -85,7 +91,6 @@ class LoginScreen(Screen):
             else:
                 MainPopup(title="Login Status",txt="Wrong Username Or Password",button="Try Again",width=None, height=None)
     pass
-
 class SignUpScreen(Screen):
     male_check_box = ObjectProperty(None)
     female_check_box = ObjectProperty(None)
@@ -94,12 +99,16 @@ class SignUpScreen(Screen):
     birthdate_text_input = ObjectProperty()
     username_text_input = ObjectProperty()
     password_text_input = ObjectProperty()
+    def on_leave(self, *args):
+        self.first_name_text_input.text = ""
+        self.last_name_text_input.text = ""
+        self.birthdate_text_input.text = ""
+        self.username_text_input.text = ""
+        self.password_text_input.text = ""
     def signup(self):
         gender = 1
         if self.female_check_box.active:
            gender = 2
-
-
         first_name = self.first_name_text_input.text
         last_name = self.last_name_text_input.text
         birthdate = self.birthdate_text_input.text
@@ -121,11 +130,10 @@ class SignUpScreen(Screen):
             signup(first_name, last_name,birthdate,gender,username,password)
             sm.current = 'home'
     pass
-
 class HomeScreen(Screen):
     username = ObjectProperty()
     def on_enter(self, *args):
-        self.username.text = "Welcome , "+get_user_name()
+        self.username.text = "Welcome , "+get_current_user().first_name+" "+get_current_user().last_name
     pass
 
 class HowToCropScreen(Screen):
@@ -180,7 +188,7 @@ class ResultScreen(Screen):
             tests_values.append(test_value)
             self.second_list.adapter.data.extend([test_value])
             self.second_list._trigger_reset_populate()
-        feedback = getTestResult(linelist, get_age(),get_gender_type())
+        feedback = getTestResult(linelist, get_current_user().age,get_current_user().gender)
         for test_feedback in feedback:
             tests[len(tests_descriptions)][2] = test_feedback
             tests_descriptions.append(test_feedback)
@@ -191,38 +199,40 @@ class ResultScreen(Screen):
         save_test(linelist[0][0],tests)
     def on_enter(self, *args):
         self.analysis()
+flag = True
 class MedicalHistoryScreen(Screen):
-    flag=True
+    scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
     def view_result(self,medical_history_id):
         tests = get_medical_history_test(medical_history_id)
         HistoryResultScreen.set_tests(self,tests,medical_history_id)
         # tests_to_view = get_medical_history_test(medical_history_id)
         sm.current = 'history_result'
-    medical_histories = get_medical_histories()
     def on_enter(self):
-        if self.flag:
+        root = self.ids.grid
+        root.clear_widgets()
+        global flag
+        medical_histories = get_current_user().medical_histories
+        if flag:
             # create a grid layout
             layout = GridLayout(cols=1, padding=10, spacing=10,
                                 size_hint=(1, None))
             layout.bind(minimum_height=layout.setter('height'))
             # add button into that grid
             counter = 0
-            for medical_history in self.medical_histories:
+            for medical_history in medical_histories:
                 btn = Button(
                     id=str(medical_history[0])
-                    ,text= medical_history[1] + " , " + medical_history[2]
-                             , size_hint=(.3, None), height=32, background_normal=''
-                             , background_color=(.8,.89,1, 1),color= (0.45,0.45,0.45,1))
+                    ,text= medical_history[1] + " , " + medical_history[2] , size_hint=(.3, None), height=32
+                    , background_normal='', background_color=(.95, .95, .95, 1), color=(.45,.45,.45,1))
                 btn.bind(on_press=lambda x: self.view_result(medical_history[0]))
                 layout.add_widget(btn)
                 counter = counter+1
             # create a scroll view
             scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
             scroll.add_widget(layout)
-
             root = self.ids.grid
             root.add_widget(scroll)
-            self.flag=False
+            flag = False
             return root
 class HistoryResultScreen(Screen):
     title = ObjectProperty()
