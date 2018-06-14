@@ -4,3 +4,4 @@
 *.pyc
 
 *.png
+core/db/db.db

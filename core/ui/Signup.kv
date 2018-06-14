@@ -3,7 +3,7 @@
 <CusTxt@TextInput>:
     background_normal: ''
     background_color: 1, 1, 1,1
-    size_hint:[.6,None]
+    size_hint:[.7,None]
 	height: 26
 <SignUpScreen>:
     name:"signup"
@@ -22,13 +22,40 @@
             Rectangle:
                 size:self.size
                 pos: self.pos
+
+        BoxLayout:
+            orientation: 'horizontal'
+            padding: [15,0,5,0]
+            size_hint:[None,None]
+            width: root.width
+            height:35
+            canvas.before:
+                Color:
+                    rgba: .2,.58,1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                orientation: 'vertical'
+                pos_hint:{'y':.2}
+                Label:
+                    text_size: None, None
+                    size_hint:[None,None]
+                    pos_hint:{'center_x':.5}
+                    size: self.texture_size
+                    font_size: 17
+                    text: "Medical Tests Reader"
+                    color: 1,1,1, 1
+                    bold:True
+
         BoxLayout:
             orientation: 'horizontal'
             size_hint: 1,.3
             BoxLayout:
                 orientation: 'horizontal'
                 size_hint_y: 1
-                pos_hint:{'y':-.2}
+                pos_hint:{'y':0}
                 Image:
                     source:'..\..\\resources\\ui\\logo.png'
                     size_hint:[1,1]
@@ -65,7 +92,7 @@
             CustLabel:
                 text: "Female"
                 color: .45,.45,.45,1
-                pos_hint: {"center_x": 0.69, "top": .76}
+                pos_hint: {"center_x": 0.7, "top": .76}
                 size_hint: .3, .09
             CusTxt:
                 hint_text: "Birthdate d/m/y"
@@ -87,15 +114,15 @@
             Button:
                 text: "Sign Up"
                 pos_hint: {"center_x": .5, "top": .28}
-                size_hint: .3, None
+                size_hint: .7, None
                 height:32
                 background_normal:''
                 background_color:0.2, 0.58, 0.992,1
                 on_release:root.signup()
             Button:
-                text: "Already Have Account?"
-                pos_hint: {"center_x": .5, "center_y": 0.046}
-                size_hint:[1,None]
+                text: "Already have account?"
+                pos_hint: {"center_x": .5, "top": .16}
+                size_hint:[.7,None]
                 height: 32
                 background_normal:''
                 background_color:0.2, 0.58, 0.992,1
