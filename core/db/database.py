@@ -2,7 +2,7 @@
 
 import sqlite3
 from random import randint
-
+from core.data_structure.User import User
 # conn = sqlite3.connect('db.db')
 # c=conn.cursor()
 import datetime
@@ -60,7 +60,7 @@ import datetime
 #     "MCV",
 #     "Platelet Count",
 #     "WBCs Count",
-# ]
+# ]c
 def create_tabels():
 
     c.execute('''CREATE TABLE IF NOT EXISTS genders (
@@ -140,12 +140,12 @@ def data_entry():
     print("Data entry Done")
 def open_db():
     connection = sqlite3.connect('..\db\db.db')
-    print("Opened database successfully")
     return connection
 def commit(connection):
     connection.commit()
 def close(connection):
     connection.close()
+current_user = User("","","","","")
 def login(username,password):
     connection = open_db()
     c = connection.cursor()
@@ -153,6 +153,8 @@ def login(username,password):
     c.execute(query)
     data = c.fetchall()
     close(connection)
+    global current_user
+    current_user = User(data[0][0],data[0][1],data[0][2],"male",get_age(data[0][4]))
     return data
 def signup(first_name,last_name,birthdate,gender,username,password):
     connection = open_db()
@@ -163,29 +165,14 @@ def signup(first_name,last_name,birthdate,gender,username,password):
     commit(connection)
     close(connection)
 def get_user_id():
-    connection = open_db()
-    c = connection.cursor()
-    query = "SELECT id FROM users ORDER BY id DESC LIMIT 1"
-    c.execute(query)
-    data = c.fetchall()
-    close(connection)
-    return data[0][0]
-def get_age():
-    birthdate = get_birthdate()
+    return current_user.id
+def get_age(birthdate):
     birthdate = birthdate.split("/")
     day = int(birthdate[0])
     month = int(birthdate[1])
     year = int(birthdate[2])
     today = datetime.date.today()
     return today.year - year - ((today.month, today.day) < (month, day))
-def get_birthdate():
-    connection = open_db()
-    c = connection.cursor()
-    query = "SELECT birthdate FROM users WHERE id = "+ str(get_user_id())+""
-    c.execute(query)
-    data = c.fetchall()
-    close(connection)
-    return data[0][0]
 def get_test_name(test_id):
     connection = open_db()
     c = connection.cursor()
@@ -275,4 +262,5 @@ def get_medical_history_test(medical_history_id):
     data = c.fetchall()
     close(connection)
     return data
-print(get_user_name())
+login("karim","123")
+print("Current User Age = ",current_user.age)
