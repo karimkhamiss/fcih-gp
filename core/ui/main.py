@@ -22,13 +22,11 @@ from core.ui.bubble_buttons import BubbleButtons
 import arabic_reshaper
 from core.db.database import login
 from core.db.database import signup
-from core.db.database import get_gender_type
-from core.db.database import get_user_name
-from core.db.database import get_age
+from core.db.database import get_current_user
 from core.db.database import get_test_name
 from core.db.database import save_test
 from core.db.database import get_medical_history_category
-from core.db.database import get_medical_histories
+from core.db.database import set_medical_histories
 from core.db.database import get_medical_history_test
 from core.ui.Popup import MainPopup
 import time
@@ -125,7 +123,7 @@ class SignUpScreen(Screen):
 class HomeScreen(Screen):
     username = ObjectProperty()
     def on_enter(self, *args):
-        self.username.text = "Welcome , "+get_user_name()
+        self.username.text = "Welcome , "+get_current_user().first_name+" "+get_current_user().last_name
     pass
 
 class HowToCropScreen(Screen):
@@ -180,7 +178,7 @@ class ResultScreen(Screen):
             tests_values.append(test_value)
             self.second_list.adapter.data.extend([test_value])
             self.second_list._trigger_reset_populate()
-        feedback = getTestResult(linelist, get_age(),get_gender_type())
+        feedback = getTestResult(linelist, get_current_user().age,get_current_user().gender)
         for test_feedback in feedback:
             tests[len(tests_descriptions)][2] = test_feedback
             tests_descriptions.append(test_feedback)
@@ -198,8 +196,9 @@ class MedicalHistoryScreen(Screen):
         HistoryResultScreen.set_tests(self,tests,medical_history_id)
         # tests_to_view = get_medical_history_test(medical_history_id)
         sm.current = 'history_result'
-    medical_histories = get_medical_histories()
     def on_enter(self):
+        set_medical_histories()
+        medical_histories = get_current_user().medical_histories
         if self.flag:
             # create a grid layout
             layout = GridLayout(cols=1, padding=10, spacing=10,
@@ -207,7 +206,7 @@ class MedicalHistoryScreen(Screen):
             layout.bind(minimum_height=layout.setter('height'))
             # add button into that grid
             counter = 0
-            for medical_history in self.medical_histories:
+            for medical_history in medical_histories:
                 btn = Button(
                     id=str(medical_history[0])
                     ,text= medical_history[1] + " , " + medical_history[2]

@@ -145,7 +145,7 @@ def commit(connection):
     connection.commit()
 def close(connection):
     connection.close()
-current_user = User("","","","","")
+current_user = User("2","","","","")
 def login(username,password):
     connection = open_db()
     c = connection.cursor()
@@ -154,8 +154,11 @@ def login(username,password):
     data = c.fetchall()
     close(connection)
     global current_user
-    current_user = User(data[0][0],data[0][1],data[0][2],"male",get_age(data[0][4]))
+    current_user = User(data[0][0],data[0][1],data[0][2],data[0][3],get_age(data[0][4]))
     return data
+def get_current_user():
+    global current_user
+    return current_user
 def signup(first_name,last_name,birthdate,gender,username,password):
     connection = open_db()
     c = connection.cursor()
@@ -164,7 +167,9 @@ def signup(first_name,last_name,birthdate,gender,username,password):
     c.execute(query)
     commit(connection)
     close(connection)
+    login(username,password)
 def get_user_id():
+    global current_user
     return current_user.id
 def get_age(birthdate):
     birthdate = birthdate.split("/")
@@ -177,14 +182,6 @@ def get_test_name(test_id):
     connection = open_db()
     c = connection.cursor()
     query = "SELECT name FROM tests WHERE id = "+ str(test_id)+""
-    c.execute(query)
-    data = c.fetchall()
-    close(connection)
-    return data[0][0]
-def get_gender_type():
-    connection = open_db()
-    c = connection.cursor()
-    query = "SELECT type FROM genders JOIN users ON users.gender_id = genders.id WHERE users.id = "+ str(get_user_id())+""
     c.execute(query)
     data = c.fetchall()
     close(connection)
@@ -246,14 +243,17 @@ def get_medical_history_category(id):
     data = c.fetchall()
     close(connection)
     return data[0][0]
-def get_medical_histories():
+def set_medical_histories():
+    print("User id =",get_user_id())
     connection = open_db()
     c = connection.cursor()
     query = "SELECT id,category_name,date FROM medical_histories WHERE user_id = "+ str(get_user_id())+""
     c.execute(query)
     data = c.fetchall()
     close(connection)
-    return data
+    global current_user
+    print(data)
+    current_user.medical_histories = data
 def get_medical_history_test(medical_history_id):
     connection = open_db()
     c = connection.cursor()
@@ -262,5 +262,6 @@ def get_medical_history_test(medical_history_id):
     data = c.fetchall()
     close(connection)
     return data
-login("karim","123")
-print("Current User Age = ",current_user.age)
+# login("karim","123")
+# set_medical_histories()
+# print(current_user.medical_histories)
