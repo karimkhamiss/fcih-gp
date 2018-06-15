@@ -213,10 +213,10 @@ class MedicalHistoryScreen(Screen):
         sm.current = 'history_result'
     def on_enter(self):
         root = self.ids.grid
-        root.clear_widgets()
         global flag
         medical_histories = get_current_user().medical_histories
         if flag:
+            root.clear_widgets()
             # create a grid layout
             layout = GridLayout(cols=1, padding=10, spacing=10,
                                 size_hint=(1, None))
