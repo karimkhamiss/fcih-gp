@@ -28,7 +28,7 @@ from core.db.database import get_current_user
 from core.db.database import get_test_name
 from core.db.database import save_test
 from core.db.database import get_medical_history_category
-# from core.db.database import set_medical_histories
+from core.db.database import set_medical_histories
 from core.db.database import get_medical_history_test
 from core.ui.Popup import MainPopup
 import time
@@ -158,13 +158,6 @@ class CameraScreen(Screen):
 
 class ResultScreen(Screen):
     title = ObjectProperty()
-    def open_popup(self):
-        box = BoxLayout(orientation='vertical')
-        image = Image(source='..\..\\resources\\ui\\loading.gif')
-        box.add_widget(Label(text='Please Wait'))
-        box.add_widget(image)
-        popup = Popup(title='', separator_height=0, content=box,auto_dismiss=False)
-        popup.open()
     def analysis(self):
         tests_values = []
         tests_descriptions = []
@@ -202,7 +195,10 @@ class ResultScreen(Screen):
             self.third_list._trigger_reset_populate()
         save_test(linelist[0][0],tests)
     def on_enter(self, *args):
+        self.title.text = "Please wait , it may takes up to 2 minutes"
         self.analysis()
+        global flag
+        flag= True
 flag = True
 class MedicalHistoryScreen(Screen):
     scroll = ScrollView(size_hint=(1, 1), pos_hint={'center_x': .5, 'center_y': .5}, do_scroll_x=False)
@@ -214,8 +210,9 @@ class MedicalHistoryScreen(Screen):
     def on_enter(self):
         root = self.ids.grid
         global flag
-        medical_histories = get_current_user().medical_histories
         if flag:
+            set_medical_histories()
+            medical_histories = get_current_user().medical_histories
             root.clear_widgets()
             # create a grid layout
             layout = GridLayout(cols=1, padding=10, spacing=10,
