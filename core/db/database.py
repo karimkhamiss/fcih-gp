@@ -164,9 +164,10 @@ def login(username,password):
     c.execute(query)
     data = c.fetchall()
     close(connection)
-    global current_user
-    current_user = User(data[0][0],data[0][1],data[0][2],data[0][3],get_age(data[0][4]))
-    set_medical_histories()
+    if(len(data)>0):
+        global current_user
+        current_user = User(data[0][0],data[0][1],data[0][2],data[0][3],get_age(data[0][4]))
+        set_medical_histories()
     return data
 def get_current_user():
     global current_user
