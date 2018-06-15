@@ -3,5 +3,4 @@
 *.pyc
 *.pyc
 
-*.png
 core/db/db.db
