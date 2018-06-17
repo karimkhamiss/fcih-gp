@@ -1,5 +1,6 @@
 from sklearn.externals import joblib
 #from skimage.feature import hog
+import cv2
 
 
 #create histogram for each letter that has been segmented from the paper
@@ -11,7 +12,9 @@ from core.postprocessing.finalResult import getTestResult
 def output_his():
     vectorList = []  #list for both cols after recognation so it carry vectors
     list_cols = pre_processing("..\..\\resources\\testcases\\test.jpg")
-    print("start")  #hog start
+    print("start")
+    counter=0
+    #hog start
     # loop for cols
     for list_col in list_cols:
         vector_list = []
@@ -22,12 +25,15 @@ def output_his():
                     List.append(",")
                     continue
                 else:
+                    counter+=1
+                    cv2.imwrite("..\..\\resources\\images\\"+"img"+str(counter)+".jpg",image)
                     imagevector=Hogfun(image, (8, 8), (2, 2)) #hog we have build
                     #imagevector=hog(image, orientations=8, pixels_per_cell=(8,8),cells_per_block=(2, 2), visualise=False)   #build in function
                     List.append(imagevector)
             vector_list.append(List)
         vectorList.append(vector_list)
     print("end") #hog end
+    list_cols=[]
     return vectorList
 
 def prediction(List):

@@ -20,9 +20,9 @@ class Test:
 
 startTest = []
 startTest.append(Test(["Liver Diseases","Blood Diseases","Complete Blood Count","CBC","Clinical chemistry","complete blood picture"],"","digit",[(0,100),(3.4,5)],[(0,100),(3.4,5)],"يقل فى حالات سوء التغذية - يقل فى حالة أمراض الكبد","لا يزيد"))
-startTest.append(Test(["Clinical chemistry"],"Urea","digit",[(0,100),(6,20)],[(0,100),(6,20)],"لا يقل","عند وجود أمراض فى الكلى مثل الفشل الكلوى"))
+startTest.append(Test(["Clinical chemistry"],"Urea","digit",[(0,100),(6,20)],[(0,100),(6,20)],"فشل الكبد – سوء التغزية","عند وجود أمراض فى الكلى مثل الفشل الكلوى– الجفاف – فشل القلب- نزيف في الجهاز الهضمى"))
 startTest.append(Test(["Diabetes"],"Insulin","digit",[(0,100),(2,25)],[(0,100),(2,25)],"نقص نسبة الأنسولين فى الدم و ان كانت نسبة الجلوكوز فى الدم مرتفعه ،، فهذا يسبب مرض السكر ","زيادة نسبة الأنسولين تعنى أرتفاع نسبى الجلوكوز - السكر - فى الدم"))
-startTest.append(Test(["Liver Diseases"],"Bilirubin, Total","digit",[(0,100),(1.9,1.9)],[(0,100),(1.9,1.9)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
+startTest.append(Test(["Liver Diseases"],"Bilirubin, Total","digit",[(0,100),(1.9,1.9)],[(0,100),(1.9,1.9)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين و ذلك عند اختلال وظائف الكبد"))
 startTest.append(Test(["Lipid Profile"],"Cholesterol","digit",[(0,100),(200,239)],[(0,100),(200,239)],"يقل فى حالة عدم القدرة على امتصاص الدهون ","زيادة نسبة الدهون الثلاثية فى الجسم ويسبب ارتفاعها لأمراض مثل : السكر - أمراض القلب - امراض الكلى"))
 startTest.append(Test(["Vitamin"],"Vitamin E","digit",[(0,100),(30,50)],[(0,100),(30,50)],"يقل فى حالة أمراض الانيميا وفقر الدم - سوء التغذية المزمنة - اضرابات سوء الامتصاص ","زيادة نسبة فيتامين e فى الدم "))
 startTest.append(Test(["Drug"],"Alcohol","digit",[(0,100),(10,80)],[(0,100),(10,80)],"نسبة طبيعية فى الدم  ","زيادة نسبة الكحول فى الدم وان تجاوزت 300 فهى درجة مميتة "))
@@ -34,25 +34,25 @@ testsList = []
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"D Dimer","digit",[(0,100),(1,500)],[(0,100),(1,500)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Fibrinogen","digit",[(0,100),(200,400)],[(0,100),(200,400)]," ","يزيد فى حالة الأمراض الخبيثة و أمراض الكبد "))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"PCV","digit",[(0,100),(40.7,50.3)],[(0,100),(36.1,44.3)]," يقل عند الانيميا و فقر الدم","يزيد عند زيادة نسبة الحديد فى الدم"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","Hematocrit","complete blood picture"],"Haemoglobin","digit",[(0,100),(13.5,17.5)],[(0,100),(12,15.5)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","Hematocrit","complete blood picture"],"Haemoglobin","digit",[(0,100),(13.5,17.5)],[(0,100),(12,15.5)],"نزيف – جفاف - فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية - الانيميا - النزيف ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC"],"Iron","digit",[(0,100),(65,175)],[(0,100),(50,170)],"يقل فى حالة الانيميا و حالات فقر الدم ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Red Blood Count","digit",[(0,100),(4.2,5.4)],[(0,100),(4.2,5.4)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCH","digit",[(0,100),(27,31)],[(0,100),(27,31)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCHC","digit",[(0,100),(32,36)],[(0,100),(32,36)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCV","digit",[(0,100),(78,99)],[(0,100),(78,99)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Platelet Count","digit",[(0,100),(140000,440000)],[(0,100),(140000,440000)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"WBCs Count","digit",[(0,100),(4000,11000)],[(0,100),(4000,11000)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Red Blood Count","digit",[(0,100),(4.2,5.4)],[(0,100),(4.2,5.4)],"نزيف - انيميا - فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCH","digit",[(0,100),(27,31)],[(0,100),(27,31)],"نزيف - انيميا - فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCHC","digit",[(0,100),(32,36)],[(0,100),(32,36)],"نزيف - انيميا - فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"MCV","digit",[(0,100),(78,99)],[(0,100),(78,99)],"نزيف - انيميا - فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Platelet Count","digit",[(0,100),(140000,440000)],[(0,100),(140000,440000)],"نزيف - انيميا - فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","في درجات الحراره المنخفضه – التمرينات العنيفه -التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"WBCs Count","digit",[(0,100),(4000,11000)],[(0,100),(4000,11000)],"نزيف - انيميا - فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات - زيادة افراز الغدة الدرقيه - الحروق و الجروح "))
 
 
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Haematocrit","digit",[(0,100),(37,47)],[(0,100),(37,47)],"",""))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"RDW","digit",[(0,100),(11.6,14)],[(0,100),(11.6,14)],"",""))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Leucocytic Count","digit",[(0,100),(4000,10500)],[(0,100),(4000,10500)],"",""))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Basophils","digit",[(0,100),(0,199)],[(0,100),(0,199)],"",""))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Eosinophils","digit",[(0,100),(0,499)],[(0,100),(0,499)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Basophils","digit",[(0,100),(0,199)],[(0,100),(0,199)],"زيادة افراز الغدة الدرقية - اثناء فترة التبويض - الحمل - الضغط النفسى","فى بعض حالات الانيميا"))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Eosinophils","digit",[(0,100),(0,499)],[(0,100),(0,499)],"فى حالات الحروق - ","الحساسية مثل أزمة الربو - درجة حرارى الجسم المرتفة - أمراض جلدية مثل(كريما-الصدفية-التهاب الجلد) - سرطان الدم-التمارين العنيفة"))
 #testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Staff","digit",[(0,100),(37,47)],[(0,100),(37,47)],"",""))
 testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Segmented","digit",[(0,100),(2000,6500)],[(0,100),(2000,6500)],"",""))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Lymphocytes","digit",[(0,100),(1500,3500)],[(0,100),(1500,3500)],"",""))
-testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Monocytes","digit",[(0,100),(300,1000)],[(0,100),(300,1000)],"",""))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Lymphocytes","digit",[(0,100),(1500,3500)],[(0,100),(1500,3500)],"داء الضرن - فشل القلب - الفشل الكلوى","زيادة الأمراض المناعية - نقص هرمون الأندرينالين -زيادة افرازات الغدة الدرقية "))
+testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete blood picture"],"Monocytes","digit",[(0,100),(300,1000)],[(0,100),(300,1000)],"","أى التهاب أو عدوى بكتيريه - مرض الذئبة الحمراء - سرطان الدم"))
 
 
 
@@ -60,20 +60,20 @@ testsList.append(Test(["Blood Diseases"," Complete Blood Count","CBC","complete 
 
 testsList.append(Test(["Clinical chemistry"],"Urea","digit",[(0,100),(6,20)],[(0,100),(6,20)],"لا يقل","عند وجود أمراض فى الكلى مثل الفشل الكلوى"))
 testsList.append(Test(["Clinical chemistry"],"Uric Acid","digit",[(0,100),(4.5,8)],[(0,100),(2.5,6.2)],"لا يقل","يزيد عند مرض النقرص"))
-testsList.append(Test(["Clinical chemistry"],"Creatinine","digit",[(0,100),(.7,1.3)],[(0,100),(.6,1.1)],"لا يقل","عند وجود أمراض فى الكلى مثل الفشل الكلوى"))
+testsList.append(Test(["Clinical chemistry"],"Creatinine","digit",[(0,100),(.7,1.3)],[(0,100),(.6,1.1)],"لا يقل","عند وجود أمراض فى الكلى مثل الفشل الكلوى - داء العملقة – اكروميجالي(ضخامة الاطراف)"))
 testsList.append(Test(["Clinical chemistry"],"GGT","digit",[(0,100),(5,85)],[(0,100),(5,85)],"لا يقل","انسداد القنوات المرارية"))
 testsList.append(Test(["Clinical chemistry"],"CA","digit",[(0,100),(8.5,10.1)],[(0,100),(8.5,10.1)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
 
 
 
-testsList.append(Test(["Diabetes"],"Insulin","digit",[(0,100),(2,25)],[(0,100),(2,25)],"نقص نسبة الأنسولين فى الدم و ان كانت نسبة الجلوكوز فى الدم مرتفعه ،، فهذا يسبب مرض السكر ","زيادة نسبة الأنسولين تعنى أرتفاع نسبى الجلوكوز - السكر - فى الدم"))
+testsList.append(Test(["Diabetes"],"Insulin","digit",[(0,100),(2,25)],[(0,100),(2,25)],"نقص نسبة الأنسولين فى الدم و ان كانت نسبة الجلوكوز فى الدم مرتفعه- فهذا يسبب مرض السكر ","زيادة نسبة الأنسولين تعنى أرتفاع نسبى الجلوكوز - السكر - فى الدم"))
 testsList.append(Test(["Diabetes"],"Glucose Blood","digit",[(0,100),(65,95)],[(0,100),(65,95)],"فى حالة نقص نسبة الجلوكوز - السكر فى الدم ","أرتفاع نسبة الجلوكوز - السكر - فى الدم "))
 testsList.append(Test(["Diabetes"],"CA","digit",[(0,100),(8.5,10.1)],[(0,100),(8.5,10.1)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
 
 
 
 testsList.append(Test(["Liver Diseases"],"ALbumin","digit",[(0,100),(3.4,5)],[(0,100),(3.4,5)],"يقل فى حالات سوء التغذية - يقل فى حالة أمراض الكبد","لا يزيد"))
-testsList.append(Test(["Liver Diseases"],"Aspartate Aminotransferase","digit",[(0,100),(37,100)],[(0,100),(37,100)],"لا يقل","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Liver Diseases"],"Aspartate Aminotransferase","digit",[(0,100),(37,100)],[(0,100),(37,100)],"لا يقل","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات - التمارين العنيفه- اصابة او مرض العضلات الهيكلية-التمارين العنيفة"))
 testsList.append(Test(["Liver Diseases"],"Bil D","digit",[(0,100),(.3,100)],[(0,100),(.3,100)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
 testsList.append(Test(["Liver Diseases"],"Bilirubin, Direct","digit",[(0,100),(.3,100)],[(0,100),(.3,100)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
 testsList.append(Test(["Liver Diseases"],"Bil T","digit",[(0,100),(1.9,1.9)],[(0,100),(1.9,1.9)],"لا يقل","يزيد بسبب الصفرا و أمراض الكبد ويسبب اصفرار لون العين"))
