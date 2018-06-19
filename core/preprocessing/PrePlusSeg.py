@@ -186,7 +186,12 @@ def pre_processing(path):
        # shutil.rmtree("output")
 
     line_segment(OBinary)
-    return column1, column2
+    global column1,column2
+    c1=column1
+    c2=column2
+    column1=[]
+    column2=[]
+    return c1, c2
 '''
 this function segment the binarized image into lines
 segmentation technique consists of 3 steps :
