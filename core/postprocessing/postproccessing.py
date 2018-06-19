@@ -109,6 +109,8 @@ def match(lineList):
     tests = []
     lineListTypes=[]
     result=[]
+    fileFlag=False #check if the file name was read fron image
+    startCounter=0
     filesList=("Liver Diseases","Blood Diseases","Complete Blood Count","CBC","Clinical chemistry","complete blood picture","Vitamin","Drug","Lipid Profile")
     s= lineList[0] # file name in the first line
     s=s[:-1]
@@ -125,20 +127,33 @@ def match(lineList):
 
                 if i==len(fileFromList):
                     lineList[0]=file
+                    fileFlag=True
+                    startCounter=1
 
 
             else:
              break
 
-    with (open(lineList[0] + ".bin", "rb")) as openfile:  # file name will be determined by category name from the test
-        while True:
-            try:
-                tests.append(pickle.load(openfile))
 
-            except EOFError:
-                break
+    if fileFlag==True:
+        with (open(lineList[0] + ".bin", "rb")) as openfile:  # file name will be determined by category name from the test
+            while True:
+                try:
+                    tests.append(pickle.load(openfile))
 
-    for i in range(1, len(lineList)):
+                except EOFError:
+                    break
+    else:
+        for file in filesList:
+            with (open(file + ".bin","rb")) as openfile:  # file name will be determined by category name from the test
+                while True:
+                    try:
+                        tests.append(pickle.load(openfile))
+
+                    except EOFError:
+                        break
+
+    for i in range(startCounter, len(lineList)):
         flag=False
         maxRatio=0.0
         tempTestName=Test([],"not matched","none",[],[],"","")
