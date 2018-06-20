@@ -10,7 +10,7 @@ def getTestResult(tests,age,gender):
           if testObj.name=="not matched":
 
               continue
-          result = float(tests[2][j].replace(" ",'').replace("%",''))
+          result = float(tests[2][j].replace(" ",'').replace("%",'').replace(",",''))
           leng=len(testObj.male)-1
           for i in range(0,leng):
               if testObj.male[i][0]<= age and testObj.male[i][1] >=age:
@@ -27,7 +27,7 @@ def getTestResult(tests,age,gender):
             testObj=tests[1][j]
             if testObj.name == "not matched":
                 continue
-            result = float(tests[2][j].replace(" ",'').replace("%",''))
+            result = float(tests[2][j].replace(" ",'').replace("%",'').replace(",",''))
             for i in range(0, len(testObj.female)-1):
                 if testObj.female[i][0] <= age and testObj.female[i][1] >= age:
                     if testObj.female[i + 1][0] <= result and testObj.female[i + 1][1] >= result:
