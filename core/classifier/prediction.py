@@ -11,7 +11,7 @@ from core.postprocessing.finalResult import getTestResult
 
 def output_his():
     vectorList = []  #list for both cols after recognation so it carry vectors
-    list_cols = pre_processing("..\..\\resources\\testcases\\test1.jpg")
+    list_cols = pre_processing("..\..\\resources\\testcases\\test.jpg")
     print("start")
     counter=0
     #hog start
