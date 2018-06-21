@@ -63,6 +63,7 @@ testsList.append(Test(["Clinical chemistry"],"Uric Acid","digit",[(0,100),(4.5,8
 testsList.append(Test(["Clinical chemistry"],"Creatinine","digit",[(0,100),(.7,1.3)],[(0,100),(.6,1.1)],"لا يقل","عند وجود أمراض فى الكلى مثل الفشل الكلوى - داء العملقة – اكروميجالي(ضخامة الاطراف)"))
 testsList.append(Test(["Clinical chemistry"],"GGT","digit",[(0,100),(5,85)],[(0,100),(5,85)],"لا يقل","انسداد القنوات المرارية"))
 testsList.append(Test(["Clinical chemistry"],"CA","digit",[(0,100),(8.5,10.1)],[(0,100),(8.5,10.1)],"فى حالة استئصال الغدة البار دراقية - قلة افراز الغدة الباردراقية ","التهاب الكبد A,B,C - فشل الكبد - الأورام - الفيروسات"))
+testsList.append(Test(["Clinical chemistry"],"Blood Urea","digit",[(0,100),(10,50)],[(0,100),(10,50)],"لا يقل","عند وجود أمراض فى الكلى مثل الفشل الكلوى"))
 
 
 
